@@ -7,3 +7,4 @@ test commit
 
 test branch commit
 
+test merge 2
