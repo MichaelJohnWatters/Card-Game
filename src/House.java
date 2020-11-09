@@ -1,6 +1,16 @@
 public enum House {
-    HEARTS,
-    DIAMONDS,
-    SPADES,
-    CLUBS
+    HEARTS("HEARTS"),
+    DIAMONDS("DIAMONDS"),
+    SPADES("SPADES"),
+    CLUBS("CLUBS");
+
+    private String houseName;
+
+    House(String house) {
+        this.houseName = house;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
 }
