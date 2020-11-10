@@ -9,6 +9,7 @@ public class Deck {
     }
 
     //loop through gen all cards for each house
+    //maybee we should create a deck upon instiantion
     public static Deck createDeck() {
         return new Deck();
     }
