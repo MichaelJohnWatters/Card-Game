@@ -4,6 +4,7 @@ public class Card {
     private Rank rank;
 
     /**
+     * 
      * Constructor for an object representing a playing Card.
      * Only require a constructor with both fields, as a card
      * must have a House and a Rank in Elevens.
