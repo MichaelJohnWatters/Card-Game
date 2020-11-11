@@ -4,34 +4,12 @@ public class PlayingArea {
 
     //need card deck
     //need discard deck
+    // 9 slots for the cards
 
+    // we will put the game loop in here for a game
 
-    public static void displayStartMenu(){
-        System.out.println("yeo");
-    }
+    //history
 
-    public static void displayRound(){
-
-    }
-
-    public static void displayGameFailed(){
-
-    }
-
-    public static void displayGameSuccess(){
-
-    }
-
-    public static void startGame(){
-
-    }
-
-    public static void resetGame(){
-
-    }
-
-    public static void exitGame(){
-
-    }
+    //Game loop in this class
 
 }
