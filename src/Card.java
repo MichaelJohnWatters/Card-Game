@@ -10,8 +10,9 @@ public class Card {
      *
      * No field should ever be defaulted in this class.
      *
-     * @param house
-     * @param rank
+     * @param house house/suite of the card, Enum of House
+     * @param rank rank of the card,
+     *             Enum of Rank: King, Queen, Jack, Ace, 2,3,4,5,6,7,8,9,10
      */
     public Card(House house, Rank rank) {
         this.house = house;

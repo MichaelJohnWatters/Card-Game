@@ -1,7 +1,6 @@
 public class Deck {
 
     //TODO a deck will have 52 cards, max, this ADT can be of type card.
-
     static final int MAX_CARDS = 52;
 
     public Deck() {
