@@ -1,18 +1,14 @@
 
 public class Elevens {
 
-    public void launchGame(){
-
+    public static void startElevensApplication(){
+        System.out.println("Welcome to Michael Watters and Araon Hoy Assignment 2 - Elevens ");
+        Menu menu = new Menu();
+        menu.MainMenu();
     }
 
     public static void main(String[] args) {
-        System.out.println("Elevens");
-
-        Card card1 = new Card(House.CLUBS, Rank.ACE);
-        Card card2 = new Card(House.CLUBS, Rank.KING);
-
+        startElevensApplication();
     }
-
-
 
 }
