@@ -43,4 +43,14 @@ public enum Rank {
         return value;
     }
 
+    /**
+     * Return the String value of the Rank.
+     *
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return rank;
+    }
+
 }

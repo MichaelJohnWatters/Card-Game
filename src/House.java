@@ -23,4 +23,13 @@ public enum House {
     public String getHouseName() {
         return houseName;
     }
+
+    /**
+     * Return the String value of the House.
+     *
+     * @return String
+     */
+    public String toString() {
+        return houseName;
+    }
 }

@@ -1,9 +1,7 @@
 public class Round {
 
-    private static final int MAX_CARD_SLOTS = 9;
     private int roundNumber;
-    private Card[] cardSlots;
-    private Card[] chosenCards;//temp replace somthing else
+    private CardSlotsBag cardSlotBag;
     private Round nextRound;
 
     /**
@@ -14,15 +12,12 @@ public class Round {
      * At instaiation of a round there will be currently no next round.
      *
      * @param roundNumber the number of the round
-     * @param cardSlots number of available slots, elevens has 9
+     * @param cardSlotBag a bag for Cards representing cards in play.
      */
-    public Round(int roundNumber, Card[] cardSlots) {
+    public Round(int roundNumber, CardSlotsBag cardSlotBag) {
         this.roundNumber = roundNumber;
-        this.cardSlots = cardSlots;
-        this.chosenCards = null;
-        this.nextRound = null;
+        this.cardSlotBag = cardSlotBag;
     }
-
 
     public void setupRound(){
         //Firstly replace empty slots if required.
@@ -30,7 +25,7 @@ public class Round {
 
         //Check if the current round is a stalemate.
         if (isRoundStalemate(this)){
-            //exit to failed game menu
+
         } else {
             //playRound
         }
@@ -45,8 +40,7 @@ public class Round {
     public static void maybeReplaceEmptySlots(Round aRound){
         //find the empty slots caused from prev round and fill them with new cards
     }
-
-
+    
     public int getRoundNumber() {
         return roundNumber;
     }
@@ -55,20 +49,12 @@ public class Round {
         this.roundNumber = roundNumber;
     }
 
-    public Card[] getCardSlots() {
-        return cardSlots;
+    public CardSlotsBag getCardSlotBag() {
+        return cardSlotBag;
     }
 
-    public void setCardSlots(Card[] cardSlots) {
-        this.cardSlots = cardSlots;
-    }
-
-    public Card[] getChosenCards() {
-        return chosenCards;
-    }
-
-    public void setChosenCards(Card[] chosenCards) {
-        this.chosenCards = chosenCards;
+    public void setCardSlotBag(CardSlotsBag cardSlotBag) {
+        this.cardSlotBag = cardSlotBag;
     }
 
     public Round getNextRound() {
@@ -78,5 +64,4 @@ public class Round {
     public void setNextRound(Round nextRound) {
         this.nextRound = nextRound;
     }
-
 }

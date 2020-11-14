@@ -18,11 +18,15 @@ public class Card {
         this.rank = rank;
     }
 
+    @Override
+    public String toString(){
+        return rank.toString() + "(" + rank.getValue() + ") of " + house.toString();
+    }
+
     /**
      * Returns the house of the card
      *
      * Heart, Spade, Club, Diamond
-     *
      * @return House
      */
     public House getHouse() {
@@ -31,11 +35,8 @@ public class Card {
 
     /**
      * Returns the rank of the card
-     *
      * Can be a face card or ace or value card.
-     *
      * King, Queen, Jack, Ace, 2,3,4,5,6,7,8,9,10
-     *
      * @return Rank
      */
     public Rank getRank() {

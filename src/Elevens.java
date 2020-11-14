@@ -2,9 +2,8 @@
 public class Elevens {
 
     public static void startElevensApplication(){
-        System.out.println("Welcome to Michael Watters and Araon Hoy Assignment 2 - Elevens ");
-        Menu menu = new Menu();
-        menu.MainMenu();
+        Display.welcome(); //Welcome the User, only once per application start.
+        new Menu().MainMenu(); //Main Menu
     }
 
     public static void main(String[] args) {
