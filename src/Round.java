@@ -11,7 +11,7 @@ public class Round {
      * At instaiation of a round there will be no chosen cards
      * At instaiation of a round there will be currently no next round.
      *
-     * @param roundNumber the number of the round
+     * @param roundNumber the number of the round.
      * @param cardSlotBag a bag for Cards representing cards in play.
      */
     public Round(int roundNumber, CardSlotsBag cardSlotBag) {
@@ -21,24 +21,45 @@ public class Round {
 
     public void setupRound(){
         //Firstly replace empty slots if required.
-        maybeReplaceEmptySlots(this);
+        maybeReplaceEmptySlots();
 
-        //Check if the current round is a stalemate.
-        if (isRoundStalemate(this)){
+        //Check if the current round is a stalemate otherwise allow user to play round.
+        if (isStalemate(cardSlotBag)){
+            //if is Stalemate
 
         } else {
             //playRound
         }
     }
 
-    public static boolean isRoundStalemate(Round aRound){
-        // if round cant be completed
-        //go to failed game menu
-        return true;
+    private static boolean isStalemate(CardSlotsBag bag) {
+        if(bag.containsThreeFaceCards()) {
+            return false;
+        } else if (bag.containsElevensPair()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    public static void maybeReplaceEmptySlots(Round aRound){
-        //find the empty slots caused from prev round and fill them with new cards
+    private void maybeReplaceEmptySlots() {
+        //temp card, will use a draw from deck method
+        Card tempCard1 = new Card(House.CLUBS, Rank.ACE);
+
+        //if not all slots in the bag are filled draw new cards.
+        if(!cardSlotBag.isArrayFull()){
+
+            //Work out how many cards need drawn.
+            int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.getCurrentSize();
+
+            //loop through number cards needed to reach 9 cards in play.
+            for (int i = 0; i < cardsToDraw; i++) {
+                //draw a card from the top of the Deck.
+                //TEMP TODO
+                cardSlotBag.addNewCard(tempCard1);
+            }
+
+        }
     }
     
     public int getRoundNumber() {

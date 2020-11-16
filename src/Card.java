@@ -18,8 +18,13 @@ public class Card {
         this.rank = rank;
     }
 
+    /**
+     * Information such as the cards Rank and House as a String.
+     *
+     * @return String, a description of the Card
+     */
     @Override
-    public String toString(){
+    public String toString() {
         return rank.toString() + "(" + rank.getValue() + ") of " + house.toString();
     }
 
