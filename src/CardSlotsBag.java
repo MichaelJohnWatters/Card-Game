@@ -2,6 +2,7 @@ public final class CardSlotsBag {
 
     private Card[] cardSlotsBag;
     private int numberOfCards;
+
     private static final int FIXED_CAPACITY = 9;
 
     public CardSlotsBag() {
@@ -16,6 +17,10 @@ public final class CardSlotsBag {
     //@Override
     public int getCurrentSize() {
         return numberOfCards;
+    }
+
+    public static int getFixedCapacity() {
+        return FIXED_CAPACITY;
     }
 
     //@Override
@@ -81,6 +86,57 @@ public final class CardSlotsBag {
             if (cardSlotsBag[index++].equals(aCard)) found = true;
         return found;
     }
+
+    public boolean containsThreeFaceCards() {
+        boolean foundKing = false;
+        boolean foundQueen = false;
+        boolean foundJack = false;
+
+        for (Card card : cardSlotsBag) {
+            if (card.getRank().equals(Rank.KING)) foundKing = true;
+            if (card.getRank().equals(Rank.QUEEN)) foundQueen = true;
+            if (card.getRank().equals(Rank.JACK)) foundJack = true;
+        }
+
+        return foundKing && foundQueen && foundJack;
+    }
+
+    public boolean containsElevensPair() {
+        boolean foundPair = false;
+
+        //Take each card in the cardSlotBag and see if any of the other
+        //Cards in the cardSlotBag equal Eleven.
+        for (Card card : cardSlotsBag) {
+
+            //if the card is not null then
+            if (card != null) {
+
+                //loop through all the slots in the cardSlotsBag
+                for (int i = 0; i < cardSlotsBag.length; i++) {
+
+                    //if the slot is not empty and not a face card,
+                    //sum the cards if they equal eleven break loop and return true
+                    if (cardSlotsBag[i] != null
+                            && cardSlotsBag[i].getRank() != Rank.KING
+                            && cardSlotsBag[i].getRank() != Rank.QUEEN
+                            && cardSlotsBag[i].getRank() != Rank.JACK)
+                    {
+                        //Sum the cards
+                        int sumOfCards = card.getRank().getValue() + cardSlotsBag[i].getRank().getValue();
+
+                        //if the cards equal 11, set foundPair to true and break for-i loop
+                        if(sumOfCards == 11) foundPair = true;
+                        break;
+                    }
+
+                }
+                //break foreach loop if pair has been found.
+                if (foundPair) break;
+            }
+        }
+        return foundPair;
+    }
+
 
     //@Override
     public Card[] toArray() {
