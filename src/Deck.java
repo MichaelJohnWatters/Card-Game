@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Random;
 
 public class Deck {
@@ -9,6 +10,7 @@ public class Deck {
             "Ace Spades", "2 Spades", "3 Spades", "4 Spades", "5 Spades", "6 Spades", "7 Spades", "8 Spades", "9 Spades", "10 Spades", "Jack Spades", "Queen Spades", "King Spades",
             "Ace Diamonds", "2 Diamonds", "3 Diamonds", "4 Diamonds", "5 Diamonds", "6 Diamonds", "7 Diamonds", "8 Diamonds", "9 Diamonds", "10 Diamonds", "Jack Diamonds", "Queen Diamonds", "King Diamonds"
             };
+    private MyNode<String> topNode;
     /**
      * Note
      *
@@ -18,12 +20,9 @@ public class Deck {
      *
      * */
     public Deck() {
-
+        topNode = null;
         this.cardIndex = MAX_CARDS - 1;
-        this.shuffleDeck();
-        for(int i = 0; i < MAX_CARDS; i++){
-            System.out.println(deal());
-        }
+        deal();
     }
 
     public void shuffleDeck() {
@@ -39,8 +38,52 @@ public class Deck {
         }
     }
 
-    public String deal(){
-        return this.DECK[this.cardIndex--];
+    public void push (String newEntry) {
+        MyNode<String> newNode = new MyNode<String>(newEntry);
+        newNode.setNext(topNode);
+        topNode = newNode;
+    }
+
+    public String pop() {
+        String dataToReturn = peek();
+        topNode = topNode.getNext();
+        return dataToReturn;
+    }
+
+    public String peek() {
+        if (topNode == null) {
+            throw new EmptyStackException();
+        }
+        else {
+            return topNode.getData();
+        }
+    }
+
+    public boolean isEmpty() {
+        return topNode == null;
+    }
+    public void printStackDeck(){
+    if(isEmpty()){
+        return;
+    }
+        for(int i = 0; i < MAX_CARDS; i++){
+        String item = pop();
+        System.out.println(item); //Pop & Print
+        push(item);
+    }
+}
+    public void deal(){
+        shuffleDeck();
+        for(int i = 0; i < MAX_CARDS; i++){
+            System.out.println(this.DECK[i]);
+        }
+
+        for(int i = 0; i < MAX_CARDS; i++){
+            push(this.DECK[i]);
+        }
+
+        printStackDeck();
+
     }
 
     public static void main(String[] args) {
