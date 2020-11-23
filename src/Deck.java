@@ -63,16 +63,7 @@ public class Deck {
     public boolean isEmpty() {
         return topNode == null;
     }
-    public void printStackDeck(){
-    if(isEmpty()){
-        return;
-    }
-        for(int i = 0; i < MAX_CARDS; i++){
-        String item = pop();
-        System.out.println(item); //Pop & Print
-        push(item);
-    }
-}
+
     public void deal(){
         shuffleDeck();
         for(int i = 0; i < MAX_CARDS; i++){
@@ -82,8 +73,6 @@ public class Deck {
         for(int i = 0; i < MAX_CARDS; i++){
             push(this.DECK[i]);
         }
-
-        printStackDeck();
 
     }
 
