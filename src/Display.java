@@ -30,6 +30,12 @@ public class Display {
         enterInput();
     }
 
+    public static void playGame() {
+        System.out.println("Setting up game");
+        System.out.println("Creating Deck by magic...");
+        System.out.println("Shuffling Deck by magic...");
+    }
+
     public static void enterInput() {
         System.out.print("select option > ");
     }
@@ -37,9 +43,4 @@ public class Display {
     public static void invalidInput() {
         System.out.println("Selected an Invalid Option....try again.");
     }
-
-
-
-
-
 }

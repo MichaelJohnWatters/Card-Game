@@ -1,7 +1,11 @@
+/**
+ * Note face cards values are set to -1, as in Elevens face cards to not have a usable value.
+ * So we have assigned face cards a value of -1.
+ */
 public enum Rank {
-    KING("King", 10),
-    QUEEN("Queen",10),
-    JACK("Jack",10),
+    KING("King", -1),
+    QUEEN("Queen",-1),
+    JACK("Jack",-1),
     ACE("Ace", 1),
     TWO("Two",2),
     THREE("Three",3),
@@ -28,7 +32,6 @@ public enum Rank {
         this.rank = rank;
         this.value = value;
     }
-
 
     /***
      * Get the Rank in Sting format.

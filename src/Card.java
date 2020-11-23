@@ -31,11 +31,21 @@ public class Card<T> {
     /**
      * Information such as the cards Rank and House as a String.
      *
+     * If is a face card will return Rank as String and its house, except Ace.
+     * If is a value card will return the value of the card and its house
+     *
+     * Example King of DIAMONDS
+     * Example 10 of DIAMONDS
+     *
      * @return String, a description of the Card
      */
     @Override
     public String toString() {
-        return rank.toString() + "(" + rank.getValue() + ") of " + house.toString();
+        if(rank.getValue() == -1) {
+            return rank.getRank() + " of " + house.toString();
+        } else {
+            return rank.getValue() + " of " + house.toString();
+        }
     }
 
     /**
