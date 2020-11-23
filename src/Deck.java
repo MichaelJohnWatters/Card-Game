@@ -10,7 +10,8 @@ public class Deck {
             "Ace Spades", "2 Spades", "3 Spades", "4 Spades", "5 Spades", "6 Spades", "7 Spades", "8 Spades", "9 Spades", "10 Spades", "Jack Spades", "Queen Spades", "King Spades",
             "Ace Diamonds", "2 Diamonds", "3 Diamonds", "4 Diamonds", "5 Diamonds", "6 Diamonds", "7 Diamonds", "8 Diamonds", "9 Diamonds", "10 Diamonds", "Jack Diamonds", "Queen Diamonds", "King Diamonds"
             };
-    private Card<String> topNode;
+    private CardNode topNode;
+
     /**
      * Note
      *
@@ -39,7 +40,7 @@ public class Deck {
     }
 
     public void push (String newEntry) {
-        Card<String> newNode = new Card<String>(newEntry);
+        CardNode newNode = new CardNode(newEntry);
         newNode.setNext(topNode);
         topNode = newNode;
     }
@@ -55,7 +56,7 @@ public class Deck {
             throw new EmptyStackException();
         }
         else {
-            return topNode.getData();
+            return (String) topNode.getData();
         }
     }
 
