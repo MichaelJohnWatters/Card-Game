@@ -218,11 +218,11 @@ public final class CardSlotsBag {
         intToLetterMap.put(8,"I");
 
         System.out.println();
-        System.out.println("*************Cards on Table*************");
+        System.out.println("************* Cards on Table *************");
         for (int i = 0; i < numberOfCards ; i++) {
-            System.out.println("    Slot " + intToLetterMap.get(i) + ", Card: " + cardSlotsBag[i]);
+            System.out.println("    Slot " + intToLetterMap.get(i) + ": " + cardSlotsBag[i]);
         }
-        System.out.println("****************************************");
+        System.out.println("******************************************");
     }
 
 }

@@ -5,7 +5,8 @@ public class Round {
     private Round nextRound;
 
     /**
-     * When a round is created it will have a round number.
+     * Used for subsequent rounds
+     *
      * cardSlots will be filled with the cardSlots of the previous round.
      *
      * At instaiation of a round there will be no chosen cards
@@ -27,28 +28,32 @@ public class Round {
         this.nextRound = null; //next round is always null until set by setNextRound()
     }
 
-
-    protected boolean isStalemate(CardSlotsBag bag) {
-        return (bag.containsKingQueenJack() || bag.containsElevensPair());
+    private static Card drawTopCard(Deck deck){
+        //TODO Fake return atm
+        return new Card(House.DIAMONDS, Rank.ACE);
+        //return deck.pop();
     }
 
-    protected void replaceEmptyCardSlots() {
-        //temp card, will use a draw from deck method
-        Card tempCard1 = new Card(House.CLUBS, Rank.ACE);
+    protected boolean isStalemate() {
+        return (cardSlotBag.containsKingQueenJack() || cardSlotBag.containsElevensPair());
+    }
 
+    protected void replaceEmptyCardSlots(Deck deck) {
+        //TODO AND DECK ISNT EMPTY
         //if not all slots in the bag are filled draw new cards.
         if(!cardSlotBag.isArrayFull()){
 
             //Work out how many cards need drawn.
             int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.getCurrentSize();
-            System.out.println("Cards to draw: " + cardsToDraw);
+            System.out.println("Number of Cards to draw: " + cardsToDraw);
 
             //loop through number cards needed to reach 9 cards in play.
             for (int i = 0; i < cardsToDraw; i++) {
                 //draw a card from the top of the Deck.
                 //TEMP TODO
-                System.out.println("Added " + tempCard1);
-                cardSlotBag.addNewCard(tempCard1);
+                Card drawnCard = drawTopCard(deck);
+                System.out.println("drawing: " + drawnCard);
+                cardSlotBag.addNewCard(drawnCard);
             }
 
         }

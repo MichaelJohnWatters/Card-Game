@@ -18,14 +18,8 @@ public class Deck {
      *
      * */
 
-
     public Deck() {
-
         this.cardIndex = MAX_CARDS - 1;
-        this.shuffleDeck();
-        for(int i = 0; i < MAX_CARDS; i++){
-            System.out.println(deal());
-        }
     }
 
     public void shuffleDeck() {
