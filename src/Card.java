@@ -1,10 +1,7 @@
-public class Card<T> {
+public class Card {
 
     private House house;
     private Rank rank;
-
-    private T data;
-    private Card<T> next;
 
     /**
      * Constructor for an object representing a playing Card.
@@ -16,12 +13,6 @@ public class Card<T> {
      * @param house house/suite of the card, Enum of House
      * @param rank rank of the card, Enum of Rank: King, Queen, Jack, Ace, 2,3,4,5,6,7,8,9,10
      */
-    public Card(T dataValue) {
-        this.data = dataValue;
-        this.next = null;
-        this.house = house;
-        this.rank = rank;
-    }
 
     public Card(House house, Rank rank) {
         this.house = house;
@@ -68,19 +59,4 @@ public class Card<T> {
         return rank;
     }
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T dataValue) {
-        this.data = dataValue;
-    }
-
-    public Card<T> getNext() {
-        return next;
-    }
-
-    public void setNext(Card<T> nextNode) {
-        this.next = nextNode;
-    }
 }
