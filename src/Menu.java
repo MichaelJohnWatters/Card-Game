@@ -20,20 +20,12 @@ public class Menu {
         }
     }
 
+    //TODO mock game
     public void tempGame(){
-        System.out.println("Setting up game");
+        Game game = new Game();
+        game.playGame();
 
-        System.out.println("Creating Deck by magic...");
-
-        System.out.println("Shuffling Deck by magic...");
-
-        CardSlotsBag bag = new CardSlotsBag();
-        bag.addNewCard(new Card(House.SPADES,Rank.ACE));
-        bag.addNewCard(new Card(House.DIAMONDS,Rank.THREE));
-
-        bag.display();
-
-        System.out.println("you win!");
+        //PostGameMenu should take the game just played as input.
         PostGameMenu();
     }
 
@@ -58,7 +50,7 @@ public class Menu {
     public void PostGameMenu() {
         Display.postGameMenu();
 
-        //TODO display innfo about last game, did they win?
+        //TODO display info about last game, did they win?
         // stats eg how many cards left
 
         String gameMenuChoice = scanner.nextLine();

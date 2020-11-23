@@ -17,32 +17,22 @@ public class Round {
     public Round(int roundNumber, CardSlotsBag cardSlotBag) {
         this.roundNumber = roundNumber;
         this.cardSlotBag = cardSlotBag;
+        this.nextRound = null; //next round is always null until set by setNextRound()
     }
 
-    public void setupRound(){
-        //Firstly replace empty slots if required.
-        maybeReplaceEmptySlots();
-
-        //Check if the current round is a stalemate otherwise allow user to play round.
-        if (isStalemate(cardSlotBag)){
-            //if is Stalemate
-
-        } else {
-            //playRound
-        }
+    //for the first round in a game
+    public Round() {
+        this.roundNumber = 0;
+        this.cardSlotBag = new CardSlotsBag(); // new empty cardSlotBag,
+        this.nextRound = null; //next round is always null until set by setNextRound()
     }
 
-    private static boolean isStalemate(CardSlotsBag bag) {
-        if(bag.containsThreeFaceCards()) {
-            return false;
-        } else if (bag.containsElevensPair()) {
-            return false;
-        } else {
-            return true;
-        }
+
+    protected boolean isStalemate(CardSlotsBag bag) {
+        return (bag.containsKingQueenJack() || bag.containsElevensPair());
     }
 
-    private void maybeReplaceEmptySlots() {
+    protected void replaceEmptyCardSlots() {
         //temp card, will use a draw from deck method
         Card tempCard1 = new Card(House.CLUBS, Rank.ACE);
 
@@ -51,11 +41,13 @@ public class Round {
 
             //Work out how many cards need drawn.
             int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.getCurrentSize();
+            System.out.println("Cards to draw: " + cardsToDraw);
 
             //loop through number cards needed to reach 9 cards in play.
             for (int i = 0; i < cardsToDraw; i++) {
                 //draw a card from the top of the Deck.
                 //TEMP TODO
+                System.out.println("Added " + tempCard1);
                 cardSlotBag.addNewCard(tempCard1);
             }
 

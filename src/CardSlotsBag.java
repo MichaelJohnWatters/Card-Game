@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public final class CardSlotsBag {
 
     private Card[] cardSlotsBag;
@@ -87,51 +89,107 @@ public final class CardSlotsBag {
         return found;
     }
 
-    public boolean containsThreeFaceCards() {
+    /**
+     * Checks if a Card is a face card
+     * @param aCard the card in question.
+     * @return boolean
+     */
+    private boolean isFaceCard(Card aCard) {
+        //make sure the card is not null
+        if (aCard != null){
+
+            //if not null look for a Face Card rank.
+            if(aCard.getRank().equals(Rank.KING)  ||
+                    aCard.getRank().equals(Rank.QUEEN) ||
+                    aCard.getRank().equals(Rank.JACK)) {
+                return true;
+
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean containsCardValue(int cardValue) {
+        boolean found = false;
+        int index = 0;
+        while (!found && index < numberOfCards) {
+
+            //TODO swap if orders
+
+            //If we find a card with the correct value, we must check it is not a face card.
+            if (cardSlotsBag[index++].getRank().getValue() == cardValue) {
+
+                //if the card is not a Face card
+                if (!isFaceCard(cardSlotsBag[index])){
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
+
+    public boolean containsRank(Rank cardRank) {
+        boolean found = false;
+        int index = 0;
+        while (!found && index < numberOfCards) {
+            if (cardSlotsBag[index++].getRank().equals(cardRank)) found = true;
+        }
+        return found;
+    }
+
+    //maybee return the 3 cards
+    public boolean containsKingQueenJack() {
         boolean foundKing = false;
         boolean foundQueen = false;
         boolean foundJack = false;
 
         for (Card card : cardSlotsBag) {
-            if (card.getRank().equals(Rank.KING)) foundKing = true;
-            if (card.getRank().equals(Rank.QUEEN)) foundQueen = true;
-            if (card.getRank().equals(Rank.JACK)) foundJack = true;
+
+            //if the current card is not null, check for each of the face cards.
+            //if a face card exists set flag for that rank to true.
+            if (card != null){
+                if (card.getRank().equals(Rank.KING)) foundKing = true;
+                if (card.getRank().equals(Rank.QUEEN)) foundQueen = true;
+                if (card.getRank().equals(Rank.JACK)) foundJack = true;
+            }
         }
 
+        //Return all flags, only returns true if all flags are true, otherwise false.
         return foundKing && foundQueen && foundJack;
     }
 
+    //TODO maybee return the two cards
     public boolean containsElevensPair() {
+
+        //found flag, default false
         boolean foundPair = false;
 
-        //Take each card in the cardSlotBag and see if any of the other
-        //Cards in the cardSlotBag equal Eleven.
+        //Take each card in the cardSlotBag
         for (Card card : cardSlotsBag) {
 
-            //if the card is not null then
+            //if the card selected is not null then
             if (card != null) {
 
-                //loop through all the slots in the cardSlotsBag
-                for (int i = 0; i < cardSlotsBag.length; i++) {
+                //check if card is not a face card, as face cards are checked in method containsKingQueenJack.
+                if(!isFaceCard(card)){
 
-                    //if the slot is not empty and not a face card,
-                    //sum the cards if they equal eleven break loop and return true
-                    if (cardSlotsBag[i] != null
-                            && cardSlotsBag[i].getRank() != Rank.KING
-                            && cardSlotsBag[i].getRank() != Rank.QUEEN
-                            && cardSlotsBag[i].getRank() != Rank.JACK)
-                    {
-                        //Sum the cards
-                        int sumOfCards = card.getRank().getValue() + cardSlotsBag[i].getRank().getValue();
+                    //if not a face card, find this cards pair, Elevens pairs will always be 11 minus the current cards value.
+                    int requiredPairValue = (11 - card.getRank().getValue());
 
-                        //if the cards equal 11, set foundPair to true and break for-i loop
-                        if(sumOfCards == 11) foundPair = true;
+                    System.out.println("required Pair" + requiredPairValue);
+
+                    //search for the require value pair
+                    //we will not ignore the current card, as it would acctually be less performant to filter it out.
+                    if(this.containsCardValue(requiredPairValue)) {
+
+                        //set foundPair to true and break out of the current loop.
+                        foundPair = true;
                         break;
                     }
-
                 }
-                //break foreach loop if pair has been found.
-                if (foundPair) break;
             }
         }
         return foundPair;
@@ -147,30 +205,24 @@ public final class CardSlotsBag {
 
 
     public void display() {
+
+        HashMap<Integer, String> intToLetterMap = new HashMap<>();
+        intToLetterMap.put(0,"A");
+        intToLetterMap.put(1,"B");
+        intToLetterMap.put(2,"C");
+        intToLetterMap.put(3,"D");
+        intToLetterMap.put(4,"E");
+        intToLetterMap.put(5,"F");
+        intToLetterMap.put(6,"G");
+        intToLetterMap.put(7,"H");
+        intToLetterMap.put(8,"I");
+
         System.out.println();
         System.out.println("*************Cards on Table*************");
         for (int i = 0; i < numberOfCards ; i++) {
-            System.out.println("    Slot " + i + ", Card: " + cardSlotsBag[i]);
+            System.out.println("    Slot " + intToLetterMap.get(i) + ", Card: " + cardSlotsBag[i]);
         }
         System.out.println("****************************************");
     }
-
-//    public void display() {
-//        System.out.println("********************");
-//        displayArray(0, numberOfCards-1);
-//        System.out.println("********************");
-//    }
-
-//    private void displayArray(int first, int last){
-//        System.out.println("" + cardSlotsBag[first]);
-//        if(first < last) displayArray(first + 1, last);
-//    }
-
-//    public String toString(){
-//        String strResult = "CardsOnTable[";
-//        for(int i = 0; i < numberOfCards; i++)
-//            strResult += cardSlotsBag[i] + " ";
-//        return strResult += "]";
-//    }
 
 }
