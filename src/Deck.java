@@ -1,7 +1,7 @@
 import java.util.EmptyStackException;
 import java.util.Random;
 
-public class Deck {
+public class Deck<T> {
     
     private static final int MAX_CARDS = 52;
     private int cardIndex;
@@ -10,7 +10,7 @@ public class Deck {
             "Ace Spades", "2 Spades", "3 Spades", "4 Spades", "5 Spades", "6 Spades", "7 Spades", "8 Spades", "9 Spades", "10 Spades", "Jack Spades", "Queen Spades", "King Spades",
             "Ace Diamonds", "2 Diamonds", "3 Diamonds", "4 Diamonds", "5 Diamonds", "6 Diamonds", "7 Diamonds", "8 Diamonds", "9 Diamonds", "10 Diamonds", "Jack Diamonds", "Queen Diamonds", "King Diamonds"
             };
-    private CardNode topNode;
+    private CardNode<T> topNode;
 
     /**
      * Note
@@ -39,24 +39,24 @@ public class Deck {
         }
     }
 
-    public void push (String newEntry) {
-        CardNode newNode = new CardNode(newEntry);
+    public void push (T newEntry) {
+        CardNode<T> newNode = new CardNode<T>(newEntry);
         newNode.setNext(topNode);
         topNode = newNode;
     }
 
-    public String pop() {
-        String dataToReturn = peek();
+    public T pop() {
+        T dataToReturn = peek();
         topNode = topNode.getNext();
         return dataToReturn;
     }
 
-    public String peek() {
+    public T peek() {
         if (topNode == null) {
             throw new EmptyStackException();
         }
         else {
-            return (String) topNode.getData();
+            return topNode.getData();
         }
     }
 
@@ -71,8 +71,20 @@ public class Deck {
         }
 
         for(int i = 0; i < MAX_CARDS; i++){
-            push(this.DECK[i]);
+            push((T) this.DECK[i]);
         }
+
+        //vv testing to see if the stack has been populated vv
+        for (int i = 0; i < cardIndex; i++) {
+            try {
+                System.out.println("Peek = " + peek());
+                System.out.println("Pop = " + pop());
+            }
+            catch (EmptyStackException e) {
+                System.out.println("Exception! : " + e);
+            }
+        }
+        //^^testing to see if the stack has been populated ^^
 
     }
 
