@@ -1,25 +1,25 @@
-public class CardNode<T> {
-    private T data;
-    private CardNode<T> next;
+public class CardNode<Card> {
+    private Card data;
+    private CardNode<Card> next;
 
-    public CardNode(T dataValue) {
+    public CardNode(Card dataValue) {
         this.data = dataValue;
         this.next = null;
     }
 
-    public T getData() {
+    public Card getData() {
         return data;
     }
 
-    public void setData(T dataValue) {
+    public void setData(Card dataValue) {
         this.data = dataValue;
     }
 
-    public CardNode<T> getNext() {
+    public CardNode<Card> getNext() {
         return next;
     }
 
-    public void setNext(CardNode<T> nextNode) {
+    public void setNext(CardNode<Card> nextNode) {
         this.next = nextNode;
     }
 }
