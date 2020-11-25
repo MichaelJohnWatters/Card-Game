@@ -2,7 +2,7 @@ public class Display {
 
     public static void  welcome(){
         System.out.println();
-        System.out.println("Welcome to Michael Watters and Araon Hoy's Assignment 2 - Elevens ");
+        System.out.println("Welcome to Michael Watters and Aaron Hoy's Assignment 2 - Elevens ");
     }
 
     public static void mainMenu() {

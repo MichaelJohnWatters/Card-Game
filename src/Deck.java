@@ -74,7 +74,7 @@ public class Deck<T> {
             push((T) this.DECK[i]);
         }
 
-        //vv testing to see if the stack has been populated vv
+        /*vv testing to see if the stack has been populated vv
         for (int i = 0; i < cardIndex; i++) {
             try {
                 System.out.println("Peek = " + peek());
@@ -84,12 +84,12 @@ public class Deck<T> {
                 System.out.println("Exception! : " + e);
             }
         }
-        //^^testing to see if the stack has been populated ^^
+        ^^testing to see if the stack has been populated ^^*/
 
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Deck deck = new Deck();
 
-    }
+    }*/
 }
