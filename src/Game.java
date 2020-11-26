@@ -1,7 +1,7 @@
-import java.util.Arrays;
+
 import java.util.Scanner;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.Arrays;
 
 public class Game {
 
@@ -10,12 +10,6 @@ public class Game {
     private RoundQueue roundQueue;
     private Round currentRound;
     private Scanner scanner = new Scanner(System.in);
-
-    //Max drawn cards for a round will be 9.
-    private Card[] drawnCards = new Card[9];
-
-    //Max selected cards for a round will be 3
-    private Card[] selectedCards = new Card[3];
 
     /**
      * This constructor will consist all the components required to play a game.
@@ -26,42 +20,52 @@ public class Game {
         this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
     }
 
-    //TODO work out if we can acctually use set or have to make our own
-    public boolean validCharSelection(String input){
 
-        Set<Character> allowedCharValues = Set.of('a','b','c','d','e','f', 'g','h', 'i');
+    //TODO check for allready selected chars
+    private static boolean validStringSelection(String input) {
+        boolean valid = true;
 
-        Set<Character> inputSet = Set.of('a', 'b');
+        //if the input is greater than 2 but less than 3, check if characters selected are allow.
+        if(input.length() > 1 && input.length() < 4){
+            char[] inputAsCharArray = input.toLowerCase().toCharArray();
+            //char[] alreadyAskedFor = new char[9];
 
-        return allowedCharValues.containsAll(inputSet);
+            //for each character in input check if it is not an allow character.
+            //if so valid = false.
+            for (char character : inputAsCharArray) {
+                if (!allowedCharacter(character)) {
+                    System.out.println(character + " is NOT allowed..");
+                    valid = false;
+                    break;
+                }
+                System.out.println(character + " is allowed..");
+            }
 
-
-
-        //char[] inputAsCharArray = input.toCharArray();
-
-//        HashSet<Character> validCharInputs = new HashSet<Character>();
-//        validCharInputs.add('a');
-//        validCharInputs.add('b');
-//        validCharInputs.add('c');
-//        validCharInputs.add('d');
-//        validCharInputs.add('e');
-//        validCharInputs.add('f');
-//        validCharInputs.add('g');
-//        validCharInputs.add('h');
-//        validCharInputs.add('i');
-
+        } else { valid = false; }
+        return valid;
     }
 
-    public boolean askedForHint(String input){
-        if (input.toLowerCase().equals("hint")) {
-            return true;
+    private static boolean allowedCharacter(char letter) {
+        char[] allowedChars = {'a','b','c','d','e','f','g','i'};
+        boolean contains = false;
+
+        for (char character : allowedChars) {
+            if (character == letter) {
+                contains = true;
+                break;
+            }
         }
-        else return false;
+        return contains;
+    }
+
+    private static boolean askedForHint(String input){
+        if (input.toLowerCase().equals("hint")) return true; else return false;
     }
 
     //play the game then return the game.
     public Game playGame() {
         boolean playing = true;
+        boolean won = false;
 
         Display.playGame();
 
@@ -81,41 +85,48 @@ public class Game {
             currentRound.replaceEmptyCardSlots(deck);
 
             //Must check if the current round can be completed, after replacing empty slots.
-            if (currentRound.isStalemate()) {
+            //TODO REMOVE ! from  if (!currentRound.isStalemate())
+            if (!currentRound.isStalemate()) {
                 System.out.println("Game is stalemate");
-
-
                 playing = false;
             } else {
                 System.out.println();
                 System.out.println(" -------- Round " + currentRound.getRoundNumber() + " --------" );
-
-                //TODO show current Slots
                 currentRound.getCardSlotBag().display();
-                System.out.println("Options");
+                System.out.println();
+                System.out.println("Input Options:");
                 System.out.println("    hint - displays a hint about cards to pick.");
                 System.out.println("    forfeit - forfeit to post game .");
-                System.out.println("    'ab', 'abc' or other valid selection.");
-                System.out.println("please select >");
+                System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
 
-                String input = "";
+                String selectedCardsOrHint = "";
                 boolean validInputSelection = false;
 
                 while(!validInputSelection) {
-                    //get input
-                    input = scanner.nextLine();
+                    System.out.println("please select a valid pair or pairs >");
+                    selectedCardsOrHint = scanner.nextLine();
 
-                    //check if the user input 'hint' for a hint.
                     //if so display a hint
-                    if(askedForHint(input)){
+                    if(askedForHint(selectedCardsOrHint)){
                         System.out.println("Hint: Hey fake hint here");
+                        validInputSelection = false;
+                    } else if (validStringSelection(selectedCardsOrHint)) {
+                        System.out.println("Yeo valid input for letters");
                         validInputSelection = true;
-                    } else if (validCharSelection(input)) {
-                        System.out.println("Yeo valid");
-                        validInputSelection = true;
-                        //then check if the chosen chars are pairs or face pairs.
-
                     }
+                }
+
+                if(selectedCardsOrHint.length() == 2) {
+                    //find those 2 cards
+
+
+                    //GameMechanics.isElevensPair();
+
+
+                } else if (selectedCardsOrHint.length() == 3) {
+                    //find those 3 cards
+
+                    //GameMechanics.isFacePairs();
 
                 }
 

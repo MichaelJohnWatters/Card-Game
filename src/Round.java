@@ -4,6 +4,11 @@ public class Round {
     private CardSlotsBag cardSlotBag;
     private Round nextRound;
 
+    //Used to remeber each rounds actions.
+    private Card[] drawnCardsMemory = new Card[9];
+    private Card[] bagCardSlotsMemory = new Card[9];
+    private Card[] pairsRemovedMemory = new Card[3];
+
     /**
      * Used for subsequent rounds
      *
@@ -28,34 +33,33 @@ public class Round {
         this.nextRound = null; //next round is always null until set by setNextRound()
     }
 
-    private static Card drawTopCard(Deck deck){
+    private static Card drawFromDeck(Deck deck){
         //TODO Fake return atm
         return new Card(House.DIAMONDS, Rank.ACE);
         //return deck.pop();
     }
 
     protected boolean isStalemate() {
-        return (cardSlotBag.containsKingQueenJack() || cardSlotBag.containsElevensPair());
+        return (!cardSlotBag.containsKingQueenJack() || !cardSlotBag.containsElevensPair());
     }
 
     protected void replaceEmptyCardSlots(Deck deck) {
-        //TODO AND DECK ISNT EMPTY
         //if not all slots in the bag are filled draw new cards.
         if(!cardSlotBag.isArrayFull()){
 
             //Work out how many cards need drawn.
             int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.getCurrentSize();
-            System.out.println("Number of Cards to draw: " + cardsToDraw);
+            System.out.println("Number of Cards to be drawn: " + cardsToDraw);
 
             //loop through number cards needed to reach 9 cards in play.
             for (int i = 0; i < cardsToDraw; i++) {
                 //draw a card from the top of the Deck.
                 //TEMP TODO
-                Card drawnCard = drawTopCard(deck);
-                System.out.println("drawing: " + drawnCard);
+                Card drawnCard = drawFromDeck(deck);
+                System.out.println("drawn: " + drawnCard);
+                //TODO
                 cardSlotBag.addNewCard(drawnCard);
             }
-
         }
     }
     

@@ -1,53 +1,59 @@
 public class GameMechanics {
 
-    //maybe move to round/roundQueue
-    public static void createRound(){
+    /**
+     * Checks if a Card is a face card
+     * @param aCard the card in question.
+     * @return boolean
+     */
+    public static boolean isFaceCard(Card aCard) {
+        //make sure the card is not null
+        if (aCard != null){
 
+            //if not null look for a Face Card rank.
+            if(aCard.getRank().equals(Rank.KING)  ||
+                    aCard.getRank().equals(Rank.QUEEN) ||
+                    aCard.getRank().equals(Rank.JACK)) {
+                return true;
+
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
-    public static void deal(){
+    public static boolean isFacePairs(Card one, Card two, Card three){
+        if (isFaceCard(one) && isFaceCard(two) && isFaceCard(three)) {
+            boolean foundKing = false;
+            boolean foundQueen = false;
+            boolean foundJack = false;
 
+            Card[] cardArray = {one, two, three};
+
+            for (int i = 0; i < cardArray.length; i++) {
+                if(cardArray[i].getRank().equals(Rank.KING)){
+                    foundKing = true;
+                }
+                if(cardArray[i].getRank().equals(Rank.QUEEN)){
+                    foundQueen = true;
+                }
+                if(cardArray[i].getRank().equals(Rank.JACK)){
+                    foundJack = true;
+                }
+            }
+            return foundKing && foundQueen && foundJack;
+
+        } else {
+            return false;
+        }
     }
 
-    public static void isStatmate() {
-        //run at ever
-
+    public static boolean isElevensPair(Card lhs, Card rhs) {
+        if (!isFaceCard(lhs) && !isFaceCard(rhs)){
+            return (lhs.getRank().getValue() + rhs.getRank().getValue()) == 11;
+        } else return false;
     }
 
-    public static void addsToEleven() {
-
-    }
-
-    public static void is3FaceCards() {
-
-    }
-
-    public static void displayStartMenu(){
-        System.out.println("yeo");
-    }
-
-    public static void displayRound(){
-
-    }
-
-    public static void displayGameFailed(){
-
-    }
-
-    public static void displayGameSuccess(){
-
-    }
-
-    public static void startGame(){
-
-    }
-
-    public static void resetGame(){
-
-    }
-
-    public static void exitGame(){
-
-    }
 
 }

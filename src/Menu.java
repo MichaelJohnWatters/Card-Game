@@ -20,24 +20,21 @@ public class Menu {
         }
     }
 
-    //TODO mock game
-    public void tempGame(){
-        Game game = new Game();
-        game.playGame();
-
-        //PostGameMenu should take the game just played as input.
-        PostGameMenu();
-    }
-
     public void GameMenu(){
         Display.gameMenu();
 
         String gameMenuChoice = scanner.nextLine();
 
         switch(gameMenuChoice) {
-            case "1": // Setup an Elevens Game
-                tempGame();
-            case "2": // return to main menu
+            case "1": // Setup user playable Elevens Game
+                Game game = new Game();
+                game.playGame();
+
+                PostGameMenu();
+            case "2": // Computer plays Elevens game
+                System.out.println("Watch Computer playing Elevens TODO");
+                PostGameMenu();
+            case "3": // return to main menu
                 System.out.println("Returning to Main Menu...");
                 MainMenu();
             default:
@@ -57,7 +54,11 @@ public class Menu {
 
         switch(gameMenuChoice) {
             case "1":
-                tempGame();
+                Game game = new Game();
+                game.playGame();
+
+                //PostGameMenu should take the game just played as input.
+                PostGameMenu();
             case "2": //Action Reply of Game
                 System.out.println("WARNINGN ERROR NOT IMPLEMENNTED");
             case "3": //Return to Game Menu

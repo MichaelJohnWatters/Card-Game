@@ -16,8 +16,9 @@ public class Display {
     public static void gameMenu() {
         System.out.println();
         System.out.println("Game Menu");
-        System.out.println("1) Setup Elevens Game!");
-        System.out.println("2) Back to main menu");
+        System.out.println("1) Setup playable Elevens Game!");
+        System.out.println("2) Watch the computer Play Elevens!");
+        System.out.println("3) Back to main menu");
         enterInput();
     }
 

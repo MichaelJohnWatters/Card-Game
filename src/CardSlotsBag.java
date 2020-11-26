@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.HashMap;
 
 public final class CardSlotsBag {
@@ -89,29 +90,6 @@ public final class CardSlotsBag {
         return found;
     }
 
-    /**
-     * Checks if a Card is a face card
-     * @param aCard the card in question.
-     * @return boolean
-     */
-    private boolean isFaceCard(Card aCard) {
-        //make sure the card is not null
-        if (aCard != null){
-
-            //if not null look for a Face Card rank.
-            if(aCard.getRank().equals(Rank.KING)  ||
-                    aCard.getRank().equals(Rank.QUEEN) ||
-                    aCard.getRank().equals(Rank.JACK)) {
-                return true;
-
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
     public boolean containsCardValue(int cardValue) {
         boolean found = false;
         int index = 0;
@@ -123,7 +101,7 @@ public final class CardSlotsBag {
             if (cardSlotsBag[index++].getRank().getValue() == cardValue) {
 
                 //if the card is not a Face card
-                if (!isFaceCard(cardSlotsBag[index])){
+                if (!GameMechanics.isFaceCard(cardSlotsBag[index])){
                     found = true;
                 }
             }
@@ -140,28 +118,32 @@ public final class CardSlotsBag {
         return found;
     }
 
-    //maybee return the 3 cards
+    /**
+     * Returns true if this contains 3 face cards of jack queen king.
+     * @return boolean
+     */
     public boolean containsKingQueenJack() {
-        boolean foundKing = false;
+        boolean foundKing  = false;
         boolean foundQueen = false;
-        boolean foundJack = false;
+        boolean foundJack  = false;
 
         for (Card card : cardSlotsBag) {
 
             //if the current card is not null, check for each of the face cards.
             //if a face card exists set flag for that rank to true.
-            if (card != null){
-                if (card.getRank().equals(Rank.KING)) foundKing = true;
+            if (card != null) {
+                if (card.getRank().equals(Rank.KING)) foundKing   = true;
                 if (card.getRank().equals(Rank.QUEEN)) foundQueen = true;
-                if (card.getRank().equals(Rank.JACK)) foundJack = true;
+                if (card.getRank().equals(Rank.JACK)) foundJack   = true;
             }
         }
 
         //Return all flags, only returns true if all flags are true, otherwise false.
+        System.out.println("contains king, queen, jack:" + " " + foundKing + " " + foundQueen + " " + foundJack);
         return foundKing && foundQueen && foundJack;
     }
 
-    //TODO maybee return the two cards
+
     public boolean containsElevensPair() {
 
         //found flag, default false
@@ -174,27 +156,23 @@ public final class CardSlotsBag {
             if (card != null) {
 
                 //check if card is not a face card, as face cards are checked in method containsKingQueenJack.
-                if(!isFaceCard(card)){
+                if(!GameMechanics.isFaceCard(card)){
 
                     //if not a face card, find this cards pair, Elevens pairs will always be 11 minus the current cards value.
                     int requiredPairValue = (11 - card.getRank().getValue());
 
-                    System.out.println("required Pair" + requiredPairValue);
-
                     //search for the require value pair
                     //we will not ignore the current card, as it would acctually be less performant to filter it out.
                     if(this.containsCardValue(requiredPairValue)) {
-
                         //set foundPair to true and break out of the current loop.
                         foundPair = true;
-                        break;
                     }
                 }
             }
         }
+        if (!foundPair) System.out.println("No Elevens Pair"); else System.out.println("This round contains an Elevens pair");
         return foundPair;
     }
-
 
     //@Override
     public Card[] toArray() {
