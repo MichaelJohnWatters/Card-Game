@@ -33,6 +33,7 @@ public class Round {
         this.nextRound = null; //next round is always null until set by setNextRound()
     }
 
+
     private static Card drawFromDeck(Deck deck){
         //TODO Fake return atm
         return new Card(House.DIAMONDS, Rank.ACE);
@@ -49,7 +50,7 @@ public class Round {
 
             //Work out how many cards need drawn.
             int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.getCurrentSize();
-            System.out.println("Number of Cards to be drawn: " + cardsToDraw);
+            System.out.println("number of Cards to be drawn: " + cardsToDraw);
 
             //loop through number cards needed to reach 9 cards in play.
             for (int i = 0; i < cardsToDraw; i++) {
@@ -60,6 +61,8 @@ public class Round {
                 //TODO
                 cardSlotBag.addNewCard(drawnCard);
             }
+        } else {
+            System.out.println("no cards drawn slots full..");
         }
     }
     

@@ -59,4 +59,47 @@ public class Card {
         return rank;
     }
 
+
+    /**
+     *
+     *
+     * @param aCard
+     * @return String, single letter String value of House
+     */
+    public static String convertRankToDigit(Card aCard) {
+        String output = "";
+        switch (aCard.getRank()){
+            case KING  : output = "K"; break;
+            case QUEEN : output = "Q"; break;
+            case JACK  : output = "J"; break;
+            case ACE   : output = "A"; break;
+            case TWO   : output = "2"; break;
+            case THREE : output = "3"; break;
+            case FOUR  : output = "4"; break;
+            case FIVE  : output = "5"; break;
+            case SIX   : output = "6"; break;
+            case SEVEN : output = "7"; break;
+            case EIGHT : output = "8"; break;
+            case NINE  : output = "9"; break;
+            case TEN   : output = "10"; break;
+        }
+        return output;
+    }
+
+    /**
+     *
+     *
+     * @param aCard
+     * @return String, single letter String value of House
+     */
+    public static String convertHouseToDigit(Card aCard) {
+        String output = "";
+        switch (aCard.getHouse()) {
+            case DIAMONDS: output = "D"; break;
+            case CLUBS   : output = "C"; break;
+            case SPADES  : output = "S"; break;
+            case HEARTS  : output = "H"; break;
+        }
+        return output;
+    }
 }

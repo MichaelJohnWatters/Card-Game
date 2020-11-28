@@ -1,7 +1,4 @@
-
 import java.util.Scanner;
-import java.util.Set;
-import java.util.Arrays;
 
 public class Game {
 
@@ -10,6 +7,8 @@ public class Game {
     private RoundQueue roundQueue;
     private Round currentRound;
     private Scanner scanner = new Scanner(System.in);
+    private Scanner keyPressScanner = new Scanner(System.in);
+    private boolean won = false;
 
     /**
      * This constructor will consist all the components required to play a game.
@@ -20,76 +19,53 @@ public class Game {
         this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
     }
 
-
-    //TODO check for allready selected chars
-    private static boolean validStringSelection(String input) {
-        boolean valid = true;
-
-        //if the input is greater than 2 but less than 3, check if characters selected are allow.
-        if(input.length() > 1 && input.length() < 4){
-            char[] inputAsCharArray = input.toLowerCase().toCharArray();
-            //char[] alreadyAskedFor = new char[9];
-
-            //for each character in input check if it is not an allow character.
-            //if so valid = false.
-            for (char character : inputAsCharArray) {
-                if (!allowedCharacter(character)) {
-                    System.out.println(character + " is NOT allowed..");
-                    valid = false;
-                    break;
-                }
-                System.out.println(character + " is allowed..");
-            }
-
-        } else { valid = false; }
-        return valid;
-    }
-
-    private static boolean allowedCharacter(char letter) {
-        char[] allowedChars = {'a','b','c','d','e','f','g','i'};
-        boolean contains = false;
-
-        for (char character : allowedChars) {
-            if (character == letter) {
-                contains = true;
-                break;
-            }
-        }
-        return contains;
-    }
-
     private static boolean askedForHint(String input){
         if (input.toLowerCase().equals("hint")) return true; else return false;
     }
 
-    //play the game then return the game.
-    public Game playGame() {
+    public Game playGame(){
         boolean playing = true;
+        int round = 0;
         boolean won = false;
 
+
+        //Perform 1 per game thing here.
         Display.playGame();
-
-        //In a new Game we must shuffle the cards.
         deck.shuffleDeck();
-
-        //instantiate the roundQueue and first Round.
         this.roundQueue = new RoundQueue(new Round());
-
-        //set the current Round, to the first Round
         currentRound = roundQueue.getFront();
 
-        //each iteration will represent the start of a new round so we must.
-        while(playing) {
 
-            //replace any empty slots, as cards are removed, from previous rounds.
-            currentRound.replaceEmptyCardSlots(deck);
+        //Each round.
+        while(playing){
+            boolean inRound = true;
 
-            //Must check if the current round can be completed, after replacing empty slots.
-            //TODO REMOVE ! from  if (!currentRound.isStalemate())
-            if (!currentRound.isStalemate()) {
-                System.out.println("Game is stalemate");
-                playing = false;
-            } else {
+            while (inRound){
+
+
+                System.out.println("Started round:  " + round);
+
+                //draw cards
+                System.out.println("drawning cards..");
+                currentRound.getCardSlotBag().remove();
+                currentRound.replaceEmptyCardSlots(deck);
+
+                //stalemate check
+                //TODO remove ! when ready
+                if (!currentRound.isStalemate()) {
+                    System.out.println("Game is stalemate..");
+                    won = false;
+                    playing = false;
+                }
+
+                //winning check, we still empty after drawing we have won.
+                if (currentRound.getCardSlotBag().isEmpty()) {
+                    won = true;
+                    playing = false;
+                }
+
+                //display round
+                currentRound.setRoundNumber(round);
                 System.out.println();
                 System.out.println(" -------- Round " + currentRound.getRoundNumber() + " --------" );
                 currentRound.getCardSlotBag().display();
@@ -99,39 +75,82 @@ public class Game {
                 System.out.println("    forfeit - forfeit to post game .");
                 System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
 
-                String selectedCardsOrHint = "";
-                boolean validInputSelection = false;
+                //game is not a stalemate and we have not won, so allow user to select cards.
 
-                while(!validInputSelection) {
+                boolean roundWinningSelection = false;
+                String selectedCardsOrHint = "";
+
+                while(!roundWinningSelection) {
                     System.out.println("please select a valid pair or pairs >");
                     selectedCardsOrHint = scanner.nextLine();
 
                     //if so display a hint
                     if(askedForHint(selectedCardsOrHint)){
                         System.out.println("Hint: Hey fake hint here");
-                        validInputSelection = false;
-                    } else if (validStringSelection(selectedCardsOrHint)) {
-                        System.out.println("Yeo valid input for letters");
-                        validInputSelection = true;
+                        roundWinningSelection = false;
+                    } else if (GameMechanics.validStringSelection(selectedCardsOrHint)) {
+
+
+                        if(selectedCardsOrHint.length() == 2) {
+                            char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
+
+                            //todo some checks here
+                            Card firstCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
+                            Card secondCard =currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
+
+                            System.out.println("Result");
+                            System.out.println(GameMechanics.isElevensPair(firstCard,secondCard));
+
+                            if(GameMechanics.isElevensPair(firstCard,secondCard)){
+                                //Valid selection we can now remove cards and move to next round
+                                System.out.println("Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard);
+                                roundWinningSelection = true;
+                            } else {
+                                //invalid selection, prompt to try again
+                                System.out.println("Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard);
+                                //TODO should be false, temp for testing
+                                roundWinningSelection = true;
+                            }
+
+
+                        } else if (selectedCardsOrHint.length() == 3) {
+
+                            char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
+                            //todo some checks here
+                            Card firstCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
+                            Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
+                            Card thirdCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
+
+                            System.out.println("Result");
+                            System.out.println(GameMechanics.isFacePairs(firstCard,secondCard,thirdCard));
+
+                            if(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard)){
+                                //Valid selection we can now remove cards and move to next round
+                                System.out.println("Success! Your select cards did contain a King, Queen and a Jack..");
+                                System.out.println(firstCard + "and " + secondCard);
+                                roundWinningSelection = true;
+                            } else {
+                                //invalid selection, prompt to try again
+                                System.out.println("Invalid Selection: Your select cards did not contain a King, Queen and Jack..");
+                                System.out.println(firstCard + ", " + secondCard + ", " + thirdCard);
+                                //TODO should be false, temp for testing
+                                roundWinningSelection = true;
+                            }
+                        }
+
                     }
                 }
 
-                if(selectedCardsOrHint.length() == 2) {
-                    //find those 2 cards
-
-
-                    //GameMechanics.isElevensPair();
-
-
-                } else if (selectedCardsOrHint.length() == 3) {
-                    //find those 3 cards
-
-                    //GameMechanics.isFacePairs();
-
-                }
-
+                //end round
+                System.out.println("You have Won this round! press any key to continue...");
+                keyPressScanner.nextLine();
+                round++;
+                inRound = false;
             }
+
         }
+        System.out.println("Game over result: " + won);
         return this;
     }
+
 }

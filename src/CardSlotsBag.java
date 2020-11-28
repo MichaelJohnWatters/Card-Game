@@ -90,6 +90,18 @@ public final class CardSlotsBag {
         return found;
     }
 
+    public Card cardAtPosition(int index){
+        if(index >= 0 && index <= 9){
+            if(cardSlotsBag[index] != null){
+                return cardSlotsBag[index];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public boolean containsCardValue(int cardValue) {
         boolean found = false;
         int index = 0;
@@ -181,26 +193,240 @@ public final class CardSlotsBag {
         return resultCardArray;
     }
 
-
-    public void display() {
-
-        HashMap<Integer, String> intToLetterMap = new HashMap<>();
-        intToLetterMap.put(0,"A");
-        intToLetterMap.put(1,"B");
-        intToLetterMap.put(2,"C");
-        intToLetterMap.put(3,"D");
-        intToLetterMap.put(4,"E");
-        intToLetterMap.put(5,"F");
-        intToLetterMap.put(6,"G");
-        intToLetterMap.put(7,"H");
-        intToLetterMap.put(8,"I");
-
-        System.out.println();
-        System.out.println("************* Cards on Table *************");
-        for (int i = 0; i < numberOfCards ; i++) {
-            System.out.println("    Slot " + intToLetterMap.get(i) + ": " + cardSlotsBag[i]);
-        }
-        System.out.println("******************************************");
+    private static String formatValue(int value){
+        if(value > 9) return value + "";
+        else return value + " ";
     }
 
+    private static String formatValue2(String str){
+        try {
+            int parsedInt = Integer.parseInt(str);
+
+            //dont append extra whitespace if double digit int value.
+            if(parsedInt > 9) return parsedInt + "";
+            else return parsedInt + " ";
+        }
+        catch(Exception e) {
+            //cant convert to string so much be a single letter either, Jack King Queen.
+            return str + " ";
+        }
+    }
+
+    // TODO Only if we have time, convert this method to for loops.
+    //     don't do this until everything else is done.
+    //     Also Make house and value diagonal rather than vertical
+    public void display(){
+
+        //16 space string, pad out print lines if slot is empty.
+        String hiddenCardStringRow = "                ";
+
+        //TODO unnecessary array, replace with direct reference to bag array.
+        Card [][] threeByThreeCardMatrix = {
+                {cardSlotsBag[0],cardSlotsBag[1],cardSlotsBag[2]},
+                {cardSlotsBag[3],cardSlotsBag[4],cardSlotsBag[5]},
+                {cardSlotsBag[6],cardSlotsBag[7],cardSlotsBag[8]}
+        };
+
+        String [][] rowOne   = new String[7][3];
+        String [][] rowTwo   = new String[7][3];
+        String [][] rowThree = new String[7][3];
+
+        if(threeByThreeCardMatrix[0][0] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[0][0]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[0][0]));
+            rowOne[0][0] =               "      _________ ";
+            rowOne[1][0] = String.format("   a:|%s      %s|",value, house);
+            rowOne[2][0] =               "     |         |";
+            rowOne[3][0] =               "     |         |";
+            rowOne[4][0] =               "     |         |";
+            rowOne[5][0] = String.format("     |%s      %s|",value, house);
+            rowOne[6][0] =               "     |_________|";
+        } else {
+            rowOne[0][0] = hiddenCardStringRow;
+            rowOne[1][0] = hiddenCardStringRow;
+            rowOne[2][0] = hiddenCardStringRow;
+            rowOne[3][0] = hiddenCardStringRow;
+            rowOne[4][0] = hiddenCardStringRow;
+            rowOne[5][0] = hiddenCardStringRow;
+            rowOne[6][0] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[0][1] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[0][1]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[0][1]));
+            rowOne[0][1] =               "      _________ ";
+            rowOne[1][1] = String.format("   b:|%s      %s|",value, house);
+            rowOne[2][1] =               "     |         |";
+            rowOne[3][1] =               "     |         |";
+            rowOne[4][1] =               "     |         |";
+            rowOne[5][1] = String.format("     |%s      %s|",value, house);
+            rowOne[6][1] =               "     |_________|";
+        } else {
+            rowOne[0][1] = hiddenCardStringRow;
+            rowOne[1][1] = hiddenCardStringRow;
+            rowOne[2][1] = hiddenCardStringRow;
+            rowOne[3][1] = hiddenCardStringRow;
+            rowOne[4][1] = hiddenCardStringRow;
+            rowOne[5][1] = hiddenCardStringRow;
+            rowOne[6][1] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[0][2] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[0][2]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[0][2]));
+            rowOne[0][2] =               "      _________ ";
+            rowOne[1][2] = String.format("   c:|%s      %s|",value, house);
+            rowOne[2][2] =               "     |         |";
+            rowOne[3][2] =               "     |         |";
+            rowOne[4][2] =               "     |         |";
+            rowOne[5][2] = String.format("     |%s      %s|",value, house);
+            rowOne[6][2] =               "     |_________|";
+        } else {
+            rowOne[0][2] = hiddenCardStringRow;
+            rowOne[1][2] = hiddenCardStringRow;
+            rowOne[2][2] = hiddenCardStringRow;
+            rowOne[3][2] = hiddenCardStringRow;
+            rowOne[4][2] = hiddenCardStringRow;
+            rowOne[5][2] = hiddenCardStringRow;
+            rowOne[6][2] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[1][0] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[1][0]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[1][0]));
+            rowTwo[0][0] =               "      _________ ";
+            rowTwo[1][0] = String.format("   d:|%s      %s|",value, house);
+            rowTwo[2][0] =               "     |         |";
+            rowTwo[3][0] =               "     |         |";
+            rowTwo[4][0] =               "     |         |";
+            rowTwo[5][0] = String.format("     |%s      %s|",value, house);
+            rowTwo[6][0] =               "     |_________|";
+        } else {
+            rowTwo[0][0] = hiddenCardStringRow;
+            rowTwo[1][0] = hiddenCardStringRow;
+            rowTwo[2][0] = hiddenCardStringRow;
+            rowTwo[3][0] = hiddenCardStringRow;
+            rowTwo[4][0] = hiddenCardStringRow;
+            rowTwo[5][0] = hiddenCardStringRow;
+            rowTwo[6][0] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[1][1] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[1][1]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[1][1]));
+            rowTwo[0][1] =               "      _________ ";
+            rowTwo[1][1] = String.format("   e:|%s      %s|",value, house);
+            rowTwo[2][1] =               "     |         |";
+            rowTwo[3][1] =               "     |         |";
+            rowTwo[4][1] =               "     |         |";
+            rowTwo[5][1] = String.format("     |%s      %s|",value, house);
+            rowTwo[6][1] =               "     |_________|";
+        } else {
+            rowTwo[0][1] = hiddenCardStringRow;
+            rowTwo[1][1] = hiddenCardStringRow;
+            rowTwo[2][1] = hiddenCardStringRow;
+            rowTwo[3][1] = hiddenCardStringRow;
+            rowTwo[4][1] = hiddenCardStringRow;
+            rowTwo[5][1] = hiddenCardStringRow;
+            rowTwo[6][1] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[1][2] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[1][2]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[1][2]));
+            rowTwo[0][2] =               "      _________ ";
+            rowTwo[1][2] = String.format("   f:|%s      %s|",value, house);
+            rowTwo[2][2] =               "     |         |";
+            rowTwo[3][2] =               "     |         |";
+            rowTwo[4][2] =               "     |         |";
+            rowTwo[5][2] = String.format("     |%s      %s|",value, house);
+            rowTwo[6][2] =               "     |_________|";
+        } else {
+            rowTwo[0][2] = hiddenCardStringRow;
+            rowTwo[1][2] = hiddenCardStringRow;
+            rowTwo[2][2] = hiddenCardStringRow;
+            rowTwo[3][2] = hiddenCardStringRow;
+            rowTwo[4][2] = hiddenCardStringRow;
+            rowTwo[5][2] = hiddenCardStringRow;
+            rowTwo[6][2] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[2][0] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[2][0]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[2][0]));
+            rowThree[0][0] =               "      _________ ";
+            rowThree[1][0] = String.format("   g:|%s      %s|",value, house);
+            rowThree[2][0] =               "     |         |";
+            rowThree[3][0] =               "     |         |";
+            rowThree[4][0] =               "     |         |";
+            rowThree[5][0] = String.format("     |%s      %s|",value, house);
+            rowThree[6][0] =               "     |_________|";
+        } else {
+            rowThree[0][0] = hiddenCardStringRow;
+            rowThree[1][0] = hiddenCardStringRow;
+            rowThree[2][0] = hiddenCardStringRow;
+            rowThree[3][0] = hiddenCardStringRow;
+            rowThree[4][0] = hiddenCardStringRow;
+            rowThree[5][0] = hiddenCardStringRow;
+            rowThree[6][0] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[2][1] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[2][1]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[2][1]));
+            rowThree[0][1] =               "      _________ ";
+            rowThree[1][1] = String.format("   h:|%s      %s|",value, house);
+            rowThree[2][1] =               "     |         |";
+            rowThree[3][1] =               "     |         |";
+            rowThree[4][1] =               "     |         |";
+            rowThree[5][1] = String.format("     |%s      %s|",value, house);
+            rowThree[6][1] =               "     |_________|";
+        } else {
+            rowThree[0][1] = hiddenCardStringRow;
+            rowThree[1][1] = hiddenCardStringRow;
+            rowThree[2][1] = hiddenCardStringRow;
+            rowThree[3][1] = hiddenCardStringRow;
+            rowThree[4][1] = hiddenCardStringRow;
+            rowThree[5][1] = hiddenCardStringRow;
+            rowThree[6][1] = hiddenCardStringRow;
+        }
+
+        if(threeByThreeCardMatrix[2][2] != null){
+            String house = Card.convertHouseToDigit(threeByThreeCardMatrix[2][2]);
+            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[2][2]));
+            rowThree[0][2] =               "      _________ ";
+            rowThree[1][2] = String.format("   i:|%s      %s|",value, house);
+            rowThree[2][2] =               "     |         |";
+            rowThree[3][2] =               "     |         |";
+            rowThree[4][2] =               "     |         |";
+            rowThree[5][2] = String.format("     |%s      %s|",value, house);
+            rowThree[6][2] =               "     |_________|";
+        } else {
+            rowThree[0][2] = hiddenCardStringRow;
+            rowThree[1][2] = hiddenCardStringRow;
+            rowThree[2][2] = hiddenCardStringRow;
+            rowThree[3][2] = hiddenCardStringRow;
+            rowThree[4][2] = hiddenCardStringRow;
+            rowThree[5][2] = hiddenCardStringRow;
+            rowThree[6][2] = hiddenCardStringRow;
+        }
+
+        //print legend
+        System.out.println("Legend:");
+        System.out.println("    Houses: D = Diamonds, H = Hearts, S = Spades, C = Clubs");
+        System.out.println("    Values:  K = King, Q = Queen, J = Jack, A = Ace");
+
+        //print first row of cards
+        for (int i = 0; i < rowOne.length ; i++) {
+            System.out.println(rowOne[i][0] + rowOne[i][1] + rowOne[i][2]);
+        }
+        //print second row of cards
+        for (int i = 0; i < rowOne.length ; i++) {
+            System.out.println(rowTwo[i][0] + rowTwo[i][1] + rowTwo[i][2]);
+        }
+        //print third row of cards
+        for (int i = 0; i < rowOne.length ; i++) {
+            System.out.println(rowThree[i][0] + rowThree[i][1] + rowThree[i][2]);
+        }
+    }
 }
