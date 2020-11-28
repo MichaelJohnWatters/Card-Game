@@ -8,7 +8,9 @@ public class Game {
     private Round currentRound;
     private Scanner scanner = new Scanner(System.in);
     private Scanner keyPressScanner = new Scanner(System.in);
-    private boolean won = false;
+    private boolean didWeWin = false;
+
+    //TODO getters and setters
 
     /**
      * This constructor will consist all the components required to play a game.
@@ -28,20 +30,23 @@ public class Game {
         int round = 0;
         boolean won = false;
 
-
-        //Perform 1 per game thing here.
+        //Perform actions once per game here.
         Display.playGame();
+
+        //shuffle deck
         deck.shuffleDeck();
+
+        //create first round, add to round queue.
         this.roundQueue = new RoundQueue(new Round());
+
+        //set the current round.
         currentRound = roundQueue.getFront();
-
-
-        //Each round.
+        
+        //Effectively each loop back to the top of the while(playing) is a new round.
         while(playing){
             boolean inRound = true;
 
             while (inRound){
-
 
                 System.out.println("Started round:  " + round);
 
@@ -81,7 +86,7 @@ public class Game {
                 String selectedCardsOrHint = "";
 
                 while(!roundWinningSelection) {
-                    System.out.println("please select a valid pair or pairs >");
+                    System.out.println("please select a valid Elevens pair or pairs >");
                     selectedCardsOrHint = scanner.nextLine();
 
                     //if so display a hint
@@ -94,7 +99,7 @@ public class Game {
                         if(selectedCardsOrHint.length() == 2) {
                             char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
 
-                            //todo some checks here
+                            //todo some checks here, do try catch and if fail force new cards to pick
                             Card firstCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                             Card secondCard =currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
@@ -142,15 +147,17 @@ public class Game {
                 }
 
                 //end round
-                System.out.println("You have Won this round! press any key to continue...");
+                System.out.println("You have Won this round! press enter to continue...");
                 keyPressScanner.nextLine();
                 round++;
-                inRound = false;
+                inRound = false; //todo think around not doing this, could maybe remove, seems pointless now i think about it
             }
 
         }
+
         System.out.println("Game over result: " + won);
-        return this;
+        didWeWin = won;
+        return this; //return the Game to be used by menus
     }
 
 }
