@@ -1,6 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.HashMap;
-
 public final class CardSlotsBag {
 
     private Card[] cardSlotsBag;
@@ -193,12 +190,14 @@ public final class CardSlotsBag {
         return resultCardArray;
     }
 
-    private static String formatValue(int value){
-        if(value > 9) return value + "";
-        else return value + " ";
-    }
-
-    private static String formatValue2(String str){
+    /**
+     * Dont use this out side of display();
+     *
+     * used to format Strings for display method.
+     * @param str
+     * @return
+     */
+    private static String formatStringForDisplay(String str){
         try {
             int parsedInt = Integer.parseInt(str);
 
@@ -233,7 +232,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[0][0] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[0][0]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[0][0]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[0][0]));
             rowOne[0][0] =               "      _________ ";
             rowOne[1][0] = String.format("   a:|%s      %s|",value, house);
             rowOne[2][0] =               "     |         |";
@@ -253,7 +252,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[0][1] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[0][1]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[0][1]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[0][1]));
             rowOne[0][1] =               "      _________ ";
             rowOne[1][1] = String.format("   b:|%s      %s|",value, house);
             rowOne[2][1] =               "     |         |";
@@ -273,7 +272,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[0][2] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[0][2]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[0][2]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[0][2]));
             rowOne[0][2] =               "      _________ ";
             rowOne[1][2] = String.format("   c:|%s      %s|",value, house);
             rowOne[2][2] =               "     |         |";
@@ -293,7 +292,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[1][0] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[1][0]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[1][0]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[1][0]));
             rowTwo[0][0] =               "      _________ ";
             rowTwo[1][0] = String.format("   d:|%s      %s|",value, house);
             rowTwo[2][0] =               "     |         |";
@@ -313,7 +312,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[1][1] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[1][1]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[1][1]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[1][1]));
             rowTwo[0][1] =               "      _________ ";
             rowTwo[1][1] = String.format("   e:|%s      %s|",value, house);
             rowTwo[2][1] =               "     |         |";
@@ -333,7 +332,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[1][2] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[1][2]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[1][2]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[1][2]));
             rowTwo[0][2] =               "      _________ ";
             rowTwo[1][2] = String.format("   f:|%s      %s|",value, house);
             rowTwo[2][2] =               "     |         |";
@@ -353,7 +352,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[2][0] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[2][0]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[2][0]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[2][0]));
             rowThree[0][0] =               "      _________ ";
             rowThree[1][0] = String.format("   g:|%s      %s|",value, house);
             rowThree[2][0] =               "     |         |";
@@ -373,7 +372,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[2][1] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[2][1]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[2][1]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[2][1]));
             rowThree[0][1] =               "      _________ ";
             rowThree[1][1] = String.format("   h:|%s      %s|",value, house);
             rowThree[2][1] =               "     |         |";
@@ -393,7 +392,7 @@ public final class CardSlotsBag {
 
         if(threeByThreeCardMatrix[2][2] != null){
             String house = Card.convertHouseToDigit(threeByThreeCardMatrix[2][2]);
-            String value = formatValue2(Card.convertRankToDigit(threeByThreeCardMatrix[2][2]));
+            String value = formatStringForDisplay(Card.convertRankToDigit(threeByThreeCardMatrix[2][2]));
             rowThree[0][2] =               "      _________ ";
             rowThree[1][2] = String.format("   i:|%s      %s|",value, house);
             rowThree[2][2] =               "     |         |";
