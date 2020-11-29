@@ -85,6 +85,11 @@ public class Card {
         return output;
     }
 
+    //colors for house
+    private static final String RESET_COLOR = "\u001B[0m";
+    private static final String BLACK_COLOR = "\u001B[30m";
+    private static final String RED_COLOR = "\u001B[31m";
+
     /**
      *
      *
@@ -94,10 +99,10 @@ public class Card {
     public static String extractHouseAsDigit(Card aCard) {
         String output = "";
         switch (aCard.getHouse()) {
-            case DIAMONDS: output = "D"; break;
-            case CLUBS   : output = "C"; break;
-            case SPADES  : output = "S"; break;
-            case HEARTS  : output = "H"; break;
+            case DIAMONDS : output = RED_COLOR   + "D" + RESET_COLOR; break;
+            case HEARTS   : output = RED_COLOR   + "H" + RESET_COLOR; break;
+            case CLUBS    : output = BLACK_COLOR + "C" + RESET_COLOR; break;
+            case SPADES   : output = BLACK_COLOR + "S" + RESET_COLOR; break;
         }
         return output;
     }

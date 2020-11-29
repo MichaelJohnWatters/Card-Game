@@ -107,15 +107,15 @@ public class Game {
                             Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
                             System.out.println("Result");
-                            System.out.println(GameMechanics.isElevensPair(firstCard,secondCard));
+                            System.out.println(GameMechanics.isElevensPair(firstCard, secondCard));
 
-                            if(GameMechanics.isElevensPair(firstCard,secondCard)){
+                            if(GameMechanics.isElevensPair(firstCard, secondCard)){
                                 //Valid selection we can now remove cards and move to next round
-                                System.out.println("Success! Your selected cards were a valid main.Elevens pair: " + firstCard + " and " + secondCard);
+                                System.out.println("Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard);
                                 roundWinningSelection = true;
                             } else {
                                 //invalid selection, prompt to try again
-                                System.out.println("Invalid Selection: Your selected cards were not a valid main.Elevens pair: " + firstCard + " and " + secondCard);
+                                System.out.println("Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard);
                                 //TODO should be false, temp for testing
                                 roundWinningSelection = true;
                             }
@@ -133,12 +133,12 @@ public class Game {
 
                             if(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard)){
                                 //Valid selection we can now remove cards and move to next round
-                                System.out.println("Success! Your select cards did contain a King, Queen and a Jack..");
+                                System.out.println("Success! Your select cards did contain a King, Queen and a Jack...");
                                 System.out.println(firstCard + "and " + secondCard);
                                 roundWinningSelection = true;
                             } else {
                                 //invalid selection, prompt to try again
-                                System.out.println("Invalid Selection: Your select cards did not contain a King, Queen and Jack..");
+                                System.out.println("Invalid Selection: Your select cards did not contain a King, Queen and Jack...");
                                 System.out.println(firstCard + ", " + secondCard + ", " + thirdCard);
                                 //TODO should be false, temp for testing
                                 roundWinningSelection = true;
