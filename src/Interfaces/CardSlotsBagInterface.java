@@ -8,19 +8,17 @@ public interface CardSlotsBagInterface {
 //
 //    public boolean isEmpty();
 //
-//    public boolean addNewCard(Card aCard);
+//    public boolean addNewCard(main.Card aCard);
 //
-//    public Card remove();
+//    public main.Card remove();
 //
-//    public boolean remove (Card aCard);
+//    public boolean remove (main.Card aCard);
 //
 //    public void clear();
 //
-//    public int getFrequencyOf(Card aCard);
+//    public boolean contains(main.Card aCard);
 //
-//    public boolean contains(Card aCard);
-//
-//    public Card[] toArray();
+//    public main.Card[] toArray();
 //
 //    public void display();
 }
