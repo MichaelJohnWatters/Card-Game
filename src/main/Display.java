@@ -34,9 +34,8 @@ public class Display {
     }
 
     public static void playGame() {
-        System.out.println("Setting up game");
-        System.out.println("Creating Deck by magic...");
-        System.out.println("Shuffling Deck by magic...");
+        System.out.println("");
+        System.out.println("Setting up game...");
     }
 
     public static void enterInput() {

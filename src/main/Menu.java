@@ -52,6 +52,13 @@ public class Menu {
 
     public void PostGameMenu(Game lastGame) {
         Display.postGameMenu();
+
+        if (lastGame.getDidWeWin()){
+            System.out.println("You failed the Last Game.. what would you like to do?");
+        } else {
+            System.out.println("You Won the Last Game.. Congrats! What would you like to do?");
+        }
+
         //TODO display info about last game, did they win?
         // stats eg how many cards left
 
@@ -63,9 +70,9 @@ public class Menu {
                 game.playGame();
                 PostGameMenu(game);
             case "2": //Action Reply of main.Game
-                System.out.println("WARNINGN ERROR NOT IMPLEMENNTED");
+                System.out.println("WARNINGNERROR NOT IMPLEMENNTED");
             case "3": //Return to main.Game main.Menu
-                System.out.println("Returning to main.Game main.Menu");
+                System.out.println("Returning to main.Game Menu");
                 GameMenu();
             default: //Notify Invalid input and go to PostGameMenu
                 Display.invalidInput();

@@ -23,6 +23,10 @@ public class Game {
         this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
     }
 
+    public boolean getDidWeWin(){
+        return didWeWin;
+    }
+
     private static boolean askedForHint(String input){
         if (input.toLowerCase().equals("hint")) return true; else return false;
     }
@@ -49,21 +53,17 @@ public class Game {
             boolean inRound = true;
 
             while (inRound){
-                System.out.println("Started round:  " + round);
-
-                //draw cards
-                System.out.println("drawning cards..");
 
                 //TODO remove, is for simulation
                 currentRound.getCardSlotBag().remove();
 
-
+                //Try replace empty slots with new card from the top of the deck.
                 currentRound.replaceEmptyCardSlots(deck);
 
                 //stalemate check
                 //TODO remove ! when ready
                 if (!currentRound.isStalemate()) {
-                    System.out.println("main.Game is stalemate..");
+                    System.out.println("Game is stalemate..");
                     won = false;
                     playing = false;
                 }
@@ -77,7 +77,7 @@ public class Game {
                 //display round
                 currentRound.setRoundNumber(round);
                 System.out.println();
-                System.out.println(" ---------------- main.Round " + currentRound.getRoundNumber() + " ----------------" );
+                System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
                 currentRound.getCardSlotBag().display();
                 System.out.println();
                 System.out.println("Input Options:");
