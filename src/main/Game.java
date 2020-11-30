@@ -47,7 +47,7 @@ public class Game extends Colors {
         Display.playGame();
 
         //shuffle deck
-        deck.shuffleDeck();
+        //deck.shuffleRandom();
 
         //create first round, add to round queue.
         Round firstRound = new Round(0);
