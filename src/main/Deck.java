@@ -2,14 +2,13 @@ package main;
 
 import java.util.EmptyStackException;
 import java.util.Random;
-import java.util.Stack;
 
 
 public class Deck {
     
     private static final int MAX_CARDS = 52;
     private CardNode topNode;
-    private Stack cards;
+    private Deck cards;
 
 
     /**
@@ -54,9 +53,9 @@ public class Deck {
         topNode = null;
     }
 
-    public void shuffleRandom() {
+    /*public void shuffleRandom() {
         Random random = new Random();
-        int n = cards.size();
+        int n = MAX_CARDS;
         for (int i = n - 1; i >= 1; i--) {
             int j = random.nextInt(i + 1);
             // swap cards at indices i and j
@@ -65,7 +64,7 @@ public class Deck {
             this.cards.set(i, tmp);
         }
 
-    }
+    }*/
 
     // Randomly shuffles the cards in the deck in place.
     public void shuffleRiffle() {
@@ -73,8 +72,8 @@ public class Deck {
         // and splices the two together.
 
         int half = MAX_CARDS / 2;
-        Stack temp1 = new Stack();
-        Stack temp2 = new Stack();
+        Deck temp1 = new Deck();
+        Deck temp2 = new Deck();
 
         // Split the deck in two
         this.transfer(this.cards, temp1, half);
@@ -93,13 +92,13 @@ public class Deck {
     }
 
     // Transfers everything in the 'src' stack to the 'dest' stack.
-    private void transfer(Stack src, Stack dest) {
-        this.transfer(src, dest, src.size());
+    private void transfer(Deck src, Deck dest) {
+        this.transfer(src, dest, MAX_CARDS);
     }
 
     // Transfers the top 'amount' of elements from the 'src' stack to
     // the 'dest' stack.
-    private void transfer(Stack src, Stack dest, int amount) {
+    private void transfer(Deck src, Deck dest, int amount) {
         for (int i = 0; i < amount; i++) {
             dest.push(src.pop());
         }
