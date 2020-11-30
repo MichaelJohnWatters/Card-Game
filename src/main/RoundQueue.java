@@ -4,8 +4,8 @@ public class RoundQueue {
 
     private Round front, rear;
 
-    public RoundQueue(Round firstRound){
-        front = firstRound;
+    public RoundQueue(){
+        front = null;
         rear  = null;
     }
 

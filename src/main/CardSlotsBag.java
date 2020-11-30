@@ -7,9 +7,25 @@ public final class CardSlotsBag {
 
     private static final int FIXED_CAPACITY = 9;
 
+    public int countCards() {
+        int cardCount = 0;
+
+        for (int i = 0; i < cardSlotsBag.length; i++) {
+
+            if (cardSlotsBag[i] !=null) {
+                cardCount++;
+            }
+        }
+        return cardCount;
+    }
+
     public CardSlotsBag() {
         cardSlotsBag = new Card[FIXED_CAPACITY];
         numberOfCards = 0;
+    }
+
+    public CardSlotsBag(Card[] bag) {
+        cardSlotsBag = bag;
     }
 
     public boolean isArrayFull() {
@@ -66,6 +82,7 @@ public final class CardSlotsBag {
         }
         return result;
     }
+
 
     //@Override
     public void clear() {
@@ -143,14 +160,16 @@ public final class CardSlotsBag {
             //if the current card is not null, check for each of the face cards.
             //if a face card exists set flag for that rank to true.
             if (card != null) {
-                if (card.getRank().equals(Rank.KING)) foundKing   = true;
+                if (card.getRank().equals(Rank.KING))  foundKing  = true;
                 if (card.getRank().equals(Rank.QUEEN)) foundQueen = true;
-                if (card.getRank().equals(Rank.JACK)) foundJack   = true;
+                if (card.getRank().equals(Rank.JACK))  foundJack  = true;
             }
         }
 
         //Return all flags, only returns true if all flags are true, otherwise false.
-        System.out.println("contains king, queen, jack:" + " " + foundKing + " " + foundQueen + " " + foundJack);
+        if (foundKing && foundQueen && foundJack) System.out.println("Contains 3 valid Face card pairs...");
+        else System.out.println("Does not contain 3 valid face card pairs...");
+
         return foundKing && foundQueen && foundJack;
     }
 
@@ -173,7 +192,8 @@ public final class CardSlotsBag {
                     int requiredPairValue = (11 - card.getRank().getValue());
 
                     //search for the require value pair
-                    //we will not ignore the current card, as it would acctually be less performant to filter it out.
+                    //we will not ignore the current card, as it would actually be less perfornat to filter it out.
+                    //And will never result in a true result.
                     if(this.containsCardValue(requiredPairValue)) {
                         //set foundPair to true and break out of the current loop.
                         foundPair = true;
@@ -181,7 +201,7 @@ public final class CardSlotsBag {
                 }
             }
         }
-        if (!foundPair) System.out.println("No main.Elevens Pair"); else System.out.println("This round contains an main.Elevens pair");
+        if (!foundPair) System.out.println("No Elevens Pair"); else System.out.println("This round contains an Elevens pair");
         return foundPair;
     }
 
@@ -214,9 +234,17 @@ public final class CardSlotsBag {
             return str + " ";
         }
     }
+//
+//    //replace with below once bug fixed.
+//    // Todo fix, no need for 3x duplication, quick solution, fix if we have time, with Single array and loop.
+//    public void display(){
+//
+//        for (int i = 0; i < cardSlotsBag.length ; i++) {
+//            System.out.println(cardSlotsBag[i]);
+//        }
+//
+//    }
 
-
-    //Todo fix, no need for 3x duplication, quick solution, fix if we have time.
     public void display(){
 
         //16 space string, to pad out print lines if a card slot is empty.
@@ -230,11 +258,11 @@ public final class CardSlotsBag {
         for (int i = 0; i < 3; i++) {
 
             if(cardSlotsBag[i] != null){
-                String house = Card.extractHouseAsDigit(cardSlotsBag[i]);
+                String house = Card.extractHouseAsDigitWithColor(cardSlotsBag[i]);
                 String value = formatStringForDisplay(Card.extractRankAsDigit(cardSlotsBag[i]));
                 String cardSlot = GameMechanics.cardSelectionNumberToString(i);
                 rowOne[0][i] =               "      _________ ";
-                rowOne[1][i] = String.format("   %s:|%s      %s|", cardSlot,value, house);
+                rowOne[1][i] = String.format("   %s:|%s      %s|", cardSlot, value, house);
                 rowOne[2][i] =               "     |         |";
                 rowOne[3][i] =               "     |         |";
                 rowOne[4][i] =               "     |         |";
@@ -254,11 +282,11 @@ public final class CardSlotsBag {
         for (int i = 0; i < 3; i++) {
 
             if(cardSlotsBag[i+3] != null){
-                String house = Card.extractHouseAsDigit(cardSlotsBag[i+3]);
+                String house = Card.extractHouseAsDigitWithColor(cardSlotsBag[i+3]);
                 String value = formatStringForDisplay(Card.extractRankAsDigit(cardSlotsBag[i+3]));
                 String cardSlot = GameMechanics.cardSelectionNumberToString(i+3);
                 rowTwo[0][i] =               "      _________ ";
-                rowTwo[1][i] = String.format("   %s:|%s      %s|",cardSlot,value, house);
+                rowTwo[1][i] = String.format("   %s:|%s      %s|", cardSlot, value, house);
                 rowTwo[2][i] =               "     |         |";
                 rowTwo[3][i] =               "     |         |";
                 rowTwo[4][i] =               "     |         |";
@@ -278,11 +306,11 @@ public final class CardSlotsBag {
         for (int i = 0; i < 3; i++) {
 
             if(cardSlotsBag[i+6] != null){
-                String house = Card.extractHouseAsDigit(cardSlotsBag[i+6]);
+                String house = Card.extractHouseAsDigitWithColor(cardSlotsBag[i+6]);
                 String value = formatStringForDisplay(Card.extractRankAsDigit(cardSlotsBag[i+6]));
                 String cardSlot = GameMechanics.cardSelectionNumberToString(i+6);
                 rowThree[0][i] =               "      _________ ";
-                rowThree[1][i] = String.format("   %s:|%s      %s|",cardSlot,value, house);
+                rowThree[1][i] = String.format("   %s:|%s      %s|", cardSlot, value, house);
                 rowThree[2][i] =               "     |         |";
                 rowThree[3][i] =               "     |         |";
                 rowThree[4][i] =               "     |         |";

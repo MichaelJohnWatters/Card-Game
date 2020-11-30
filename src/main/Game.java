@@ -12,14 +12,12 @@ public class Game {
     private Scanner keyPressScanner = new Scanner(System.in);
     private boolean didWeWin = false;
 
-    //TODO getters and setters
-
     /**
      * This constructor will consist all the components required to play a game.
      */
     public Game() {
-        this.deck = new Deck();  //create deck of 52 card objects.
-        this.discardDeck = new Deck(); //empty deck.
+        this.deck = new Deck();
+        this.discardDeck = new Deck();
         this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
     }
 
@@ -31,9 +29,10 @@ public class Game {
         if (input.toLowerCase().equals("hint")) return true; else return false;
     }
 
-    public Game playGame(){
+    public Game playGame() {
+
         boolean playing = true;
-        int round = 0;
+        int roundNumber = 0;
         boolean won = false;
 
         //Perform actions once per game here.
@@ -43,21 +42,25 @@ public class Game {
         deck.shuffleDeck();
 
         //create first round, add to round queue.
-        this.roundQueue = new RoundQueue(new Round());
+        Round firstRound = new Round(0);
+
+        //place the first round in RoundQueue
+        roundQueue = new RoundQueue();
+        roundQueue.enqueue(firstRound);
 
         //set the current round.
+        System.out.println("HERE AGAIN");
         currentRound = roundQueue.getFront();
 
         //Effectively each loop back to the top of the while(playing) is a new round.
-        while(playing){
-            boolean inRound = true;
-
-            while (inRound){
-
-                //TODO remove, is for simulation
-                currentRound.getCardSlotBag().remove();
+        while(playing) {
 
                 //Try replace empty slots with new card from the top of the deck.
+                System.out.println("CURRENT SIZE");
+                System.out.println(currentRound.getCardSlotBag().countCards());
+                System.out.println(currentRound.getCardSlotBag().getCurrentSize());
+                System.out.println("CURRENT SIZE");
+
                 currentRound.replaceEmptyCardSlots(deck);
 
                 //stalemate check
@@ -68,14 +71,20 @@ public class Game {
                     playing = false;
                 }
 
+                //TODO TEMP win condition for simulation
+                if(roundNumber == 5){
+                    won = true;
+                    didWeWin = won;
+                    playing = false;
+                }
                 //winning check, we still empty after drawing we have won.
                 if (currentRound.getCardSlotBag().isEmpty()) {
                     won = true;
+                    didWeWin = won;
                     playing = false;
                 }
 
-                //display round
-                currentRound.setRoundNumber(round);
+
                 System.out.println();
                 System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
                 currentRound.getCardSlotBag().display();
@@ -100,11 +109,14 @@ public class Game {
                     } else if (GameMechanics.validStringSelection(selectedCardsOrHint)) {
 
                         if(selectedCardsOrHint.length() == 2) {
+
                             char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
 
                             //todo some checks here, do try catch and if fail force new cards to pick
                             Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                             Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
+
+                            System.out.println("picked: " + firstCard + " " + secondCard);
 
                             System.out.println("Result");
                             System.out.println(GameMechanics.isElevensPair(firstCard, secondCard));
@@ -112,11 +124,23 @@ public class Game {
                             if(GameMechanics.isElevensPair(firstCard, secondCard)){
                                 //Valid selection we can now remove cards and move to next round
                                 System.out.println("Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard);
+
+                                //remove the valid cards.
+//                                currentRound.getCardSlotBag().remove(firstCard);
+//                                currentRound.getCardSlotBag().remove(secondCard);
+                                currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove();
+
                                 roundWinningSelection = true;
                             } else {
                                 //invalid selection, prompt to try again
                                 System.out.println("Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard);
-                                //TODO should be false, temp for testing
+                                //TODO SIMULATION should be false, temp for testing removes also remove removes
+                                //remove the valid cards.
+//                                currentRound.getCardSlotBag().remove(firstCard);
+//                                currentRound.getCardSlotBag().remove(secondCard);
+                                currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove();
                                 roundWinningSelection = true;
                             }
 
@@ -135,12 +159,27 @@ public class Game {
                                 //Valid selection we can now remove cards and move to next round
                                 System.out.println("Success! Your select cards did contain a King, Queen and a Jack...");
                                 System.out.println(firstCard + "and " + secondCard);
+                                //remove the valid cards.
+//                                currentRound.getCardSlotBag().remove(firstCard);
+//                                currentRound.getCardSlotBag().remove(secondCard);
+//                                currentRound.getCardSlotBag().remove(thirdCard);
+                                currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove();
                                 roundWinningSelection = true;
                             } else {
                                 //invalid selection, prompt to try again
                                 System.out.println("Invalid Selection: Your select cards did not contain a King, Queen and Jack...");
                                 System.out.println(firstCard + ", " + secondCard + ", " + thirdCard);
-                                //TODO should be false, temp for testing
+
+                                //TODO SIMULATION should be false, temp for testing and removes and remove removes
+                                //remove the valid cards.
+//                                currentRound.getCardSlotBag().remove(firstCard);
+//                                currentRound.getCardSlotBag().remove(secondCard);
+//                                currentRound.getCardSlotBag().remove(thirdCard);
+                                currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove();
                                 roundWinningSelection = true;
                             }
                         }
@@ -148,15 +187,32 @@ public class Game {
                     }
                 }
 
-                //end round
+                //if we get to this point the user has made a valid selection, or a round winning selection.
+
+                System.out.println("deleted a card.");
+                currentRound.getCardSlotBag().remove();
+                //prepare the next round
+                roundNumber++;
+
+                //todo not copying correctly
+                CardSlotsBag copyOfBag = new CardSlotsBag(currentRound.getCardSlotBag().toArray());
+
+                Round nextRound = new Round(roundNumber, copyOfBag);
+
+                //set the next round.
+                roundQueue.enqueue(nextRound);
+
+
+                //set the current round to the next round.
+                currentRound = currentRound.getNextRound();
+
+                //tell the user they have won the round and prompt to key press to continue
                 System.out.println("You have Won this round! press enter to continue...");
                 keyPressScanner.nextLine();
-                round++;
-                inRound = false; //todo think around not doing this, could maybe remove, seems pointless now i think about it
-            }
         }
-        System.out.println("main.Game over result: " + won);
+
+        System.out.println("Game over result: " + won);
         didWeWin = won;
-        return this; //return the main.Game to be used by menus
+        return this;
     }
 }

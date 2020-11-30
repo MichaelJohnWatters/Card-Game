@@ -6,10 +6,10 @@ public class Round {
     private CardSlotsBag cardSlotBag;
     private Round nextRound;
 
-    //Used to remeber each rounds actions.
-    private Card[] drawnCardsMemory = new Card[9];
-    private Card[] bagCardSlotsMemory = new Card[9];
-    private Card[] pairsRemovedMemory = new Card[3];
+    //Used to remember each rounds actions.
+//    private Card[] drawnCardsMemory = new Card[9];
+//    private Card[] bagCardSlotsMemory = new Card[9];
+//    private Card[] pairsRemovedMemory = new Card[3];
 
     /**
      * Used for subsequent rounds
@@ -29,14 +29,14 @@ public class Round {
     }
 
     //for the first round in a game
-    public Round() {
-        this.roundNumber = 0;
+    public Round(int roundNumber) {
+        this.roundNumber = roundNumber;
         this.cardSlotBag = new CardSlotsBag(); // new empty cardSlotBag,
         this.nextRound = null; //next round is always null until set by setNextRound()
     }
 
     private static Card drawFromDeck(Deck deck){
-        //TODO Fake return atm
+        //TODO Fake return atm replace with deck.pop();
         return new Card(House.DIAMONDS, Rank.ACE);
         //return deck.pop();
     }
@@ -47,18 +47,25 @@ public class Round {
 
     protected void replaceEmptyCardSlots(Deck deck) {
 
-        //TODO change to
-        // for each empty slot
-        // if cards to draw
-        //      if !carslotBagIsFull()
-        //          then try draw card
+
+//
+//        System.out.println("*******************************************************");
+//        System.out.println("*******************************************************");
+//        System.out.println("**********************BEFORE**********************");
+//        System.out.println("*******************************************************");
+//        this.cardSlotBag.display();
+//        System.out.println("*******************************************************");
+//        System.out.println("**********************BEFORE***************************");
+//        System.out.println("*******************************************************");
+//        System.out.println("*******************************************************");
 
         //if not all slots in the bag are filled draw new cards.
         if(!cardSlotBag.isArrayFull()){
+            System.out.println("replaceEmptyCardSlots - NOT FULL");
 
             //TODO do checks if there is cards to draw
-            //Work out how many cards need drawn.
-            int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.getCurrentSize();
+            int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.countCards();
+            System.out.println(CardSlotsBag.getFixedCapacity() + " - " + cardSlotBag.countCards() + " = " + (CardSlotsBag.getFixedCapacity() - cardSlotBag.countCards()) );
             System.out.println("number of Cards to be drawn: " + cardsToDraw);
 
             //loop through number cards needed to reach 9 cards in play.
@@ -71,14 +78,26 @@ public class Round {
 
                 System.out.print(" " + drawnCard.toString());
                 //TODO
-                cardSlotBag.addNewCard(drawnCard);
+                boolean added = cardSlotBag.addNewCard(drawnCard);
+                System.out.println("ADDED??" + added);
             }
             System.out.println();
         } else {
             System.out.println("no cards drawn...");
         }
+
+//        System.out.println("*******************************************************");
+//        System.out.println("*******************************************************");
+//        System.out.println("**********************AFTER**********************");
+//        System.out.println("*******************************************************");
+//        this.cardSlotBag.display();
+//        System.out.println("*******************************************************");
+//        System.out.println("**********************AFTER***************************");
+//        System.out.println("*******************************************************");
+//        System.out.println("*******************************************************");
+
     }
-    
+
     public int getRoundNumber() {
         return roundNumber;
     }

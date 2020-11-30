@@ -29,7 +29,7 @@ public class CardTest extends TestCase {
     }
 
     public void testExtractHouseAsDigit() {
-        assertEquals(Card.extractHouseAsDigit(test1Card),"C");
-        assertEquals(Card.extractHouseAsDigit(test2Card),"D");
+        assertEquals(Card.extractHouseAsDigitWithColor(test1Card),"C");
+        assertEquals(Card.extractHouseAsDigitWithColor(test2Card),"D");
     }
 }

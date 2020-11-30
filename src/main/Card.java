@@ -68,24 +68,24 @@ public class Card {
     public static String extractRankAsDigit(Card aCard) {
         String output = "";
         switch (aCard.getRank()){
-            case KING  : output = "K"; break;
-            case QUEEN : output = "Q"; break;
-            case JACK  : output = "J"; break;
-            case ACE   : output = "A"; break;
-            case TWO   : output = "2"; break;
-            case THREE : output = "3"; break;
-            case FOUR  : output = "4"; break;
-            case FIVE  : output = "5"; break;
-            case SIX   : output = "6"; break;
-            case SEVEN : output = "7"; break;
-            case EIGHT : output = "8"; break;
-            case NINE  : output = "9"; break;
+            case KING  : output = "K" ; break;
+            case QUEEN : output = "Q" ; break;
+            case JACK  : output = "J" ; break;
+            case ACE   : output = "A" ; break;
+            case TWO   : output = "2" ; break;
+            case THREE : output = "3" ; break;
+            case FOUR  : output = "4" ; break;
+            case FIVE  : output = "5" ; break;
+            case SIX   : output = "6" ; break;
+            case SEVEN : output = "7" ; break;
+            case EIGHT : output = "8" ; break;
+            case NINE  : output = "9" ; break;
             case TEN   : output = "10"; break;
         }
         return output;
     }
 
-    //colors for house
+    //colors for displaying cards.
     private static final String RESET_COLOR = "\u001B[0m";
     private static final String BLACK_COLOR = "\u001B[30m";
     private static final String RED_COLOR = "\u001B[31m";
@@ -96,7 +96,7 @@ public class Card {
      * @param aCard
      * @return String, single letter String value of main.House
      */
-    public static String extractHouseAsDigit(Card aCard) {
+    public static String extractHouseAsDigitWithColor(Card aCard) {
         String output = "";
         switch (aCard.getHouse()) {
             case DIAMONDS : output = RED_COLOR   + "D" + RESET_COLOR; break;
