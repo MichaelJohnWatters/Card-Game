@@ -6,7 +6,6 @@ public class CardSlotsBagTest extends TestCase {
 
     public void testIsArrayFull() {
 
-
     }
 
     public void testGetCurrentSize() {

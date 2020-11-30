@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 public class CardNodeTest extends TestCase {
 
     public void testGetData() {
+
     }
 
     public void testSetData() {

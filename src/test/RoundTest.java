@@ -12,9 +12,7 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag1 = new CardSlotsBag();
         bag1.addNewEntry(new Card(House.DIAMONDS, Rank.ACE));
         bag1.addNewEntry(new Card(House.CLUBS, Rank.ACE));
-
         Round round1 = new Round(1, bag1);
-
         assertTrue(round1.isStalemate());
         //Test 1 end
 
@@ -23,12 +21,9 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag2 = new CardSlotsBag();
         bag2.addNewEntry(new Card(House.DIAMONDS, Rank.ACE));
         bag2.addNewEntry(new Card(House.DIAMONDS, Rank.TEN));
-
         Round round2 = new Round(2, bag2);
-
         assertFalse(round2.isStalemate());
         //Test 2 end
-
 
         //Test 3 start
         //Returns false when there is face card pairs.
@@ -38,9 +33,7 @@ public class RoundTest extends TestCase {
         bag3.addNewEntry(new Card(House.CLUBS, Rank.KING));
         bag3.addNewEntry(new Card(House.DIAMONDS, Rank.QUEEN));
         bag3.addNewEntry(new Card(House.CLUBS, Rank.JACK));
-
         Round round3 = new Round(2, bag2);
-
         assertFalse(round3.isStalemate());
         //Test 3 end
     }
@@ -106,11 +99,8 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag1 = new CardSlotsBag();
         CardSlotsBag bagWithCard = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
-
         bagWithCard.addNewEntry(new Card(House.CLUBS,Rank.ACE));
-
         round1.setCardSlotBag(bagWithCard);
-
         assertEquals(round1.getCardSlotBag(), bagWithCard);
     }
 
@@ -121,9 +111,7 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag2 = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
         Round round2 = new Round(2, bag2);
-
         round1.setNextRound(round2);
-
         assertEquals(round1.getNextRound(), round2);
     }
 
@@ -133,9 +121,7 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag2 = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
         Round round2 = new Round(2, bag2);
-
         round1.setNextRound(round2);
-
         assertEquals(round1.getNextRound(), round2);
     }
 }
