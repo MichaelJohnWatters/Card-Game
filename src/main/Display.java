@@ -1,6 +1,6 @@
 package main;
 
-public class Display {
+public class Display extends Colors {
 
     public static void  welcome(){
         System.out.println();
@@ -24,12 +24,26 @@ public class Display {
         enterInput();
     }
 
-    public static void postGameMenu() {
+    public static void displayPostGameMenu(Game lastGame) {
         System.out.println();
         System.out.println("Post Game Menu");
         System.out.println("1) Retry Elevens Game!");
         System.out.println("2) Action Replay of the Last Games's Rounds!");
         System.out.println("3) Back to main menu");
+        System.out.println();
+
+        //Print differing output dependant on win or not.
+        if (lastGame.getGameResult()){
+            System.out.println(COLOR_GREEN + "You Won the Last Game.. Congrats! What would you like to do?" + COLOR_WHITE);
+        } else {
+            System.out.println(COLOR_RED + "You failed the Last Game.. what would you like to do?" + COLOR_RED);
+        }
+
+        System.out.println("Last Games Stats");
+        System.out.println("fake stats bla bla");
+        System.out.println("fake stats bla bla");
+        System.out.println("fake stats bla bla");
+
         enterInput();
     }
 
@@ -51,11 +65,11 @@ public class Display {
 
     public static void enterInput() {
         System.out.println();
-        System.out.print("select option > ");
+        System.out.print(COLOR_GREEN + "select option > " + COLOR_WHITE);
     }
 
     public static void invalidInput() {
         System.out.println();
-        System.out.println("Selected an Invalid Option....try again.");
+        System.out.println(COLOR_RED + "Selected an Invalid Option....try again." +  COLOR_WHITE);
     }
 }
