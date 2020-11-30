@@ -19,11 +19,14 @@ public final class CardSlotsBag {
     public boolean containsCardValue(int cardValue) {
         boolean found = false;
         int index = 0;
+
         while (!found && index < bag.length) {
 
             if(bag[index] != null){
+
                 if (bag[index].getRank().getValue() == cardValue) {
-                    if (!GameMechanics.isFaceCard(bag[index])){
+
+                    if (!GameMechanics.isFaceCard(bag[index])) {
                         found = true;
                     }
                 }
@@ -92,14 +95,14 @@ public final class CardSlotsBag {
         return foundPair;
     }
 
-    public boolean containsRank(Rank cardRank) {
-        boolean found = false;
-        int index = 0;
-        while (!found && index < bag.length) {
-            if (bag[index++].getRank().equals(cardRank)) found = true;
-        }
-        return found;
-    }
+//    public boolean containsRank(Rank cardRank) {
+//        boolean found = false;
+//        int index = 0;
+//        while (!found && index < bag.length) {
+//            if (bag[index++].getRank().equals(cardRank)) found = true;
+//        }
+//        return found;
+//    }
 
     /**
      * Safe method of count the number of slots that are not null

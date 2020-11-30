@@ -29,6 +29,7 @@ public class Game extends Colors {
         if (input.toLowerCase().equals("hint")) return true; else return false;
     }
 
+    //TODO AI plays game, user does key press for each round like we do below.
 //    public Game computerPlayableGame(){
 //        boolean playing = true;
 //        int roundNumber = 0;
@@ -47,7 +48,7 @@ public class Game extends Colors {
         Display.playGame();
 
         //shuffle deck
-        deck.shuffleDeck();
+        //deck.shuffleRandom();
 
         //create first round, add to round queue.
         Round firstRound = new Round(0);
@@ -57,7 +58,6 @@ public class Game extends Colors {
         roundQueue.enqueue(firstRound);
 
         //set the current round.
-        System.out.println("HERE AGAIN");
         currentRound = roundQueue.getFront();
 
         //Effectively each loop back to the top of the while(playing) is a new round.
