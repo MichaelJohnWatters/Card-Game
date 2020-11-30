@@ -53,18 +53,18 @@ public class Deck {
         topNode = null;
     }
 
-    /*public void shuffleRandom() {
+    public void shuffleRandom() {
         Random random = new Random();
         int n = MAX_CARDS;
         for (int i = n - 1; i >= 1; i--) {
             int j = random.nextInt(i + 1);
             // swap cards at indices i and j
-            CardNode tmp = (CardNode) this.cards.get(j);
-            this.cards.set(j, cards.get(i));
-            this.cards.set(i, tmp);
+            //CardNode tmp = (CardNode) this.cards.get(j);
+            //this.cards.set(j, cards.get(i));
+            //this.cards.set(i, tmp);
         }
 
-    }*/
+    }
 
     // Randomly shuffles the cards in the deck in place.
     public void shuffleRiffle() {
