@@ -6,10 +6,6 @@ public final class CardSlotsBag {
     private int numberOfEntries;
     private static final int MAX_CAPACITY = 9;
 
-    public static int getMaxCapacity(){
-        return MAX_CAPACITY;
-    }
-
     public CardSlotsBag() {
         bag = new Card[MAX_CAPACITY];
         numberOfEntries = 0;
@@ -105,6 +101,10 @@ public final class CardSlotsBag {
         return found;
     }
 
+    /**
+     * Safe method of count the number of slots that are not null
+     * @return int number of cards
+     */
     public int countCards() {
         int cardCount = 0;
 
@@ -117,6 +117,10 @@ public final class CardSlotsBag {
         return cardCount;
     }
 
+    /**
+     * Safe method of count the number of slots that are null.
+     * @return int number of null slots in array.
+     */
     public int countEmptySlots() {
         int cardCount = 0;
 
@@ -199,29 +203,16 @@ public final class CardSlotsBag {
             return found;
     }
 
+    /**
+     * Perform a clone or copy of the current bag, even null slots in the array.
+     * @return Card[]
+     */
     public Card[] toArrayCopy() {
         Card[] resultArray = new Card[MAX_CAPACITY];
         System.arraycopy(bag, 0, resultArray, 0, MAX_CAPACITY);
         return resultArray;
     }
 
-//    public void display() {
-//        System.out.println("start displaying bag");
-//        displayArray(0, numberOfEntries-1);
-//        System.out.println("end displaying bag");
-//    }
-//
-//    private void displayArray(int first, int last){
-//        System.out.println(bag[first]);
-//        if(first < last) displayArray(first + 1, last);
-//    }
-//
-//    public String toString(){
-//        String strResult = "Bag[";
-//        for(int i = 0; i < numberOfEntries; i++)
-//            strResult += bag[i] + " ";
-//        return strResult += "]";
-//    }
 
     /**
      * Dont use this out side of display();

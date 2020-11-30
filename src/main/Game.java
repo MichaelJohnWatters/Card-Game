@@ -105,7 +105,7 @@ public class Game {
                         Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
-                        System.out.println("picked: " + firstCard + " " + secondCard);
+                        System.out.println("you selected : " + firstCard + " and " + secondCard);
 
                         System.out.println("Result");
                         System.out.println(GameMechanics.isElevensPair(firstCard, secondCard));
@@ -140,7 +140,8 @@ public class Game {
                         Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
                         Card thirdCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
-
+                        
+                        System.out.println("you selected : " + firstCard + " and " + secondCard + " and " + thirdCard);
                         System.out.println("Result");
                         System.out.println(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard));
 

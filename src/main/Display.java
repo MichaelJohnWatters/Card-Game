@@ -41,18 +41,21 @@ public class Display {
         System.out.println("Input Options:");
         System.out.println("    hint - displays a hint about cards to pick.");
         System.out.println("    forfeit - forfeit to post game .");
-        System.out.println("    select 2 cards: 'ab' for main.Elevens pair, or 3 cards: 'abc' for face Pairs.");
+        System.out.println("    valid cards: a, b, c, d, e, f, g, h, i");
+        System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
     }
     public static void playGame() {
-        System.out.println("");
+        System.out.println();
         System.out.println("Setting up game...");
     }
 
     public static void enterInput() {
+        System.out.println();
         System.out.print("select option > ");
     }
 
     public static void invalidInput() {
+        System.out.println();
         System.out.println("Selected an Invalid Option....try again.");
     }
 }
