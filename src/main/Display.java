@@ -33,6 +33,16 @@ public class Display {
         enterInput();
     }
 
+    public static void displayRound(Round currentRound){
+        System.out.println();
+        System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
+        currentRound.getCardSlotBag().display();
+        System.out.println();
+        System.out.println("Input Options:");
+        System.out.println("    hint - displays a hint about cards to pick.");
+        System.out.println("    forfeit - forfeit to post game .");
+        System.out.println("    select 2 cards: 'ab' for main.Elevens pair, or 3 cards: 'abc' for face Pairs.");
+    }
     public static void playGame() {
         System.out.println("");
         System.out.println("Setting up game...");

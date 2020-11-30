@@ -47,54 +47,29 @@ public class Round {
 
     protected void replaceEmptyCardSlots(Deck deck) {
 
-
-//
-//        System.out.println("*******************************************************");
-//        System.out.println("*******************************************************");
-//        System.out.println("**********************BEFORE**********************");
-//        System.out.println("*******************************************************");
-//        this.cardSlotBag.display();
-//        System.out.println("*******************************************************");
-//        System.out.println("**********************BEFORE***************************");
-//        System.out.println("*******************************************************");
-//        System.out.println("*******************************************************");
-
         //if not all slots in the bag are filled draw new cards.
         if(!cardSlotBag.isArrayFull()){
-            System.out.println("replaceEmptyCardSlots - NOT FULL");
 
             //TODO do checks if there is cards to draw
-            int cardsToDraw = CardSlotsBag.getFixedCapacity() - cardSlotBag.countCards();
-            System.out.println(CardSlotsBag.getFixedCapacity() + " - " + cardSlotBag.countCards() + " = " + (CardSlotsBag.getFixedCapacity() - cardSlotBag.countCards()) );
+            int cardsToDraw = cardSlotBag.countEmptySlots();
             System.out.println("number of Cards to be drawn: " + cardsToDraw);
 
-            //loop through number cards needed to reach 9 cards in play.
-            System.out.print("drawn: ");
-            for (int i = 0; i < cardsToDraw; i++) {
+            if(cardsToDraw != 0){
+                System.out.print("drawn: ");
+                for (int i = 0; i < cardsToDraw; i++) {
 
-                // TODO check if null if is null
-                // say that no more cards to card.
-                Card drawnCard = drawFromDeck(deck);
+                    Card drawnCard = drawFromDeck(deck);
 
-                System.out.print(" " + drawnCard.toString());
-                //TODO
-                boolean added = cardSlotBag.addNewCard(drawnCard);
-                System.out.println("ADDED??" + added);
+                    System.out.print(" " + drawnCard.toString());
+
+                    boolean added = cardSlotBag.addNewEntry(drawnCard);
+                    System.out.println("ADDED?? " + added);
+                }
             }
-            System.out.println();
+
         } else {
             System.out.println("no cards drawn...");
         }
-
-//        System.out.println("*******************************************************");
-//        System.out.println("*******************************************************");
-//        System.out.println("**********************AFTER**********************");
-//        System.out.println("*******************************************************");
-//        this.cardSlotBag.display();
-//        System.out.println("*******************************************************");
-//        System.out.println("**********************AFTER***************************");
-//        System.out.println("*******************************************************");
-//        System.out.println("*******************************************************");
 
     }
 

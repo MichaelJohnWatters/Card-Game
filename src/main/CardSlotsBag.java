@@ -2,146 +2,37 @@ package main;
 
 public final class CardSlotsBag {
 
-    private Card[] cardSlotsBag;
-    private int numberOfCards;
+    private Card[] bag;
+    private int numberOfEntries;
+    private static final int MAX_CAPACITY = 9;
 
-    private static final int FIXED_CAPACITY = 9;
-
-    public int countCards() {
-        int cardCount = 0;
-
-        for (int i = 0; i < cardSlotsBag.length; i++) {
-
-            if (cardSlotsBag[i] !=null) {
-                cardCount++;
-            }
-        }
-        return cardCount;
+    public static int getMaxCapacity(){
+        return MAX_CAPACITY;
     }
 
     public CardSlotsBag() {
-        cardSlotsBag = new Card[FIXED_CAPACITY];
-        numberOfCards = 0;
+        bag = new Card[MAX_CAPACITY];
+        numberOfEntries = 0;
     }
 
-    public CardSlotsBag(Card[] bag) {
-        cardSlotsBag = bag;
-    }
-
-    public boolean isArrayFull() {
-        return (cardSlotsBag.length == numberOfCards);
-    }
-
-    //@Override
-    public int getCurrentSize() {
-        return numberOfCards;
-    }
-
-    public static int getFixedCapacity() {
-        return FIXED_CAPACITY;
-    }
-
-    //@Override
-    public boolean isEmpty() {
-        return numberOfCards == 0;
-    }
-
-    //@Override
-    public boolean addNewCard(Card aCard) {
-        if (isArrayFull()) return false;
-        else {
-            cardSlotsBag[numberOfCards++] = aCard;
-            return true;
-        }
-    }
-
-    //@Override
-    public Card remove() {
-        return removeCardAt(numberOfCards-1);
-    }
-
-    //@Override
-    public boolean remove(Card aCard) {
-        boolean found = false;
-        int index = 0;
-        while(!found && index < numberOfCards)
-            if(cardSlotsBag[index].equals(aCard)) found = true;
-            else  index++;
-        if(found) removeCardAt(index);
-        return found;
-    }
-
-    private Card removeCardAt(int index){
-        Card result = null;
-
-        if(!isEmpty() && index >= 0 && index < numberOfCards) {
-            result = cardSlotsBag[index];
-            cardSlotsBag[index] = cardSlotsBag[numberOfCards -1];
-            cardSlotsBag[numberOfCards -1] = null;
-            numberOfCards--;
-        }
-        return result;
-    }
-
-
-    //@Override
-    public void clear() {
-        while (!isEmpty()) remove();
-    }
-
-    //@Override
-    public int getFrequencyOf(Card aCard) {
-        int count = 0;
-        for (int i = 0; i < numberOfCards; i++)
-            if(cardSlotsBag[i].equals(aCard)) count++;
-        return count;
-    }
-
-    //@Override
-    public boolean contains(Card aCard) {
-        boolean found = false;
-        int index = 0;
-        while (!found && index < numberOfCards)
-            if (cardSlotsBag[index++].equals(aCard)) found = true;
-        return found;
-    }
-
-    public Card cardAtPosition(int index){
-        if(index >= 0 && index <= 9){
-            if(cardSlotsBag[index] != null){
-                return cardSlotsBag[index];
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+    public CardSlotsBag(Card[] copiedBag) {
+        bag = copiedBag;
+        numberOfEntries = countCards();
     }
 
     public boolean containsCardValue(int cardValue) {
         boolean found = false;
         int index = 0;
-        while (!found && index < numberOfCards) {
+        while (!found && index < bag.length) {
 
-            //TODO swap if orders
-
-            //If we find a card with the correct value, we must check it is not a face card.
-            if (cardSlotsBag[index++].getRank().getValue() == cardValue) {
-
-                //if the card is not a Face card
-                if (!GameMechanics.isFaceCard(cardSlotsBag[index])){
-                    found = true;
+            if(bag[index] != null){
+                if (bag[index].getRank().getValue() == cardValue) {
+                    if (!GameMechanics.isFaceCard(bag[index])){
+                        found = true;
+                    }
                 }
             }
-        }
-        return found;
-    }
-
-    public boolean containsRank(Rank cardRank) {
-        boolean found = false;
-        int index = 0;
-        while (!found && index < numberOfCards) {
-            if (cardSlotsBag[index++].getRank().equals(cardRank)) found = true;
+            index++;
         }
         return found;
     }
@@ -155,7 +46,7 @@ public final class CardSlotsBag {
         boolean foundQueen = false;
         boolean foundJack  = false;
 
-        for (Card card : cardSlotsBag) {
+        for (Card card : bag) {
 
             //if the current card is not null, check for each of the face cards.
             //if a face card exists set flag for that rank to true.
@@ -180,7 +71,7 @@ public final class CardSlotsBag {
         boolean foundPair = false;
 
         //Take each card in the cardSlotBag
-        for (Card card : cardSlotsBag) {
+        for (Card card : bag) {
 
             //if the card selected is not null then
             if (card != null) {
@@ -205,12 +96,132 @@ public final class CardSlotsBag {
         return foundPair;
     }
 
-    //@Override
-    public Card[] toArray() {
-        Card[] resultCardArray = new Card[FIXED_CAPACITY];
-        System.arraycopy(cardSlotsBag, 0, resultCardArray, 0, numberOfCards);
-        return resultCardArray;
+    public boolean containsRank(Rank cardRank) {
+        boolean found = false;
+        int index = 0;
+        while (!found && index < bag.length) {
+            if (bag[index++].getRank().equals(cardRank)) found = true;
+        }
+        return found;
     }
+
+    public int countCards() {
+        int cardCount = 0;
+
+        for (int i = 0; i < bag.length; i++) {
+
+            if (bag[i] !=null) {
+                cardCount++;
+            }
+        }
+        return cardCount;
+    }
+
+    public int countEmptySlots() {
+        int cardCount = 0;
+
+        for (int i = 0; i < bag.length; i++) {
+
+            if (bag[i] ==null) {
+                cardCount++;
+            }
+        }
+        return cardCount;
+    }
+
+    public Card cardAtPosition(int index){
+        Card card = null;
+        if(index >= 0 && index < 9) {
+            if(bag[index] != null) {
+                card = bag[index];
+            }
+        }
+        return card;
+    }
+
+    public int getCurrentSize() {
+        return numberOfEntries;
+    }
+
+    public boolean isEmpty() {
+        return numberOfEntries == 0;
+    }
+
+    public boolean addNewEntry(Card newEntry) {
+        if (isArrayFull()) return false;
+        else {
+            bag[numberOfEntries++] = newEntry;
+            return true;
+        }
+    }
+
+    public boolean isArrayFull() {
+        return (bag.length == numberOfEntries);
+    }
+
+    public Card remove() {
+        return removeElementAt(numberOfEntries-1);
+    }
+
+    public boolean remove(Card anEntry) {
+        boolean found = false;
+        int index = 0;
+        while(!found && index < numberOfEntries)
+            if(bag[index].equals(anEntry)) found = true;
+            else  index++;
+
+        if(found) removeElementAt(index);
+        return found;
+    }
+
+    //in demo
+    private Card removeElementAt(int index){
+        Card result = null;
+
+        if(!isEmpty() && index >= 0 && index < numberOfEntries) {
+            result = bag[index];
+            bag[index] = bag[numberOfEntries -1];
+            bag[numberOfEntries -1] = null;
+            numberOfEntries--;
+        }
+        return result;
+    }
+
+    public void clear() {
+        while (!isEmpty()) remove();
+    }
+
+    public boolean contains(Card anEntry) {
+        boolean found = false;
+        int index = 0;
+        while (!found && index < numberOfEntries)
+            if (bag[index++].equals(anEntry)) found = true;
+            return found;
+    }
+
+    public Card[] toArrayCopy() {
+        Card[] resultArray = new Card[MAX_CAPACITY];
+        System.arraycopy(bag, 0, resultArray, 0, MAX_CAPACITY);
+        return resultArray;
+    }
+
+//    public void display() {
+//        System.out.println("start displaying bag");
+//        displayArray(0, numberOfEntries-1);
+//        System.out.println("end displaying bag");
+//    }
+//
+//    private void displayArray(int first, int last){
+//        System.out.println(bag[first]);
+//        if(first < last) displayArray(first + 1, last);
+//    }
+//
+//    public String toString(){
+//        String strResult = "Bag[";
+//        for(int i = 0; i < numberOfEntries; i++)
+//            strResult += bag[i] + " ";
+//        return strResult += "]";
+//    }
 
     /**
      * Dont use this out side of display();
@@ -234,16 +245,6 @@ public final class CardSlotsBag {
             return str + " ";
         }
     }
-//
-//    //replace with below once bug fixed.
-//    // Todo fix, no need for 3x duplication, quick solution, fix if we have time, with Single array and loop.
-//    public void display(){
-//
-//        for (int i = 0; i < cardSlotsBag.length ; i++) {
-//            System.out.println(cardSlotsBag[i]);
-//        }
-//
-//    }
 
     public void display(){
 
@@ -257,9 +258,9 @@ public final class CardSlotsBag {
 
         for (int i = 0; i < 3; i++) {
 
-            if(cardSlotsBag[i] != null){
-                String house = Card.extractHouseAsDigitWithColor(cardSlotsBag[i]);
-                String value = formatStringForDisplay(Card.extractRankAsDigit(cardSlotsBag[i]));
+            if(bag[i] != null){
+                String house = Card.extractHouseAsDigitWithColor(bag[i]);
+                String value = formatStringForDisplay(Card.extractRankAsDigit(bag[i]));
                 String cardSlot = GameMechanics.cardSelectionNumberToString(i);
                 rowOne[0][i] =               "      _________ ";
                 rowOne[1][i] = String.format("   %s:|%s      %s|", cardSlot, value, house);
@@ -281,9 +282,9 @@ public final class CardSlotsBag {
 
         for (int i = 0; i < 3; i++) {
 
-            if(cardSlotsBag[i+3] != null){
-                String house = Card.extractHouseAsDigitWithColor(cardSlotsBag[i+3]);
-                String value = formatStringForDisplay(Card.extractRankAsDigit(cardSlotsBag[i+3]));
+            if(bag[i+3] != null){
+                String house = Card.extractHouseAsDigitWithColor(bag[i+3]);
+                String value = formatStringForDisplay(Card.extractRankAsDigit(bag[i+3]));
                 String cardSlot = GameMechanics.cardSelectionNumberToString(i+3);
                 rowTwo[0][i] =               "      _________ ";
                 rowTwo[1][i] = String.format("   %s:|%s      %s|", cardSlot, value, house);
@@ -305,9 +306,9 @@ public final class CardSlotsBag {
 
         for (int i = 0; i < 3; i++) {
 
-            if(cardSlotsBag[i+6] != null){
-                String house = Card.extractHouseAsDigitWithColor(cardSlotsBag[i+6]);
-                String value = formatStringForDisplay(Card.extractRankAsDigit(cardSlotsBag[i+6]));
+            if(bag[i+6] != null){
+                String house = Card.extractHouseAsDigitWithColor(bag[i+6]);
+                String value = formatStringForDisplay(Card.extractRankAsDigit(bag[i+6]));
                 String cardSlot = GameMechanics.cardSelectionNumberToString(i+6);
                 rowThree[0][i] =               "      _________ ";
                 rowThree[1][i] = String.format("   %s:|%s      %s|", cardSlot, value, house);
@@ -347,4 +348,5 @@ public final class CardSlotsBag {
             System.out.println(rowThree[i][0] + rowThree[i][1] + rowThree[i][2]);
         }
     }
+
 }
