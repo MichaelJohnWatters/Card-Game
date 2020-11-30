@@ -3,10 +3,10 @@ package main;
 import java.util.EmptyStackException;
 
 
-public class Deck<Card> {
+public class Deck {
     
     private static final int MAX_CARDS = 52;
-    private CardNode<Card> topNode;
+    private CardNode topNode;
 
     /**
      * Note
@@ -21,7 +21,7 @@ public class Deck<Card> {
     }
 
     public void shuffleDeck() {
-        Deck<Card> deck = new Deck<>();
+        Deck deck = new Deck();
     }
 
     // TODO could maybe be a way to shuffle
@@ -33,8 +33,8 @@ public class Deck<Card> {
         // randomly shuffle the deck in any way, making this a rigged deck.
 
         int half = MAX_CARDS / 2;
-        Deck<String> temp1 = new Deck<>();
-        Deck<String> temp2 = new Deck<>();
+        Deck temp1 = new Deck();
+        Deck temp2 = new Deck();
 
         // Split the deck in two
         //this.transfer(this.cards, temp1, half);
@@ -53,7 +53,7 @@ public class Deck<Card> {
     }
 
     public void push (Card newEntry) {
-        CardNode<Card> newNode = new CardNode<>(newEntry);
+        CardNode newNode = new CardNode(newEntry);
         newNode.setNext(topNode);
         topNode = newNode;
     }
