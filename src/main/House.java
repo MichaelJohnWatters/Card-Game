@@ -17,7 +17,6 @@ public enum House {
         this.houseName = house;
     }
 
-
     /**
      * Return the String value of the main.House.
      *

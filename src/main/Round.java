@@ -41,11 +41,15 @@ public class Round {
         //return deck.pop();
     }
 
-    protected boolean isStalemate() {
-        return (!cardSlotBag.containsKingQueenJack() || !cardSlotBag.containsElevensPair());
+    public boolean isStalemate() {
+        if(cardSlotBag.containsKingQueenJack() || cardSlotBag.containsElevensPair()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    protected void replaceEmptyCardSlots(Deck deck) {
+    public void replaceEmptyCardSlots(Deck deck) {
         //if not all slots in the bag are filled draw new cards.
         if(!cardSlotBag.isArrayFull()){
 
@@ -70,7 +74,6 @@ public class Round {
         } else {
             System.out.println("no cards drawn...");
         }
-
     }
 
     public int getRoundNumber() {
