@@ -1,8 +1,8 @@
 package main;
 
-public class CardNode<Card> {
+public class CardNode {
     private Card data;
-    private CardNode<Card> next;
+    private CardNode next;
 
     public CardNode(Card dataValue) {
         this.data = dataValue;
@@ -17,11 +17,11 @@ public class CardNode<Card> {
         this.data = dataValue;
     }
 
-    public CardNode<Card> getNext() {
+    public CardNode getNext() {
         return next;
     }
 
-    public void setNext(CardNode<Card> nextNode) {
+    public void setNext(CardNode nextNode) {
         this.next = nextNode;
     }
 }
