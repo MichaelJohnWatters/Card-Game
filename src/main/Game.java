@@ -88,7 +88,7 @@ public class Game {
             String selectedCardsOrHint = "";
 
             while(!roundWinningSelection) {
-                System.out.println("please select a valid main.Elevens pair or pairs >");
+                System.out.println("please select a valid Elevens pair or pairs >");
                 selectedCardsOrHint = scanner.nextLine();
 
                 //if so display a hint
@@ -115,10 +115,8 @@ public class Game {
                             System.out.println("Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard);
 
                             //remove the valid cards.
-//                                currentRound.getCardSlotBag().remove(firstCard);
-//                                currentRound.getCardSlotBag().remove(secondCard);
-                            currentRound.getCardSlotBag().remove();
-                            currentRound.getCardSlotBag().remove();
+                            currentRound.getCardSlotBag().remove(firstCard);
+                            currentRound.getCardSlotBag().remove(secondCard);
 
                             roundWinningSelection = true;
                         } else {
@@ -126,10 +124,9 @@ public class Game {
                             System.out.println("Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard);
                             //TODO SIMULATION should be false, temp for testing removes also remove removes
                             //remove the valid cards.
-//                                currentRound.getCardSlotBag().remove(firstCard);
-//                                currentRound.getCardSlotBag().remove(secondCard);
-                            currentRound.getCardSlotBag().remove();
-                            currentRound.getCardSlotBag().remove();
+                            currentRound.getCardSlotBag().remove(firstCard);
+                            currentRound.getCardSlotBag().remove(secondCard);
+
                             roundWinningSelection = true;
                         }
 
@@ -140,7 +137,7 @@ public class Game {
                         Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
                         Card thirdCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
-                        
+
                         System.out.println("you selected : " + firstCard + " and " + secondCard + " and " + thirdCard);
                         System.out.println("Result");
                         System.out.println(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard));
@@ -150,12 +147,9 @@ public class Game {
                             System.out.println("Success! Your select cards did contain a King, Queen and a Jack...");
                             System.out.println(firstCard + "and " + secondCard);
                             //remove the valid cards.
-//                                currentRound.getCardSlotBag().remove(firstCard);
-//                                currentRound.getCardSlotBag().remove(secondCard);
-//                                currentRound.getCardSlotBag().remove(thirdCard);
-                            currentRound.getCardSlotBag().remove();
-                            currentRound.getCardSlotBag().remove();
-                            currentRound.getCardSlotBag().remove();
+                            currentRound.getCardSlotBag().remove(firstCard);
+                            currentRound.getCardSlotBag().remove(secondCard);
+                            currentRound.getCardSlotBag().remove(thirdCard);
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
@@ -164,12 +158,9 @@ public class Game {
 
                             //TODO SIMULATION should be false, temp for testing and removes and remove removes
                             //remove the valid cards.
-//                                currentRound.getCardSlotBag().remove(firstCard);
-//                                currentRound.getCardSlotBag().remove(secondCard);
-//                                currentRound.getCardSlotBag().remove(thirdCard);
-                            currentRound.getCardSlotBag().remove();
-                            currentRound.getCardSlotBag().remove();
-                            currentRound.getCardSlotBag().remove();
+                                currentRound.getCardSlotBag().remove(firstCard);
+                                currentRound.getCardSlotBag().remove(secondCard);
+                                currentRound.getCardSlotBag().remove(thirdCard);
                             roundWinningSelection = true;
                         }
                     }
