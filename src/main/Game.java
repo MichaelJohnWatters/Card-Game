@@ -2,7 +2,7 @@ package main;
 
 import java.util.Scanner;
 
-public class Game {
+public class Game extends Colors {
 
     private Deck deck;
     private Deck discardDeck;
@@ -10,7 +10,7 @@ public class Game {
     private Round currentRound;
     private Scanner scanner = new Scanner(System.in);
     private Scanner keyPressScanner = new Scanner(System.in);
-    private boolean didWeWin = false;
+    private boolean gameResult = false;
 
     /**
      * This constructor will consist all the components required to play a game.
@@ -21,19 +21,27 @@ public class Game {
         this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
     }
 
-    public boolean getDidWeWin(){
-        return didWeWin;
+    public boolean getGameResult(){
+        return gameResult;
     }
 
     private static boolean askedForHint(String input){
         if (input.toLowerCase().equals("hint")) return true; else return false;
     }
 
-    public Game playGame() {
+//    public Game computerPlayableGame(){
+//        boolean playing = true;
+//        int roundNumber = 0;
+//        boolean won = false;
+//
+//        return this;
+//    }
+
+    public Game userPlayableGame() {
 
         boolean playing = true;
         int roundNumber = 0;
-        boolean won = false;
+        //boolean won = false;
 
         //Perform actions once per game here.
         Display.playGame();
@@ -62,21 +70,19 @@ public class Game {
             //TODO remove ! when ready
             if (!currentRound.isStalemate()) {
                 System.out.println("Game is stalemate..");
-                won = false;
+                gameResult = false;
                 playing = false;
             }
 
             //TODO TEMP win condition for simulation
             if(roundNumber == 5){
-                won = true;
-                didWeWin = won;
+                gameResult = true;
                 playing = false;
             }
 
             //winning check, if still empty after attempting to draw cards, we have won.
             if (currentRound.getCardSlotBag().isEmpty()) {
-                won = true;
-                didWeWin = won;
+                gameResult = true;
                 playing = false;
             }
 
@@ -88,12 +94,13 @@ public class Game {
             String selectedCardsOrHint = "";
 
             while(!roundWinningSelection) {
-                System.out.println("please select a valid Elevens pair or pairs >");
+
+                System.out.println(COLOR_GREEN + "please select a valid Elevens pair or pairs >" + COLOR_WHITE);
                 selectedCardsOrHint = scanner.nextLine();
 
                 //if so display a hint
                 if(askedForHint(selectedCardsOrHint)){
-                    System.out.println("Hint: Hey fake hint here");
+                    System.out.println(COLOR_GREEN + "Hint: Hey fake hint here" + COLOR_WHITE);
                     roundWinningSelection = false;
                 } else if (GameMechanics.validStringSelection(selectedCardsOrHint)) {
 
@@ -105,14 +112,14 @@ public class Game {
                         Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
-                        System.out.println("you selected : " + firstCard + " and " + secondCard);
+                        System.out.println(COLOR_GREEN + "you selected : " + firstCard + " and " + secondCard + COLOR_WHITE);
 
                         System.out.println("Result");
                         System.out.println(GameMechanics.isElevensPair(firstCard, secondCard));
 
                         if(GameMechanics.isElevensPair(firstCard, secondCard)){
                             //Valid selection we can now remove cards and move to next round
-                            System.out.println("Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard);
+                            System.out.println(COLOR_GREEN + "Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard + COLOR_WHITE);
 
                             //remove the valid cards.
                             currentRound.getCardSlotBag().remove(firstCard);
@@ -121,7 +128,7 @@ public class Game {
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
-                            System.out.println("Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard);
+                            System.out.println(COLOR_RED + "Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard + COLOR_WHITE);
                             //TODO SIMULATION should be false, temp for testing removes also remove removes
                             //remove the valid cards.
                             currentRound.getCardSlotBag().remove(firstCard);
@@ -138,13 +145,13 @@ public class Game {
                         Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
                         Card thirdCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
 
-                        System.out.println("you selected : " + firstCard + " and " + secondCard + " and " + thirdCard);
+                        System.out.println(COLOR_GREEN +"you selected : " + firstCard + " and " + secondCard + " and " + thirdCard + COLOR_WHITE);
                         System.out.println("Result");
                         System.out.println(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard));
 
                         if(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard)){
                             //Valid selection we can now remove cards and move to next round
-                            System.out.println("Success! Your select cards did contain a King, Queen and a Jack...");
+                            System.out.println(COLOR_GREEN + "Success! Your select cards did contain a King, Queen and a Jack..." + COLOR_WHITE);
                             System.out.println(firstCard + "and " + secondCard);
                             //remove the valid cards.
                             currentRound.getCardSlotBag().remove(firstCard);
@@ -153,7 +160,7 @@ public class Game {
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
-                            System.out.println("Invalid Selection: Your select cards did not contain a King, Queen and Jack...");
+                            System.out.println(COLOR_RED + "Invalid Selection: Your select cards did not contain a King, Queen and Jack..." + COLOR_WHITE);
                             System.out.println(firstCard + ", " + secondCard + ", " + thirdCard);
 
                             //TODO SIMULATION should be false, temp for testing and removes and remove removes
@@ -183,8 +190,16 @@ public class Game {
             keyPressScanner.nextLine();
         }
 
-        didWeWin = won; //TODO thinnk about implementation, not realy nessary is duplication
-        System.out.println("Game over result: " + won);
+        if(gameResult){
+            System.out.println();
+            System.out.println(COLOR_GREEN + "Congratz!! you have won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)" + COLOR_WHITE);
+            System.out.println();
+        } else {
+            System.out.println();
+            System.out.println(COLOR_RED + "Sadly you have lost this Game, better luck next time!" + COLOR_WHITE);
+            System.out.println();
+        }
+
         System.out.println("press enter to continue to the post game menu...");
         keyPressScanner.nextLine();
 

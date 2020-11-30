@@ -30,7 +30,7 @@ public class Menu {
         switch(gameMenuChoice) {
             case "1": // Setup user playable main.Elevens main.Game
                 Game game = new Game();
-                game.playGame();
+                game.userPlayableGame();
 
                 PostGameMenu(game);
             case "2": // Computer plays main.Elevens game
@@ -38,7 +38,7 @@ public class Menu {
 
                 //TODO make a AI GAME
                 Game game2 = new Game();
-                game2.playGame();
+                game2.userPlayableGame();
 
                 PostGameMenu(game2);
             case "3": // return to main menu
@@ -51,23 +51,14 @@ public class Menu {
     }
 
     public void PostGameMenu(Game lastGame) {
-        Display.postGameMenu();
-
-        if (lastGame.getDidWeWin()){
-            System.out.println("You failed the Last Game.. what would you like to do?");
-        } else {
-            System.out.println("You Won the Last Game.. Congrats! What would you like to do?");
-        }
-
-        //TODO display info about last game, did they win?
-        // stats eg how many cards left
+        Display.displayPostGameMenu(lastGame);
 
         String gameMenuChoice = scanner.nextLine();
 
         switch(gameMenuChoice) {
             case "1":
                 Game game = new Game();
-                game.playGame();
+                game.userPlayableGame();
                 PostGameMenu(game);
             case "2": //Action Reply of main.Game
                 System.out.println("WARNINGNERROR NOT IMPLEMENNTED");
