@@ -45,7 +45,7 @@ public class Game extends Colors {
 
         //setup deck
         deck.createFullDeckOfCards();
-        deck.shuffleRippleRandomRipple();
+        deck.rigourousShuffle();
 
         //create first round, add to round queue.
         Round firstRound = new Round(0);
@@ -165,7 +165,7 @@ public class Game extends Colors {
 
         //setup deck
         deck.createFullDeckOfCards();
-        deck.shuffleRippleRandomRipple();
+        deck.rigourousShuffle();
 
         //create first round, add to round queue.
         Round firstRound = new Round(0);

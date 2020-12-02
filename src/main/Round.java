@@ -49,7 +49,7 @@ public class Round {
 
     public void replaceEmptyCardSlots(Deck deck) {
         //if not all slots in the bag are filled draw new cards.
-        if(!cardSlotBag.isArrayFull()){
+        if(!cardSlotBag.isArrayFull()) {
 
             int cardsToDraw = cardSlotBag.countEmptySlots();
             System.out.println("number of Cards to be drawn: " + cardsToDraw);
@@ -58,20 +58,22 @@ public class Round {
                 System.out.print("cards drawn: ");
                 for (int i = 0; i < cardsToDraw; i++) {
 
-                    //TODO WHEN DECK EXISTS, check if there is cards to draw
                     Card drawnCard = drawFromDeck(deck);
 
+                    //Make sure drawnCard is not null, happens when deck is empty.
                     if(drawnCard != null){
                         System.out.print(" " + drawnCard.toString());
 
                         boolean added = cardSlotBag.addNewEntry(drawnCard);
-                        System.out.println("" + added);
+
+                        if(added){
+                            System.out.println(" was drawn...");
+                        }
                     }
                 }
             }
-
         } else {
-            System.out.println("no cards drawn...");
+            System.out.println("card slots are full no cards drawn...");
         }
     }
 

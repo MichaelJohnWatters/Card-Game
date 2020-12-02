@@ -54,7 +54,7 @@ public class Display extends Colors {
         System.out.println();
         System.out.println("Input Options:");
         System.out.println("    hint - displays a hint about cards to pick.");
-        System.out.println("    forfeit - forfeit to post game .");
+        System.out.println("    quit - quit to post game .");
         System.out.println("    valid cards: a, b, c, d, e, f, g, h, i");
         System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
     }

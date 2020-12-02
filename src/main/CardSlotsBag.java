@@ -84,10 +84,6 @@ public final class CardSlotsBag {
             }
         }
 
-        //Return all flags, only returns true if all flags are true, otherwise false.
-        if (foundKing && foundQueen && foundJack) System.out.println("Contains 3 valid Face card pairs...");
-        else System.out.println("Does not contain 3 valid face card pairs...");
-
         return foundKing && foundQueen && foundJack;
     }
 
@@ -177,15 +173,6 @@ public final class CardSlotsBag {
 
         return foundElevensPair;
     }
-
-//    public boolean containsRank(Rank cardRank) {
-//        boolean found = false;
-//        int index = 0;
-//        while (!found && index < bag.length) {
-//            if (bag[index++].getRank().equals(cardRank)) found = true;
-//        }
-//        return found;
-//    }
 
     /**
      * Safe method of count the number of slots that are not null
@@ -323,7 +310,13 @@ public final class CardSlotsBag {
         }
     }
 
+    /**
+     * This method is used to display a cardSlotsBag
+     *
+     * Prints 3 rows of 3 cards, containing digit values representing houses and ranks.
+     */
     public void display(){
+        //TODO REMOVE after tests are done
         System.out.println("a should be " + bag[0]);
         System.out.println("b should be "  + bag[1]);
         System.out.println("c should be "  + bag[2]);

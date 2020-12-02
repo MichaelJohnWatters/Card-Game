@@ -32,7 +32,7 @@ public class Deck {
      * A ripple shuffle followed by a random shuffle followed by another ripple
      * To make sure the cards are well shuffled.
      */
-    public void shuffleRippleRandomRipple(){
+    public void rigourousShuffle(){
         rippleShuffle();
         randomShuffle();
         rippleShuffle();
@@ -49,19 +49,24 @@ public class Deck {
         int separator = countNumberOfCards() / 2;
         System.out.println(separator);
 
-        //put the first number of cards cut off at separator into deck.
+        //put the first number of cards cut off at separator into deck 1.
         for (int i = 0; i < separator ; i++) {
             deck1.push(this.pop());
         }
 
-        //while loop through the rest of the cards in the original deck and place into deck2.
+        //loop through the rest of the cards in the original deck and place into deck2.
         while(!this.isEmpty()){
             deck2.push(this.pop());
         }
 
-        ///deck is now 'spilt in two' re-pop them into this deck alternatively, as in a ripple shuffle.
+        //We now have the original deck split into two decks.
+        //deck is now 'spilt in two' re-pop them into this deck alternatively, as in a ripple shuffle.
         int assembleCounter = 1;
-        while (deck1.topNode != null || deck2.topNode !=null) {
+
+        //loop through while deck1 and deck 2 are not null
+        //use modulus and counter to decide which deck to pop the card from and push to this deck.
+        //will alternate between each deck1 and deck2
+        while (deck1.topNode != null || deck2.topNode != null) {
             if((assembleCounter % 2) == 0){
                 this.push(deck1.pop());
             } else {
@@ -95,7 +100,7 @@ public class Deck {
             cardArray[roundRandom] = currentCard;
         }
 
-        //assemble the deck by re-pushing all the cards.
+        //assemble the deck by re-pushing all the cards into our deck ADT.
         for (Card card: cardArray) {
             this.push(card);
         }
@@ -183,14 +188,14 @@ public class Deck {
     }
 
     public static void main(String[] args) {
-        Deck deck = new Deck();
-        deck.createFullDeckOfCards();
-        System.out.println(deck.countNumberOfCards());
-        deck.rippleShuffle();
-        deck.randomShuffle();
-        deck.shuffleRippleRandomRipple();
-
-
+//        Deck deck = new Deck();
+//        deck.createFullDeckOfCards();
+//        System.out.println(deck.countNumberOfCards());
+//        deck.rippleShuffle();
+//        deck.randomShuffle();
+//        deck.shuffleRippleRandomRipple();
+//
+//
 //
 //        Deck stack = new Deck();
 //

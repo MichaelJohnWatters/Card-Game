@@ -1,5 +1,7 @@
 package main;
 
+import com.sun.tools.javac.Main;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -30,15 +32,26 @@ public class Menu {
         switch(gameMenuChoice) {
             case "1": // Setup user playable Elevens main.Game
                 System.out.println("Setting up user playable Elevens Game....");
+
                 Game game = new Game();
-                game.userPlayableGame();
+                try {
+                    game.userPlayableGame();
+                } catch (Exception e){
+                    System.out.println("The Game Crashed return to main menu...");
+                    MainMenu();
+                }
 
                 PostGameMenu(game);
             case "2": // AI playable Elevens game
                 System.out.println("Setting up a watchable AI Elevens Game....");
 
                 Game aiPlayableGame = new Game();
-                aiPlayableGame.computerPlayableGame();
+                try {
+                    aiPlayableGame.computerPlayableGame();
+                } catch (Exception e){
+                    System.out.println("The Game Crashed return to main menu...");
+                    MainMenu();
+                }
 
                 PostGameMenu(aiPlayableGame);
             case "3": // return to main menu
@@ -58,11 +71,17 @@ public class Menu {
         //TODO maybe while here instead
         switch(gameMenuChoice) {
             case "1":
+                System.out.println("Setting up user playable Elevens Game....");
                 Game game = new Game();
-                game.userPlayableGame();
-                PostGameMenu(game);
-            case "2": //Action Reply of main.Game
+                try {
+                    game.userPlayableGame();
+                } catch (Exception e){
+                    System.out.println("The Game Crashed return to main menu...");
+                    MainMenu();
+                }
+            case "2": //Action Reply of Game
                 System.out.println("WARNINGNERROR NOT IMPLEMENNTED");
+                System.exit(1);
             case "3": //Return to main.Game main.Menu
                 System.out.println("Returning to main.Game Menu");
                 GameMenu();
