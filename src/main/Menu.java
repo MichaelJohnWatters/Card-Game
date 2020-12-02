@@ -28,21 +28,21 @@ public class Menu {
         String gameMenuChoice = scanner.nextLine();
 
         switch(gameMenuChoice) {
-            case "1": // Setup user playable main.Elevens main.Game
+            case "1": // Setup user playable Elevens main.Game
+                System.out.println("Setting up user playable Elevens Game....");
                 Game game = new Game();
                 game.userPlayableGame();
 
                 PostGameMenu(game);
-            case "2": // Computer plays main.Elevens game
-                System.out.println("Watch Computer playing main.Elevens TODO");
+            case "2": // AI playable Elevens game
+                System.out.println("Setting up a watchable AI Elevens Game....");
 
-                //TODO make a AI GAME
-                Game game2 = new Game();
-                game2.userPlayableGame();
+                Game aiPlayableGame = new Game();
+                aiPlayableGame.computerPlayableGame();
 
-                PostGameMenu(game2);
+                PostGameMenu(aiPlayableGame);
             case "3": // return to main menu
-                System.out.println("Returning to Main main.Menu...");
+                System.out.println("Returning to Main Menu...");
                 MainMenu();
             default:
                 Display.invalidInput();
@@ -55,6 +55,7 @@ public class Menu {
 
         String gameMenuChoice = scanner.nextLine();
 
+        //TODO maybe while here instead
         switch(gameMenuChoice) {
             case "1":
                 Game game = new Game();

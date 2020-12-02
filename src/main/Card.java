@@ -62,6 +62,7 @@ public class Card {
     }
 
     /**
+     * Converts the Cards Rank Value into a single or double letter digit.
      * @param aCard
      * @return String, single letter String value of main.House
      */
@@ -91,8 +92,7 @@ public class Card {
     private static final String RED_COLOR = "\u001B[31m";
 
     /**
-     *
-     *
+     * Converts A Cards House Object into a Single Color coded Digit.
      * @param aCard
      * @return String, single letter String value of main.House
      */
