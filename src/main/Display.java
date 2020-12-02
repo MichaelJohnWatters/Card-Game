@@ -29,7 +29,7 @@ public class Display extends Colors {
         if (lastGame.getGameResult()){
             System.out.println(COLOR_GREEN + "You Won the Last Game.. Congrats! What would you like to do?" + COLOR_WHITE);
         } else {
-            System.out.println(COLOR_RED + "You failed the Last Game.. what would you like to do?" + COLOR_RED);
+            System.out.println(COLOR_RED + "You failed the Last Game.. what would you like to do?" + COLOR_WHITE);
         }
         System.out.println();
         System.out.println("Post Game Menu");
@@ -42,8 +42,9 @@ public class Display extends Colors {
         System.out.println(" --- Last Games Stats --- ");
         if(lastGame.getGameResult()) resultString = " Win !"; else  resultString= " Lost !";
         System.out.println("Result: " + resultString);
-        System.out.println("Rounds completed successfully: " + lastGame.getRoundQueue().getFront());
-        System.out.println("fake stats bla bla");
+        System.out.println("Rounds completed successfully: " + "TODO");
+        System.out.println("Cards in deck: " + lastGame.getDeck().countNumberOfCards());
+        System.out.println("Cards in discard deck: " + lastGame.getDiscardDeck().countNumberOfCards());
 
         enterInput();
     }
