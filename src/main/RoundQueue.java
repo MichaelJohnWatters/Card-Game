@@ -43,6 +43,11 @@ public class RoundQueue {
         else return front;
     }
 
+//    public static int count() {
+//        if(front == null) return null;
+//        else return front;
+//    }
+
     public boolean isEmpty() {
         return (front == null);
     }

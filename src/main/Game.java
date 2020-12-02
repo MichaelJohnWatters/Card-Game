@@ -14,6 +14,18 @@ public class Game extends Colors {
     private Scanner keyPressScanner = new Scanner(System.in);
     private boolean gameResult = false;
 
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Deck getDiscardDeck() {
+        return discardDeck;
+    }
+
+    public RoundQueue getRoundQueue() {
+        return roundQueue;
+    }
+
     /**
      * This constructor will consist all the components required to play a game.
      */
@@ -23,19 +35,6 @@ public class Game extends Colors {
         this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
     }
 
-    public boolean getGameResult(){
-        return gameResult;
-    }
-
-    private static boolean askedForHint(String input){
-        if (input.toLowerCase().equals("hint")) return true; else return false;
-    }
-
-    private static boolean askedToForfeit(String input){
-        if (input.toLowerCase().equals("quit")) return true; else return false;
-    }
-
-    //TODO AI plays game, user does key press for each round like we do below.
     public Game computerPlayableGame(){
         boolean playing = true;
         int roundNumber = 0;
@@ -58,21 +57,21 @@ public class Game extends Colors {
         currentRound = roundQueue.getFront();
 
         //Effectively each loop back to the top of the while(playing) is a new round.
-        while(playing) {
+        while(true) {
+        //while(playing) {
 
             //Try replace empty slots with new card from the top of the deck.
             currentRound.replaceEmptyCardSlots(deck);
 
             //stalemate check
             if (currentRound.isStalemate()) {
-                System.out.println();
-                System.out.println(COLOR_RED + "Game is stalemate..." + COLOR_WHITE);
-                System.out.println();
-                System.out.println("Your last Hand was:");
+
+                //display isStalemate system.out
+                Display.displayIsStalemate();
                 currentRound.getCardSlotBag().display();
-                System.out.println();
+
                 gameResult = false;
-                playing = false;
+                //playing = false;
                 break;
             }
 
@@ -90,7 +89,7 @@ public class Game extends Colors {
                 } catch (Exception e){
                     Display.errorExitingGame();
                     gameResult =  false;
-                    playing = false;
+                    //playing = false;
                     break;
                 }
             } else if(currentRound.getCardSlotBag().containsKingQueenJack()) {
@@ -103,7 +102,7 @@ public class Game extends Colors {
                 } catch (Exception e){
                     Display.errorExitingGame();
                     gameResult =  false;
-                    playing = false;
+                    //playing = false;
                     break;
                 }
             }
@@ -116,7 +115,7 @@ public class Game extends Colors {
                     System.out.println(COLOR_GREEN + "AI has selected elevens pair:" + COLOR_WHITE);
                     for (Card card: elevensPairArray) {
                         System.out.print(" " + card);
-                        currentRound.getCardSlotBag().remove(card);
+                        discardDeck.push(currentRound.getCardSlotBag().remove(card));
                     }
                     System.out.println();
                 }
@@ -129,7 +128,7 @@ public class Game extends Colors {
                     System.out.println(COLOR_GREEN +"AI has selected face card elevens pairs:" + COLOR_WHITE);
                     for (Card card: elevensFacePairsArray) {
                         System.out.print(" " + card);
-                        currentRound.getCardSlotBag().remove(card);
+                        discardDeck.push(currentRound.getCardSlotBag().remove(card));
                     }
                 }
             } else {
@@ -137,7 +136,8 @@ public class Game extends Colors {
                 //AI can't find a suitable selection to win the round so we lost the game.
                 System.out.println(COLOR_RED + "The Impossible happened the AI could not find a suitable Win Scenario.....!" + COLOR_WHITE);
                 gameResult = false;
-                playing = false;
+                //playing = false;
+                break;
             }
 
             //if we get to this point the user has made a round winning selection.
@@ -153,7 +153,7 @@ public class Game extends Colors {
             //winning check, if cardslotBag is empty and deck is empty we have won
             if (currentRound.getCardSlotBag().isEmpty() && deck.isEmpty()) {
                 gameResult = true;
-                playing = false; //TODO we either need this var or use while(true) and use breaks to exit.
+                //playing = false;
                 break;
             }
 
@@ -162,13 +162,9 @@ public class Game extends Colors {
             keyPressScanner.nextLine();
         }
 
-        if(gameResult){
-            System.out.println(COLOR_GREEN + "\nThe AI has won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
-        } else {
-            System.out.println(COLOR_RED + "\nThe AI has lost this game!\n" + COLOR_WHITE);
-        }
+        //print out win or lose message and prompt to return to post game menu.
+        Display.displayWinOrLoseOutPut(gameResult, roundNumber,false);
 
-        System.out.println("press enter to continue to the post game menu...");
         keyPressScanner.nextLine();
 
         //return game to be passed other methods.
@@ -204,11 +200,9 @@ public class Game extends Colors {
 
             //stalemate check
             if (currentRound.isStalemate()) {
-                System.out.println("Game is stalemate..");
-                System.out.println();
-                System.out.println("Your last Hand was:");
+                //display isStalemate system.out
+                Display.displayIsStalemate();
                 currentRound.getCardSlotBag().display();
-                System.out.println();
                 gameResult = false;
                 playing = false;
                 break;
@@ -224,13 +218,18 @@ public class Game extends Colors {
             while(!roundWinningSelection) {
 
                 System.out.println(COLOR_GREEN + "please select a valid Elevens pair or pairs >" + COLOR_WHITE);
+
                 selectedCardsOrHint = scanner.nextLine();
 
                 //if they asked for a hint, workout a valid selection
                 if(askedForHint(selectedCardsOrHint)){
+
                     System.out.println(COLOR_GREEN + "Hint: " + COLOR_WHITE);
-                    if(currentRound.getCardSlotBag().containsElevensPair()){
+
+                    if(currentRound.getCardSlotBag().containsElevensPair()) {
+
                         Card[] foundPair = currentRound.getCardSlotBag().findAndReturnElevensPair();
+
                         try {
                             for (Card card: foundPair) {
                                 System.out.println(COLOR_RED + card + COLOR_WHITE);
@@ -241,11 +240,13 @@ public class Game extends Colors {
                             playing = false;
                             break;
                         }
+
                     } else if(currentRound.getCardSlotBag().containsKingQueenJack()) {
+
                         Card[] foundFacePairs = currentRound.getCardSlotBag().findAndReturnKingQueenJackPair();
 
                         try {
-                            for (Card card: foundFacePairs) { // should never return null as we perform containsKingQueenJack() but added - try for safety.
+                            for (Card card: foundFacePairs) { // will never return null as we perform containsKingQueenJack() before.
                                 System.out.println(COLOR_RED + card + COLOR_WHITE);
                             }
                         } catch (Exception e){
@@ -270,24 +271,24 @@ public class Game extends Colors {
 
                         char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
 
-                        //todo some checks here, do try catch and if fail force new cards to pick
                         Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
                         System.out.println(COLOR_GREEN + "you selected : " + firstCard + " and " + secondCard + COLOR_WHITE);
 
-                        if(GameMechanics.isElevensPair(firstCard, secondCard)){
+                        if(GameMechanics.isElevensPair(firstCard, secondCard)) {
+
                             //Valid selection we can now remove cards and move to next round
-                            System.out.println(COLOR_GREEN + "Success! Your selected cards were a valid Elevens pair: " + firstCard + " and " + secondCard + COLOR_WHITE);
+                            Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_GREEN,"Success! Your selected cards were a valid Elevens pair: ");
 
                             //remove the valid cards.
-                            currentRound.getCardSlotBag().remove(firstCard);
-                            currentRound.getCardSlotBag().remove(secondCard);
+                            discardDeck.push(currentRound.getCardSlotBag().remove(firstCard));
+                            discardDeck.push(currentRound.getCardSlotBag().remove(secondCard));
 
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
-                            System.out.println(COLOR_RED + "Invalid Selection: Your selected cards were not a valid Elevens pair: " + firstCard + " and " + secondCard + COLOR_WHITE);
+                            Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_RED,"Invalid Selection: Your select cards were not a valid Elevens pair... ");
                             roundWinningSelection = false;
                         }
 
@@ -301,18 +302,20 @@ public class Game extends Colors {
 
                         Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "You Selected: ");
 
-                        if(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard)){
+                        if(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard)) {
+
                             //Valid selection we can now remove cards and move to next round
-                            System.out.println(COLOR_GREEN + "Success! Your selected cards did contain a King, Queen and a Jack..." + COLOR_WHITE);
-                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "");
+                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "Success! Your selected cards did contain a King, Queen and a Jack...");
+
                             //remove the valid cards.
-                            currentRound.getCardSlotBag().remove(firstCard);
-                            currentRound.getCardSlotBag().remove(secondCard);
-                            currentRound.getCardSlotBag().remove(thirdCard);
+                            discardDeck.push(currentRound.getCardSlotBag().remove(firstCard));
+                            discardDeck.push(currentRound.getCardSlotBag().remove(secondCard));
+                            discardDeck.push(currentRound.getCardSlotBag().remove(thirdCard));
+
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
-                            System.out.println(COLOR_RED + "Invalid Selection: Your select cards did not contain a King, Queen and Jack..." + COLOR_WHITE);
+                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_RED,"Invalid Selection: Your select cards did not contain a King, Queen and Jack... ");
                             System.out.println(firstCard + ", " + secondCard + ", " + thirdCard);
                             roundWinningSelection = false;
                         }
@@ -342,20 +345,24 @@ public class Game extends Colors {
             keyPressScanner.nextLine();
         }
 
-        if(gameResult){
-            System.out.println();
-            System.out.println(COLOR_GREEN + "Congratz!! you have won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)" + COLOR_WHITE);
-            System.out.println();
-        } else {
-            System.out.println();
-            System.out.println(COLOR_RED + "Sadly you have lost this Game, better luck next time!" + COLOR_WHITE);
-            System.out.println();
-        }
+        //print out win or lose message and prompt to return to post game menu.
+        Display.displayWinOrLoseOutPut(gameResult, roundNumber, true);
 
-        System.out.println("press enter to continue to the post game menu...");
         keyPressScanner.nextLine();
 
         //return game to be passed other methods.
         return this;
+    }
+
+    public boolean getGameResult(){
+        return gameResult;
+    }
+
+    private static boolean askedForHint(String input){
+        if (input.toLowerCase().equals("hint")) return true; else return false;
+    }
+
+    private static boolean askedToForfeit(String input){
+        if (input.toLowerCase().equals("quit")) return true; else return false;
     }
 }

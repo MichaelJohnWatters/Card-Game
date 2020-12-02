@@ -26,23 +26,23 @@ public class Display extends Colors {
     }
 
     public static void displayPostGameMenu(Game lastGame) {
-        System.out.println();
-        System.out.println("Post Game Menu");
-        System.out.println("1) Retry Elevens Game!");
-        System.out.println("2) Action Replay of the Last Games's Rounds!");
-        System.out.println("3) Back to main menu");
-        System.out.println();
-
-        //Print differing output dependant on win or not.
         if (lastGame.getGameResult()){
             System.out.println(COLOR_GREEN + "You Won the Last Game.. Congrats! What would you like to do?" + COLOR_WHITE);
         } else {
             System.out.println(COLOR_RED + "You failed the Last Game.. what would you like to do?" + COLOR_RED);
         }
+        System.out.println();
+        System.out.println("Post Game Menu");
+        System.out.println("1) Retry Elevens Game!");
+        System.out.println("2) Action Replay of the Last Games's Rounds!");
+        System.out.println("3) Back to Game Men");
+        System.out.println();
 
-        System.out.println("Last Games Stats");
-        System.out.println("fake stats bla bla");
-        System.out.println("fake stats bla bla");
+        String resultString = "";
+        System.out.println(" --- Last Games Stats --- ");
+        if(lastGame.getGameResult()) resultString = " Win !"; else  resultString= " Lost !";
+        System.out.println("Result: " + resultString);
+        System.out.println("Rounds completed successfully: " + lastGame.getRoundQueue().getFront());
         System.out.println("fake stats bla bla");
 
         enterInput();
@@ -91,12 +91,25 @@ public class Display extends Colors {
         System.out.print(color + prefixString + " " + firstCard + ", " + secondCard + " and " + thirdCard + COLOR_WHITE);
     }
 
-    public static void invalidCardSelection(){
-
+    public static void displayIsStalemate(){
+        System.out.println("Game is stalemate..\nYour last Hand was: \n");
     }
 
-    public static void successfullCardSelection(){
-
+    public static void displayWinOrLoseOutPut(boolean gameResult, int roundNumber, boolean isHuman){
+        if(gameResult){
+            if(isHuman){
+                System.out.println(COLOR_GREEN + "\nCongratz!! you have won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
+            } else {
+                System.out.println(COLOR_GREEN + "\nThe Computer has won this game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
+            }
+        } else {
+            if(isHuman){
+                System.out.println(COLOR_RED + "\nSadly you have lost this Game, better luck next time!\n" + COLOR_WHITE);
+            } else {
+                System.out.println(COLOR_RED + "\nThe Computer has lost this Game, oh no!\n" + COLOR_WHITE);
+            }
+        }
+        System.out.println(COLOR_RED +"press enter to continue to the post game menu..."+ COLOR_WHITE);
     }
 
     public static void enterInput() {

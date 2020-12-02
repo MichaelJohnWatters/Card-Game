@@ -9,10 +9,11 @@ public class GameMechanics {
      * @return boolean
      */
     public static boolean isFaceCard(Card aCard) {
+
         //make sure the card is not null
         if (aCard != null){
 
-            //if not null look for a Face main.Card rank.
+            //if not null look for a Face Card rank.
             if(aCard.getRank().equals(Rank.KING)
                     || aCard.getRank().equals(Rank.QUEEN)
                     || aCard.getRank().equals(Rank.JACK)) {
