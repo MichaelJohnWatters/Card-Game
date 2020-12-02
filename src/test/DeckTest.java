@@ -14,8 +14,7 @@ public class DeckTest extends TestCase {
         //Setup test
         Deck testDeck1 = new Deck();
         Deck testDeck2 = new Deck();
-        Deck testDeck3 = new Deck();
-        Deck testDeck4 = new Deck();
+
         //Pack of card typically comes in the reverse of this order, but will be correct when popping from the stack.
 
         Card[] cards = {new Card(House.SPADES, Rank.KING), new Card(House.SPADES, Rank.QUEEN), new Card(House.SPADES, Rank.JACK), new Card(House.SPADES, Rank.TEN), new Card(House.SPADES, Rank.NINE), new Card(House.SPADES, Rank.EIGHT), new Card(House.SPADES, Rank.SEVEN), new Card(House.SPADES, Rank.SIX), new Card(House.SPADES, Rank.FIVE), new Card(House.SPADES, Rank.FOUR),
@@ -26,15 +25,15 @@ public class DeckTest extends TestCase {
                 new Card(House.HEARTS, Rank.TWO), new Card(House.HEARTS, Rank.ACE)
         };
 
+        testDeck1.createFullDeckOfCards();
+
         //for each house, loop through each rank and push that card to the stack.
         for (Card card: cards) {
                 testDeck2.push(card);
         }
-        testDeck3.push(new Card(House.CLUBS,Rank.ACE));
-        testDeck4.push(new Card(House.CLUBS,Rank.ACE));
 
-        Card[] one = testDeck3.toArray();
-        Card[] two = testDeck4.toArray();
+        Card[] one = testDeck1.toArray();
+        Card[] two = testDeck2.toArray();
 
         boolean test = true;
 
