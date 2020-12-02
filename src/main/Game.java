@@ -163,13 +163,9 @@ public class Game extends Colors {
         }
 
         if(gameResult){
-            System.out.println();
-            System.out.println(COLOR_GREEN + "The AI has won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)" + COLOR_WHITE);
-            System.out.println();
+            System.out.println(COLOR_GREEN + "\nThe AI has won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
         } else {
-            System.out.println();
-            System.out.println(COLOR_RED + "The AI has lost this game!" + COLOR_WHITE);
-            System.out.println();
+            System.out.println(COLOR_RED + "\nThe AI has lost this game!\n" + COLOR_WHITE);
         }
 
         System.out.println("press enter to continue to the post game menu...");
