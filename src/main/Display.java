@@ -54,13 +54,41 @@ public class Display extends Colors {
         System.out.println();
         System.out.println("Input Options:");
         System.out.println("    hint - displays a hint about cards to pick.");
-        System.out.println("    forfeit - forfeit to post game .");
+        System.out.println("    quit - quit to post game .");
         System.out.println("    valid cards: a, b, c, d, e, f, g, h, i");
         System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
     }
-    public static void playGame() {
+
+    public static void userPlayableGame() {
         System.out.println();
         System.out.println("Setting up game...");
+        System.out.println("For a Human user...");
+    }
+
+    public static void errorExitingGame(){
+        System.out.println("ERROR: an error occurred returning to main Menu...exiting game...");
+    }
+
+    public static void displayTwoCards(Card firstCard, Card secondCard, String color, String prefixString){
+        System.out.print(color + prefixString + " " + firstCard + " and " + secondCard + COLOR_WHITE);
+    }
+
+    public static void displayThreeCards(Card firstCard, Card secondCard, Card thirdCard, String color, String prefixString) {
+        System.out.print(color + prefixString + " " + firstCard + ", " + secondCard + " and " + thirdCard + COLOR_WHITE);
+    }
+
+    public static void invalidCardSelection(){
+
+    }
+
+    public static void successfullCardSelection(){
+
+    }
+
+    public static void aiPlayableGame() {
+        System.out.println();
+        System.out.println("Setting up game...");
+        System.out.println("For an AI to play and user to watch...");
     }
 
     public static void enterInput() {

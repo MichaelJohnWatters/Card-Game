@@ -3,7 +3,7 @@ package main;
 public class GameMechanics {
 
     /**
-     * Checks if a main.Card is a face card
+     * Checks if a Card is a face card
      * @param aCard the card in question.
      * @return boolean
      */
@@ -24,6 +24,14 @@ public class GameMechanics {
         }
     }
 
+    /**
+     * Checks if the supplied Cards are face pairs, eg one of each King, Queen and Jack.
+     * Otherwise returns false.
+     * @param oneCard
+     * @param twoCard
+     * @param threeCard
+     * @return boolean
+     */
     public static boolean isFacePairs(Card oneCard, Card twoCard, Card threeCard){
         if (isFaceCard(oneCard) && isFaceCard(twoCard) && isFaceCard(threeCard)) {
             boolean foundKing = false;
@@ -50,12 +58,30 @@ public class GameMechanics {
         }
     }
 
+    /**
+     * Checks if the Supplied left and right cards, are a valid Elevens pair and returns true.
+     * otherwise returns false.
+     * @param lhs
+     * @param rhs
+     * @return boolean
+     */
     public static boolean isElevensPair(Card lhs, Card rhs) {
-        if (!isFaceCard(lhs) && !isFaceCard(rhs)){
-            return (lhs.getRank().getValue() + rhs.getRank().getValue()) == 11;
-        } else return false;
+        boolean isElevensPair = false;
+        if(lhs != null && rhs !=null) {
+            if (!isFaceCard(lhs) && !isFaceCard(rhs)){
+                if(lhs.getRank().getValue() + rhs.getRank().getValue() == 11){
+                    isElevensPair = true;
+                }
+            }
+        }
+        return isElevensPair;
     }
 
+    /**
+     * Converts chars from a-i to corresponding int values 0-8.
+     * @param letter
+     * @return int
+     */
     public static int cardSelectionCharToInt(char letter) {
         switch (letter){
             case 'a': return 0;
@@ -71,6 +97,11 @@ public class GameMechanics {
         }
     }
 
+    /**
+     * Converts int number 0-8 to corresponding String value of a-i
+     * @param number
+     * @return String
+     */
     public static String cardSelectionNumberToString(int number) {
         switch (number){
             case 0: return "a";
@@ -86,11 +117,17 @@ public class GameMechanics {
         }
     }
 
+    /**
+     * Checks if the input string contains a valid card selection.
+     * @param input
+     * @return
+     */
     public static boolean validStringSelection(String input) {
         boolean valid = true;
-
+        //TODO need to be false as default REWORK THIS METHOD
+        //TODO CHECK IF THE CARD IS NULL
         //if the input is greater than 2 but less than 3, check if characters selected are allow.
-        if(input.length() > 1 && input.length() < 4){
+        if(input.length() > 1 && input.length() < 4) {
             char[] inputAsCharArray = input.toLowerCase().toCharArray();
             //TODO alreadyAskedFor, cant ask for same card
             //char[] alreadyAskedFor = new char[9];
@@ -110,8 +147,14 @@ public class GameMechanics {
         return valid;
     }
 
+    /**
+     * Checks if the selected char is a valid card that can be choosen.
+     * Does not check if the card slot has a card.
+     * @param letter
+     * @return
+     */
     public static boolean allowedCharacter(char letter) {
-        char[] allowedChars = {'a','b','c','d','e','f','g','i'};
+        char[] allowedChars = {'a','b','c','d','e','f','g','h','i'};
         boolean contains = false;
 
         for (char character : allowedChars) {

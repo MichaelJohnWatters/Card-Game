@@ -1,6 +1,10 @@
 package main;
 
-public class Card {
+/**
+ * This Class is used to represent a Card with this application.
+ * Contains information about its house and its rank.
+ */
+public class Card extends Colors {
 
     private House house;
     private Rank rank;
@@ -24,17 +28,18 @@ public class Card {
     /**
      * Information such as the cards main.Rank and main.House as a String.
      *
-     * If is a face card will return main.Rank as String and its house, except Ace.
-     * If is a value card will return the value of the card and its house
+     * If is a face card will return Rank as String and its house including Ace(but is not a face card).
+     * If is a value card will return numeric the value of the card and its house.
      *
      * Example King of DIAMONDS
      * Example 10 of DIAMONDS
+     * Example Ace of Spades
      *
      * @return String, a description of the main.Card
      */
     @Override
     public String toString() {
-        if(rank.getValue() == -1) {
+        if(rank.getValue() == -1 || rank.getValue() == 1) {
             return rank.getRank() + " of " + house.toString();
         } else {
             return rank.getValue() + " of " + house.toString();
@@ -62,6 +67,7 @@ public class Card {
     }
 
     /**
+     * Converts the Cards Rank Value into a single or double letter digit.
      * @param aCard
      * @return String, single letter String value of main.House
      */
@@ -85,24 +91,18 @@ public class Card {
         return output;
     }
 
-    //colors for displaying cards.
-    private static final String RESET_COLOR = "\u001B[0m";
-    private static final String BLACK_COLOR = "\u001B[30m";
-    private static final String RED_COLOR = "\u001B[31m";
-
     /**
-     *
-     *
+     * Converts A Cards House Object into a Single Color coded Digit.
      * @param aCard
      * @return String, single letter String value of main.House
      */
     public static String extractHouseAsDigitWithColor(Card aCard) {
         String output = "";
         switch (aCard.getHouse()) {
-            case DIAMONDS : output = RED_COLOR   + "D" + RESET_COLOR; break;
-            case HEARTS   : output = RED_COLOR   + "H" + RESET_COLOR; break;
-            case CLUBS    : output = BLACK_COLOR + "C" + RESET_COLOR; break;
-            case SPADES   : output = BLACK_COLOR + "S" + RESET_COLOR; break;
+            case DIAMONDS : output = COLOR_RED   + "D" + COLOR_WHITE; break;
+            case HEARTS   : output = COLOR_RED   + "H" + COLOR_WHITE; break;
+            case CLUBS    : output = COLOR_GREEN + "C" + COLOR_WHITE; break;
+            case SPADES   : output = COLOR_GREEN + "S" + COLOR_WHITE; break;
         }
         return output;
     }

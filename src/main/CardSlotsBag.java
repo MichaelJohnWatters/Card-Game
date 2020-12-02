@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Queue;
+
 public final class CardSlotsBag {
 
     private Card[] bag;
@@ -37,6 +39,32 @@ public final class CardSlotsBag {
     }
 
     /**
+     * Returns the Card if it finds the Card otherwise returns false.
+     * @param cardValue
+     * @return
+     */
+    public Card findsAndReturnsCardValue(int cardValue) {
+        Card foundCard = null;
+        int index = 0;
+
+        while (index < bag.length) {
+
+            if(bag[index] != null){
+
+                if (bag[index].getRank().getValue() == cardValue) {
+
+                    if (!GameMechanics.isFaceCard(bag[index])) {
+                        foundCard = bag[index];
+                    }
+                }
+            }
+            index++;
+        }
+
+        return foundCard;
+    }
+
+    /**
      * Returns true if this contains 3 face cards of jack queen king.
      * @return boolean
      */
@@ -56,11 +84,30 @@ public final class CardSlotsBag {
             }
         }
 
-        //Return all flags, only returns true if all flags are true, otherwise false.
-        if (foundKing && foundQueen && foundJack) System.out.println("Contains 3 valid Face card pairs...");
-        else System.out.println("Does not contain 3 valid face card pairs...");
-
         return foundKing && foundQueen && foundJack;
+    }
+
+    /**
+     * If there is 3 face card pairs, returns an array with them, otherwise returns null;
+     * @return either null or Card Array of size 3 with the 3 face cards.
+     */
+    public Card[] findAndReturnKingQueenJackPair(){
+        Card king  = null;
+        Card queen = null;
+        Card jack  = null;
+
+        //for each card in bag if its not a null slot, look for each of King, Queen and Jack
+        for (Card card : bag) {
+            if (card != null) {
+                if (card.getRank().equals(Rank.KING))  king  = card;
+                if (card.getRank().equals(Rank.QUEEN)) queen = card;
+                if (card.getRank().equals(Rank.JACK))  jack  = card;
+            }
+        }
+
+        if(king != null && queen != null && jack != null){
+            return new Card[] {king, queen, jack};
+        } else return null;
     }
 
 
@@ -91,18 +138,41 @@ public final class CardSlotsBag {
                 }
             }
         }
-        if (!foundPair) System.out.println("No Elevens Pair"); else System.out.println("This round contains an Elevens pair");
         return foundPair;
     }
 
-//    public boolean containsRank(Rank cardRank) {
-//        boolean found = false;
-//        int index = 0;
-//        while (!found && index < bag.length) {
-//            if (bag[index++].getRank().equals(cardRank)) found = true;
-//        }
-//        return found;
-//    }
+    public Card[] findAndReturnElevensPair() {
+        Card[] foundElevensPair = null;
+
+        //Take each card in the cardSlotBag
+        for (Card card : bag) {
+
+            //if the card selected is not null then
+            if (card != null) {
+
+                //check if card is not a face card, as face cards are checked in method containsKingQueenJack.
+                if(!GameMechanics.isFaceCard(card)) {
+
+                    //if not a face card, find this cards pair, Elevens pairs will always be 11 minus the current cards value.
+                    int requiredPairValue = (11 - card.getRank().getValue());
+
+                    //search for the require value pair
+                    Card foundPairValueCard = this.findsAndReturnsCardValue(requiredPairValue);
+
+                    //if findsAndReturnsCardValue is not null we found the card.
+                    if(foundPairValueCard != null) {
+                        //return the found pair of cards in a Array of size 2.
+                        foundElevensPair = new Card[]{card, foundPairValueCard};
+
+                        //break out of the loop as we found our pair.
+                        break;
+                    }
+                }
+            }
+        }
+
+        return foundElevensPair;
+    }
 
     /**
      * Safe method of count the number of slots that are not null
@@ -203,7 +273,7 @@ public final class CardSlotsBag {
         int index = 0;
         while (!found && index < numberOfEntries)
             if (bag[index++].equals(anEntry)) found = true;
-            return found;
+        return found;
     }
 
     /**
@@ -240,7 +310,22 @@ public final class CardSlotsBag {
         }
     }
 
+    /**
+     * This method is used to display a cardSlotsBag
+     *
+     * Prints 3 rows of 3 cards, containing digit values representing houses and ranks.
+     */
     public void display(){
+        //TODO REMOVE after tests are done
+        System.out.println("a should be " + bag[0]);
+        System.out.println("b should be "  + bag[1]);
+        System.out.println("c should be "  + bag[2]);
+        System.out.println("d should be "  + bag[3]);
+        System.out.println("e should be "  + bag[4]);
+        System.out.println("f should be "  + bag[5]);
+        System.out.println("g should be "  + bag[6]);
+        System.out.println("h should be "  + bag[7]);
+        System.out.println("i should be "  + bag[8]);
 
         //16 space string, to pad out print lines if a card slot is empty.
         String hiddenCardStringRow = "                ";

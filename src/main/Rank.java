@@ -45,7 +45,6 @@ public enum Rank {
 
     /***
      * Get the integer value of a card.
-     *
      * @return Int
      */
     public int getValue() {
