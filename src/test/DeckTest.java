@@ -1,7 +1,10 @@
 package test;
 
 import junit.framework.TestCase;
-import main.*;
+import main.Card;
+import main.Deck;
+import main.House;
+import main.Rank;
 import org.junit.Test;
 
 public class DeckTest extends TestCase {
@@ -9,18 +12,40 @@ public class DeckTest extends TestCase {
     @Test
     public void testCreateFullDeckOfCards() {
         //Setup test
-        Deck testDeck = new Deck();
-        House[] houseArray = { House.SPADES};
-        Rank[] rankArray = { Rank.ACE};
+        Deck testDeck1 = new Deck();
+        Deck testDeck2 = new Deck();
+        Deck testDeck3 = new Deck();
+        Deck testDeck4 = new Deck();
+        //Pack of card typically comes in the reverse of this order, but will be correct when popping from the stack.
 
-        for (House house: houseArray) {
-            for (Rank rank: rankArray) {
-                testDeck.push(new Card(house, rank));
-            }
+        Card[] cards = {new Card(House.SPADES, Rank.KING), new Card(House.SPADES, Rank.QUEEN), new Card(House.SPADES, Rank.JACK), new Card(House.SPADES, Rank.TEN), new Card(House.SPADES, Rank.NINE), new Card(House.SPADES, Rank.EIGHT), new Card(House.SPADES, Rank.SEVEN), new Card(House.SPADES, Rank.SIX), new Card(House.SPADES, Rank.FIVE), new Card(House.SPADES, Rank.FOUR),
+                new Card(House.SPADES, Rank.THREE), new Card(House.SPADES, Rank.TWO), new Card(House.SPADES, Rank.ACE), new Card(House.DIAMONDS, Rank.KING), new Card(House.DIAMONDS, Rank.QUEEN), new Card(House.DIAMONDS, Rank.JACK), new Card(House.DIAMONDS, Rank.TEN), new Card(House.DIAMONDS, Rank.NINE), new Card(House.DIAMONDS, Rank.EIGHT), new Card(House.DIAMONDS, Rank.SEVEN),
+                new Card(House.DIAMONDS, Rank.SIX), new Card(House.DIAMONDS, Rank.FIVE), new Card(House.DIAMONDS, Rank.FOUR), new Card(House.DIAMONDS, Rank.THREE), new Card(House.DIAMONDS, Rank.TWO), new Card(House.DIAMONDS, Rank.ACE), new Card(House.CLUBS, Rank.KING), new Card(House.CLUBS, Rank.QUEEN), new Card(House.CLUBS, Rank.JACK), new Card(House.CLUBS, Rank.TEN),
+                new Card(House.CLUBS, Rank.NINE), new Card(House.CLUBS, Rank.EIGHT), new Card(House.CLUBS, Rank.SEVEN), new Card(House.CLUBS, Rank.SIX), new Card(House.CLUBS, Rank.FIVE), new Card(House.CLUBS, Rank.FOUR), new Card(House.CLUBS, Rank.THREE), new Card(House.CLUBS, Rank.TWO), new Card(House.CLUBS, Rank.ACE), new Card(House.HEARTS, Rank.KING),
+                new Card(House.HEARTS, Rank.QUEEN), new Card(House.HEARTS, Rank.JACK), new Card(House.HEARTS, Rank.TEN), new Card(House.HEARTS, Rank.NINE), new Card(House.HEARTS, Rank.EIGHT), new Card(House.HEARTS, Rank.SEVEN), new Card(House.HEARTS, Rank.SIX), new Card(House.HEARTS, Rank.FIVE), new Card(House.HEARTS, Rank.FOUR), new Card(House.HEARTS, Rank.THREE),
+                new Card(House.HEARTS, Rank.TWO), new Card(House.HEARTS, Rank.ACE)
+        };
+
+        //for each house, loop through each rank and push that card to the stack.
+        for (Card card: cards) {
+                testDeck2.push(card);
+        }
+        testDeck3.push(new Card(House.CLUBS,Rank.ACE));
+        testDeck4.push(new Card(House.CLUBS,Rank.ACE));
+
+        Card[] one = testDeck3.toArray();
+        Card[] two = testDeck4.toArray();
+
+        boolean test = true;
+
+        for (int i = 0; i < one.length; i++) {
+           if(one[i].getHouse() != two[i].getHouse() && one[i].getRank() != two[i].getRank()) {
+               test = false;
+           }
         }
 
-        //Assert
-        assertEquals("Ace of Spades", testDeck.peek());
+        assertEquals(true, test);
+
     }
 
     @Test
@@ -30,7 +55,7 @@ public class DeckTest extends TestCase {
         testDeck.push(new Card(House.SPADES, Rank.ACE));
 
         //Assert
-        assertEquals("Ace of Spades", testDeck.peek());
+        assertEquals("Ace of Spades", testDeck.peek().toString());
 
     }
 
@@ -43,7 +68,7 @@ public class DeckTest extends TestCase {
         testDeck.pop();
 
         //Assert
-        assertEquals("null", testDeck.peek());
+        assertNull(testDeck.peek());
     }
 
     @Test
@@ -55,7 +80,7 @@ public class DeckTest extends TestCase {
         var testPeek = testDeck.peek();
 
         //Assert
-        assertEquals("Ace of Spades", testPeek);
+        assertEquals("Ace of Spades", testPeek.toString());
     }
 
     @Test
@@ -64,7 +89,7 @@ public class DeckTest extends TestCase {
         Deck testDeck = new Deck();
 
         //Assert
-        assertFalse(testDeck.isEmpty());
+        assertEquals(true, testDeck.isEmpty());
     }
 
     @Test
@@ -76,11 +101,12 @@ public class DeckTest extends TestCase {
         testDeck.clear();
 
         //Assert
-        assertEquals("null", testDeck.peek());
+        assertNull(testDeck.peek());
     }
 
     @Test
     public void testRippleShuffle() {
+
 
     }
 
