@@ -1,5 +1,14 @@
 package main;
 
+/**
+ * This Class is a object that holds information about each round.
+ * As new rounds are created they will be enqueued and when we replay a round we can dequeue the round
+ *
+ */
+
+//TODO consider changing to a linked list
+//TODO ADD TESTS
+//TODO ADD JAVA DOC
 public class RoundQueue {
 
     private Round front, rear;

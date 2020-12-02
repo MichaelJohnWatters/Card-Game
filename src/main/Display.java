@@ -1,5 +1,6 @@
 package main;
 
+//TODO JAVA DOC/commennts
 public class Display extends Colors {
 
     public static void  welcome(){
@@ -59,10 +60,23 @@ public class Display extends Colors {
         System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
     }
 
+    public static void displayAIRound(Round currentRound){
+        System.out.println();
+        System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
+        currentRound.getCardSlotBag().display();
+        System.out.println();
+    }
+
     public static void userPlayableGame() {
         System.out.println();
         System.out.println("Setting up game...");
         System.out.println("For a Human user...");
+    }
+
+    public static void aiPlayableGame() {
+        System.out.println();
+        System.out.println("Setting up game...");
+        System.out.println("For an AI to play and user to watch...");
     }
 
     public static void errorExitingGame(){
@@ -83,12 +97,6 @@ public class Display extends Colors {
 
     public static void successfullCardSelection(){
 
-    }
-
-    public static void aiPlayableGame() {
-        System.out.println();
-        System.out.println("Setting up game...");
-        System.out.println("For an AI to play and user to watch...");
     }
 
     public static void enterInput() {

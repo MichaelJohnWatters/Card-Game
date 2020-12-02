@@ -1,7 +1,7 @@
 package main;
 
 /**
- * Note face cards values are set to -1, as in main.Elevens face cards to not have a usable value.
+ * Note face cards values are set to -1, as in Elevens face cards to not have a usable value.
  * So we have assigned face cards a value of -1.
  */
 public enum Rank {
@@ -61,5 +61,4 @@ public enum Rank {
     public String toString() {
         return rank;
     }
-
 }

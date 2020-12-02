@@ -2,6 +2,8 @@ package main;
 
 import java.util.Queue;
 
+//TODO write java doc and comments
+//TODO write tests
 public final class CardSlotsBag {
 
     private Card[] bag;

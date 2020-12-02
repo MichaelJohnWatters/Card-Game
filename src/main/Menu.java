@@ -1,7 +1,5 @@
 package main;
 
-import com.sun.tools.javac.Main;
-
 import java.util.Scanner;
 
 public class Menu {

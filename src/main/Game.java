@@ -2,6 +2,8 @@ package main;
 
 import java.util.Scanner;
 
+//TODO JAVA DOC
+// TODO TESTS
 public class Game extends Colors {
 
     private Deck deck;
@@ -35,10 +37,8 @@ public class Game extends Colors {
 
     //TODO AI plays game, user does key press for each round like we do below.
     public Game computerPlayableGame(){
-
         boolean playing = true;
         int roundNumber = 0;
-        //boolean won = false;
 
         //Perform actions once per game here.
         Display.aiPlayableGame();
@@ -64,42 +64,61 @@ public class Game extends Colors {
             currentRound.replaceEmptyCardSlots(deck);
 
             //stalemate check
-            //TODO remove ! when ready
-            if (!currentRound.isStalemate()) {
-                System.out.println("Game is stalemate..");
+            if (currentRound.isStalemate()) {
+                System.out.println();
+                System.out.println(COLOR_RED + "Game is stalemate..." + COLOR_WHITE);
+                System.out.println();
+                System.out.println("Your last Hand was:");
+                currentRound.getCardSlotBag().display();
+                System.out.println();
                 gameResult = false;
                 playing = false;
-            }
-
-            //TODO TEMP win condition for simulation
-            if(roundNumber == 5){
-                gameResult = true;
-                playing = false;
-            }
-
-            //winning check, if still empty after attempting to draw cards, we have won.
-            if (currentRound.getCardSlotBag().isEmpty()) {
-                gameResult = true;
-                playing = false;
+                break;
             }
 
             //Display current round to terminal
-            Display.displayRound(currentRound);
+            Display.displayAIRound(currentRound);
 
-            //game is not a stalemate and we have not won, so allow user to select cards.
-            String selectedCardsOrHint = "";
-
-            //TODO change to AI selection
+            //Hint for player's benefit
+            System.out.println(COLOR_GREEN + "Hint for Player's benefit: " + COLOR_WHITE);
             if(currentRound.getCardSlotBag().containsElevensPair()){
+                Card[] foundPair = currentRound.getCardSlotBag().findAndReturnElevensPair();
+                try {
+                    for (Card card: foundPair) {
+                        System.out.println(COLOR_RED + card + COLOR_WHITE);
+                    }
+                } catch (Exception e){
+                    Display.errorExitingGame();
+                    gameResult =  false;
+                    playing = false;
+                    break;
+                }
+            } else if(currentRound.getCardSlotBag().containsKingQueenJack()) {
+                Card[] foundFacePairs = currentRound.getCardSlotBag().findAndReturnKingQueenJackPair();
+
+                try {
+                    for (Card card: foundFacePairs) { // should never return null as we perform containsKingQueenJack() but added - try for safety.
+                        System.out.println(COLOR_RED + card + COLOR_WHITE);
+                    }
+                } catch (Exception e){
+                    Display.errorExitingGame();
+                    gameResult =  false;
+                    playing = false;
+                    break;
+                }
+            }
+
+            if(currentRound.getCardSlotBag().containsElevensPair()) {
 
                 Card[] elevensPairArray = currentRound.getCardSlotBag().findAndReturnElevensPair();
 
                 if(elevensPairArray != null){
-                    System.out.print("AI has selected elevens pair:");
+                    System.out.println(COLOR_GREEN + "AI has selected elevens pair:" + COLOR_WHITE);
                     for (Card card: elevensPairArray) {
                         System.out.print(" " + card);
                         currentRound.getCardSlotBag().remove(card);
                     }
+                    System.out.println();
                 }
 
             } else if (currentRound.getCardSlotBag().containsKingQueenJack()) {
@@ -107,13 +126,12 @@ public class Game extends Colors {
                 Card[] elevensFacePairsArray = currentRound.getCardSlotBag().findAndReturnKingQueenJackPair();
 
                 if(elevensFacePairsArray != null){
-                    System.out.print("AI has selected face card elevens pairs:");
+                    System.out.println(COLOR_GREEN +"AI has selected face card elevens pairs:" + COLOR_WHITE);
                     for (Card card: elevensFacePairsArray) {
                         System.out.print(" " + card);
                         currentRound.getCardSlotBag().remove(card);
                     }
                 }
-
             } else {
                 //should never get hit but better to be safe
                 //AI can't find a suitable selection to win the round so we lost the game.
@@ -122,9 +140,7 @@ public class Game extends Colors {
                 playing = false;
             }
 
-            //TODO change to AI selection
-
-            //if we get to this point the AI has made a round winning selection.
+            //if we get to this point the user has made a round winning selection.
             //prepare and create the next round
             roundNumber++;
             CardSlotsBag copyOfBag = new CardSlotsBag(currentRound.getCardSlotBag().toArrayCopy());
@@ -134,18 +150,25 @@ public class Game extends Colors {
             //set the current round to the next round, so when we loop to the top of the while we are in the correct round.
             currentRound = currentRound.getNextRound();
 
+            //winning check, if cardslotBag is empty and deck is empty we have won
+            if (currentRound.getCardSlotBag().isEmpty() && deck.isEmpty()) {
+                gameResult = true;
+                playing = false; //TODO we either need this var or use while(true) and use breaks to exit.
+                break;
+            }
+
             //prompt to key press to continue, prevents user confusion, user can except what will happen
-            System.out.println("The AI has Won this round! I hope you learned something... press enter to continue...");
+            System.out.println("The AI has won this round! press enter to continue...");
             keyPressScanner.nextLine();
         }
 
         if(gameResult){
             System.out.println();
-            System.out.println(COLOR_GREEN + "Congratz!! you have won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)" + COLOR_WHITE);
+            System.out.println(COLOR_GREEN + "The AI has won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)" + COLOR_WHITE);
             System.out.println();
         } else {
             System.out.println();
-            System.out.println(COLOR_RED + "Sadly you have lost this Game, better luck next time!" + COLOR_WHITE);
+            System.out.println(COLOR_RED + "The AI has lost this game!" + COLOR_WHITE);
             System.out.println();
         }
 
@@ -184,9 +207,12 @@ public class Game extends Colors {
             currentRound.replaceEmptyCardSlots(deck);
 
             //stalemate check
-            //TODO remove ! when ready
             if (currentRound.isStalemate()) {
                 System.out.println("Game is stalemate..");
+                System.out.println();
+                System.out.println("Your last Hand was:");
+                currentRound.getCardSlotBag().display();
+                System.out.println();
                 gameResult = false;
                 playing = false;
                 break;
