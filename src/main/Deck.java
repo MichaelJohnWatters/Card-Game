@@ -2,6 +2,8 @@ package main;
 
 import java.util.Random;
 
+//TODO write better java doc
+//TODO write TESTs
 public class Deck {
 
     private CardNode topNode;

@@ -1,5 +1,9 @@
 package main;
 
+/**
+ * This Class represents each round within a game,
+ * It stores information about each round.
+ */
 public class Round {
 
     private int roundNumber;

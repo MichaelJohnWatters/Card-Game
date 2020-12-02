@@ -2,6 +2,8 @@ package main;
 
 import java.util.Queue;
 
+//TODO write java doc and comments
+//TODO write tests
 public final class CardSlotsBag {
 
     private Card[] bag;
@@ -240,19 +242,22 @@ public final class CardSlotsBag {
         return removeElementAt(numberOfEntries-1);
     }
 
-    public boolean remove(Card anEntry) {
+    public Card remove(Card anEntry) {
         boolean found = false;
+        Card cardToReturn =  null;
         int index = 0;
         while(!found && index < numberOfEntries)
             if(bag[index].equals(anEntry)) found = true;
             else  index++;
 
-        if(found) removeElementAt(index);
-        return found;
+        if(found) {
+            cardToReturn = removeElementAt(index);
+        }
+        return cardToReturn;
     }
 
     //in demo
-    private Card removeElementAt(int index){
+    private Card removeElementAt(int index) {
         Card result = null;
 
         if(!isEmpty() && index >= 0 && index < numberOfEntries) {

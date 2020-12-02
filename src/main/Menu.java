@@ -1,7 +1,5 @@
 package main;
 
-import com.sun.tools.javac.Main;
-
 import java.util.Scanner;
 
 public class Menu {
@@ -83,7 +81,7 @@ public class Menu {
                 System.out.println("WARNINGNERROR NOT IMPLEMENNTED");
                 System.exit(1);
             case "3": //Return to main.Game main.Menu
-                System.out.println("Returning to main.Game Menu");
+                System.out.println("Returning to Game Menu");
                 GameMenu();
             default: //Notify Invalid input and go to PostGameMenu
                 Display.invalidInput();

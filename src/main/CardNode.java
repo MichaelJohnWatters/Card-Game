@@ -1,5 +1,7 @@
 package main;
 
+//TODO write java doc and comments
+//TODO write tests
 public class CardNode {
     private Card data;
     private CardNode next;
