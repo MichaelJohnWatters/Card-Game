@@ -25,46 +25,43 @@ public class Display extends Colors {
         enterInput();
     }
 
-    public static void displayPostGameMenu(Game lastGame) {
-        if (lastGame.getGameResult()){
-            System.out.println(COLOR_GREEN + "You Won the Last Game.. Congrats! What would you like to do?" + COLOR_WHITE);
-        } else {
-            System.out.println(COLOR_RED + "You failed the Last Game.. what would you like to do?" + COLOR_WHITE);
-        }
-        System.out.println();
-        System.out.println("Post Game Menu");
-        System.out.println("1) Retry Elevens Game!");
-        System.out.println("2) Action Replay of the Last Games's Rounds!");
-        System.out.println("3) Back to Game Men");
-        System.out.println();
+    public static void displayGameCrashed(){
+        System.out.println("The Game Crashed return to main menu...");
+    }
 
+    public static void displayPostGameMenu(Game lastGame) {
         String resultString = "";
         System.out.println(" --- Last Games Stats --- ");
         if(lastGame.getGameResult()) resultString = " Win !"; else  resultString= " Lost !";
         System.out.println("Result: " + resultString);
         System.out.println("Rounds completed successfully: " + "TODO");
         System.out.println("Cards in deck: " + lastGame.getDeck().countNumberOfCards());
+        System.out.println("Cards in play: " + lastGame.getCurrentRound().getCardsInPlayBag().countCards());
         System.out.println("Cards in discard deck: " + lastGame.getDiscardDeck().countNumberOfCards());
-
+        System.out.println();
+        System.out.println("Post Game Menu");
+        System.out.println("1) Retry (play again)");
+        System.out.println("2) Action Replay of the Last Games's Rounds!");
+        System.out.println("3) Back to Game Men");
         enterInput();
     }
 
     public static void displayRound(Round currentRound){
         System.out.println();
         System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
-        currentRound.getCardSlotBag().display();
+        currentRound.getCardsInPlayBag().display();
         System.out.println();
         System.out.println("Input Options:");
         System.out.println("    hint - displays a hint about cards to pick.");
         System.out.println("    quit - quit to post game .");
-        System.out.println("    valid cards: a, b, c, d, e, f, g, h, i");
+        System.out.println("    valid card selection: a, b, c, d, e, f, g, h, i");
         System.out.println("    select 2 cards: 'ab' for Elevens pair, or 3 cards: 'abc' for face Pairs.");
     }
 
     public static void displayAIRound(Round currentRound){
         System.out.println();
         System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
-        currentRound.getCardSlotBag().display();
+        currentRound.getCardsInPlayBag().display();
         System.out.println();
     }
 

@@ -7,13 +7,14 @@ package main;
 public class Round {
 
     private int roundNumber;
-    private CardSlotsBag cardSlotBag;
     private Round nextRound;
 
-    //Used to remember each rounds actions.
-//    private Card[] drawnCardsMemory = new Card[9];
-//    private Card[] bagCardSlotsMemory = new Card[9];
-//    private Card[] pairsRemovedMemory = new Card[3];
+    //Cards in play in current round.
+    private CardSlotsBag cardsInPlayBag;
+
+    //Used to remember each rounds events, such as drawn cards and discarded cards.
+    private CardSlotsBag roundMemoryDrawCards;
+    private CardSlotsBag roundMemoryDiscardCards;
 
     /**
      * Used for subsequent rounds
@@ -24,19 +25,23 @@ public class Round {
      * At instaiation of a round there will be currently no next round.
      *
      * @param roundNumber the number of the round.
-     * @param cardSlotBag a bag for Cards representing cards in play.
+     * @param cardsInPlayBag a bag for Cards representing cards in play.
      */
-    public Round(int roundNumber, CardSlotsBag cardSlotBag) {
+    public Round(int roundNumber, CardSlotsBag cardsInPlayBag) {
         this.roundNumber = roundNumber;
-        this.cardSlotBag = cardSlotBag;
-        this.nextRound = null; //next round is always null until set by setNextRound()
+        this.cardsInPlayBag = cardsInPlayBag;
+        this.roundMemoryDrawCards = new CardSlotsBag();
+        this.roundMemoryDiscardCards = new CardSlotsBag();
+        this.nextRound = null;
     }
 
     //for the first round in a game
     public Round(int roundNumber) {
         this.roundNumber = roundNumber;
-        this.cardSlotBag = new CardSlotsBag(); // new empty cardSlotBag,
-        this.nextRound = null; //next round is always null until set by setNextRound()
+        this.cardsInPlayBag = new CardSlotsBag();
+        this.roundMemoryDrawCards = new CardSlotsBag();
+        this.roundMemoryDiscardCards = new CardSlotsBag();
+        this.nextRound = null;
     }
 
     private static Card drawFromDeck(Deck deck){
@@ -44,7 +49,7 @@ public class Round {
     }
 
     public boolean isStalemate() {
-        if(cardSlotBag.containsKingQueenJack() || cardSlotBag.containsElevensPair()) {
+        if(cardsInPlayBag.containsKingQueenJack() || cardsInPlayBag.containsElevensPair()) {
             return false;
         } else {
             return true;
@@ -53,9 +58,9 @@ public class Round {
 
     public void replaceEmptyCardSlots(Deck deck) {
         //if not all slots in the bag are filled draw new cards.
-        if(!cardSlotBag.isArrayFull()) {
+        if(!cardsInPlayBag.isArrayFull()) {
 
-            int cardsToDraw = cardSlotBag.countEmptySlots();
+            int cardsToDraw = cardsInPlayBag.countEmptySlots();
             System.out.println("number of Cards to be drawn: " + cardsToDraw);
 
             if(cardsToDraw != 0) {
@@ -68,7 +73,10 @@ public class Round {
                     if(drawnCard != null){
                         System.out.print(" " + drawnCard.toString());
 
-                        boolean added = cardSlotBag.addNewEntry(drawnCard);
+                        boolean added = cardsInPlayBag.addNewEntry(drawnCard);
+
+                        //Add to round memory of drawn Cards for replay feature
+                        roundMemoryDrawCards.addNewEntry(drawnCard);
 
                         if(added){
                             System.out.println(" was drawn...");
@@ -81,6 +89,26 @@ public class Round {
         }
     }
 
+    public CardSlotsBag getRoundMemoryDrawCards() {
+        return roundMemoryDrawCards;
+    }
+
+    public void setRoundMemoryDrawCards(CardSlotsBag roundMemoryDrawCards) {
+        this.roundMemoryDrawCards = roundMemoryDrawCards;
+    }
+
+    public CardSlotsBag getRoundMemoryDiscardCards() {
+        return roundMemoryDiscardCards;
+    }
+
+    public void setRoundMemoryDiscardCards(CardSlotsBag roundMemoryDiscardCards) {
+        this.roundMemoryDiscardCards = roundMemoryDiscardCards;
+    }
+
+    public void updateDiscardCardMemory(Card card) {
+        this.roundMemoryDiscardCards.addNewEntry(card);
+    }
+
     public int getRoundNumber() {
         return roundNumber;
     }
@@ -89,12 +117,12 @@ public class Round {
         this.roundNumber = roundNumber;
     }
 
-    public CardSlotsBag getCardSlotBag() {
-        return cardSlotBag;
+    public CardSlotsBag getCardsInPlayBag() {
+        return cardsInPlayBag;
     }
 
-    public void setCardSlotBag(CardSlotsBag cardSlotBag) {
-        this.cardSlotBag = cardSlotBag;
+    public void setCardsInPlayBag(CardSlotsBag cardsInPlayBag) {
+        this.cardsInPlayBag = cardsInPlayBag;
     }
 
     public Round getNextRound() {

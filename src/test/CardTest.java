@@ -9,7 +9,7 @@ public class CardTest extends TestCase {
     private Card test2Card = new Card(House.DIAMONDS,Rank.TWO);
 
     public void testToString() {
-        assertEquals(test1Card.toString(), "1 of Clubs");
+        assertEquals(test1Card.toString(), "Ace of Clubs");
         assertEquals(test2Card.toString(), "2 of Diamonds");
     }
 
@@ -29,7 +29,7 @@ public class CardTest extends TestCase {
     }
 
     public void testExtractHouseAsDigit() {
-        assertEquals(Card.extractHouseAsDigitWithColor(test1Card),"C");
-        assertEquals(Card.extractHouseAsDigitWithColor(test2Card),"D");
+        assertEquals(Card.extractHouseAsDigitWithColor(test1Card).toString(),"C");
+        assertEquals(Card.extractHouseAsDigitWithColor(test2Card).toString(),"D");
     }
 }

@@ -14,6 +14,15 @@ public class Game extends Colors {
     private Scanner keyPressScanner = new Scanner(System.in);
     private boolean gameResult = false;
 
+    /**
+     * This constructor will consist all the components required to play a game.
+     */
+    public Game() {
+        this.deck = new Deck();
+        this.discardDeck = new Deck();
+        this.roundQueue = null;
+    }
+
     public Deck getDeck() {
         return deck;
     }
@@ -26,17 +35,16 @@ public class Game extends Colors {
         return roundQueue;
     }
 
-    /**
-     * This constructor will consist all the components required to play a game.
-     */
-    public Game() {
-        this.deck = new Deck();
-        this.discardDeck = new Deck();
-        this.roundQueue = null;  //Will be assigned a value in the Play method for readability.
+    public Round getCurrentRound() {
+        return currentRound;
     }
 
+    public boolean getGameResult(){
+        return gameResult;
+    }
+
+
     public Game computerPlayableGame(){
-        boolean playing = true;
         int roundNumber = 0;
 
         //Perform actions once per game here.
@@ -56,9 +64,9 @@ public class Game extends Colors {
         //set the current round.
         currentRound = roundQueue.getFront();
 
-        //Effectively each loop back to the top of the while(playing) is a new round.
+        //Each loop is a new round.
+        //This loop is only broken if we win or lose, in which we exit with break.
         while(true) {
-        //while(playing) {
 
             //Try replace empty slots with new card from the top of the deck.
             currentRound.replaceEmptyCardSlots(deck);
@@ -68,10 +76,9 @@ public class Game extends Colors {
 
                 //display isStalemate system.out
                 Display.displayIsStalemate();
-                currentRound.getCardSlotBag().display();
+                currentRound.getCardsInPlayBag().display();
 
                 gameResult = false;
-                //playing = false;
                 break;
             }
 
@@ -80,8 +87,8 @@ public class Game extends Colors {
 
             //Hint for player's benefit
             System.out.println(COLOR_GREEN + "Hint for Player's benefit: " + COLOR_WHITE);
-            if(currentRound.getCardSlotBag().containsElevensPair()){
-                Card[] foundPair = currentRound.getCardSlotBag().findAndReturnElevensPair();
+            if(currentRound.getCardsInPlayBag().containsElevensPair()){
+                Card[] foundPair = currentRound.getCardsInPlayBag().findAndReturnElevensPair();
                 try {
                     for (Card card: foundPair) {
                         System.out.println(COLOR_RED + card + COLOR_WHITE);
@@ -89,11 +96,10 @@ public class Game extends Colors {
                 } catch (Exception e){
                     Display.errorExitingGame();
                     gameResult =  false;
-                    //playing = false;
                     break;
                 }
-            } else if(currentRound.getCardSlotBag().containsKingQueenJack()) {
-                Card[] foundFacePairs = currentRound.getCardSlotBag().findAndReturnKingQueenJackPair();
+            } else if(currentRound.getCardsInPlayBag().containsKingQueenJack()) {
+                Card[] foundFacePairs = currentRound.getCardsInPlayBag().findAndReturnKingQueenJackPair();
 
                 try {
                     for (Card card: foundFacePairs) { // should never return null as we perform containsKingQueenJack() but added - try for safety.
@@ -102,33 +108,34 @@ public class Game extends Colors {
                 } catch (Exception e){
                     Display.errorExitingGame();
                     gameResult =  false;
-                    //playing = false;
                     break;
                 }
             }
 
-            if(currentRound.getCardSlotBag().containsElevensPair()) {
+            if(currentRound.getCardsInPlayBag().containsElevensPair()) {
 
-                Card[] elevensPairArray = currentRound.getCardSlotBag().findAndReturnElevensPair();
+                Card[] elevensPairArray = currentRound.getCardsInPlayBag().findAndReturnElevensPair();
 
                 if(elevensPairArray != null){
                     System.out.println(COLOR_GREEN + "AI has selected elevens pair:" + COLOR_WHITE);
                     for (Card card: elevensPairArray) {
                         System.out.print(" " + card);
-                        discardDeck.push(currentRound.getCardSlotBag().remove(card));
+                        discardDeck.push(currentRound.getCardsInPlayBag().remove(card));
+                        currentRound.updateDiscardCardMemory(card);
                     }
                     System.out.println();
                 }
 
-            } else if (currentRound.getCardSlotBag().containsKingQueenJack()) {
+            } else if (currentRound.getCardsInPlayBag().containsKingQueenJack()) {
 
-                Card[] elevensFacePairsArray = currentRound.getCardSlotBag().findAndReturnKingQueenJackPair();
+                Card[] elevensFacePairsArray = currentRound.getCardsInPlayBag().findAndReturnKingQueenJackPair();
 
                 if(elevensFacePairsArray != null){
                     System.out.println(COLOR_GREEN +"AI has selected face card elevens pairs:" + COLOR_WHITE);
                     for (Card card: elevensFacePairsArray) {
                         System.out.print(" " + card);
-                        discardDeck.push(currentRound.getCardSlotBag().remove(card));
+                        discardDeck.push(currentRound.getCardsInPlayBag().remove(card));
+                        currentRound.updateDiscardCardMemory(card);
                     }
                 }
             } else {
@@ -136,26 +143,25 @@ public class Game extends Colors {
                 //AI can't find a suitable selection to win the round so we lost the game.
                 System.out.println(COLOR_RED + "The Impossible happened the AI could not find a suitable Win Scenario.....!" + COLOR_WHITE);
                 gameResult = false;
-                //playing = false;
                 break;
             }
 
             //if we get to this point the user has made a round winning selection.
+
+            //winning check, if cardslotBag is empty and deck is empty we have won
+            if (currentRound.getCardsInPlayBag().isEmpty() && deck.isEmpty()) {
+                gameResult = true;
+                break;
+            }
+
             //prepare and create the next round
             roundNumber++;
-            CardSlotsBag copyOfBag = new CardSlotsBag(currentRound.getCardSlotBag().toArrayCopy());
+            CardSlotsBag copyOfBag = new CardSlotsBag(currentRound.getCardsInPlayBag().toArrayCopy());
             Round nextRound = new Round(roundNumber, copyOfBag);
             roundQueue.enqueue(nextRound);
 
             //set the current round to the next round, so when we loop to the top of the while we are in the correct round.
             currentRound = currentRound.getNextRound();
-
-            //winning check, if cardslotBag is empty and deck is empty we have won
-            if (currentRound.getCardSlotBag().isEmpty() && deck.isEmpty()) {
-                gameResult = true;
-                //playing = false;
-                break;
-            }
 
             //prompt to key press to continue, prevents user confusion, user can except what will happen
             System.out.println("The AI has won this round! press enter to continue...");
@@ -202,7 +208,7 @@ public class Game extends Colors {
             if (currentRound.isStalemate()) {
                 //display isStalemate system.out
                 Display.displayIsStalemate();
-                currentRound.getCardSlotBag().display();
+                currentRound.getCardsInPlayBag().display();
                 gameResult = false;
                 playing = false;
                 break;
@@ -226,9 +232,9 @@ public class Game extends Colors {
 
                     System.out.println(COLOR_GREEN + "Hint: " + COLOR_WHITE);
 
-                    if(currentRound.getCardSlotBag().containsElevensPair()) {
+                    if(currentRound.getCardsInPlayBag().containsElevensPair()) {
 
-                        Card[] foundPair = currentRound.getCardSlotBag().findAndReturnElevensPair();
+                        Card[] foundPair = currentRound.getCardsInPlayBag().findAndReturnElevensPair();
 
                         try {
                             for (Card card: foundPair) {
@@ -241,9 +247,9 @@ public class Game extends Colors {
                             break;
                         }
 
-                    } else if(currentRound.getCardSlotBag().containsKingQueenJack()) {
+                    } else if(currentRound.getCardsInPlayBag().containsKingQueenJack()) {
 
-                        Card[] foundFacePairs = currentRound.getCardSlotBag().findAndReturnKingQueenJackPair();
+                        Card[] foundFacePairs = currentRound.getCardsInPlayBag().findAndReturnKingQueenJackPair();
 
                         try {
                             for (Card card: foundFacePairs) { // will never return null as we perform containsKingQueenJack() before.
@@ -271,8 +277,8 @@ public class Game extends Colors {
 
                         char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
 
-                        Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
-                        Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
+                        Card firstCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
+                        Card secondCard = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
                         System.out.println(COLOR_GREEN + "you selected : " + firstCard + " and " + secondCard + COLOR_WHITE);
 
@@ -282,8 +288,12 @@ public class Game extends Colors {
                             Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_GREEN,"Success! Your selected cards were a valid Elevens pair: ");
 
                             //remove the valid cards.
-                            discardDeck.push(currentRound.getCardSlotBag().remove(firstCard));
-                            discardDeck.push(currentRound.getCardSlotBag().remove(secondCard));
+                            discardDeck.push(currentRound.getCardsInPlayBag().remove(firstCard));
+                            discardDeck.push(currentRound.getCardsInPlayBag().remove(secondCard));
+
+                            //update round memory for replay feature
+                            currentRound.updateDiscardCardMemory(firstCard);
+                            currentRound.updateDiscardCardMemory(secondCard);
 
                             roundWinningSelection = true;
                         } else {
@@ -296,9 +306,9 @@ public class Game extends Colors {
 
                         char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
                         //todo some checks here
-                        Card firstCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
-                        Card secondCard = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
-                        Card thirdCard  = currentRound.getCardSlotBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
+                        Card firstCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
+                        Card secondCard = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
+                        Card thirdCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
 
                         Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "You Selected: ");
 
@@ -308,9 +318,14 @@ public class Game extends Colors {
                             Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "Success! Your selected cards did contain a King, Queen and a Jack...");
 
                             //remove the valid cards.
-                            discardDeck.push(currentRound.getCardSlotBag().remove(firstCard));
-                            discardDeck.push(currentRound.getCardSlotBag().remove(secondCard));
-                            discardDeck.push(currentRound.getCardSlotBag().remove(thirdCard));
+                            discardDeck.push(currentRound.getCardsInPlayBag().remove(firstCard));
+                            discardDeck.push(currentRound.getCardsInPlayBag().remove(secondCard));
+                            discardDeck.push(currentRound.getCardsInPlayBag().remove(thirdCard));
+
+                            //update round memory for replay feature
+                            currentRound.updateDiscardCardMemory(firstCard);
+                            currentRound.updateDiscardCardMemory(secondCard);
+                            currentRound.updateDiscardCardMemory(thirdCard);
 
                             roundWinningSelection = true;
                         } else {
@@ -323,22 +338,23 @@ public class Game extends Colors {
                 }
             }
 
+            //winning check, if cardslotBag is empty and deck is empty we have won
+            if (currentRound.getCardsInPlayBag().isEmpty() && deck.isEmpty()) {
+                gameResult = true;
+                playing = false; //TODO we either need this var or use while(true) and use breaks to exit.
+                break;
+            }
+
             //if we get to this point the user has made a round winning selection.
             //prepare and create the next round
             roundNumber++;
-            CardSlotsBag copyOfBag = new CardSlotsBag(currentRound.getCardSlotBag().toArrayCopy());
+            CardSlotsBag copyOfBag = new CardSlotsBag(currentRound.getCardsInPlayBag().toArrayCopy());
             Round nextRound = new Round(roundNumber, copyOfBag);
             roundQueue.enqueue(nextRound);
 
             //set the current round to the next round, so when we loop to the top of the while we are in the correct round.
             currentRound = currentRound.getNextRound();
 
-            //winning check, if cardslotBag is empty and deck is empty we have won
-            if (currentRound.getCardSlotBag().isEmpty() && deck.isEmpty()) {
-                gameResult = true;
-                playing = false; //TODO we either need this var or use while(true) and use breaks to exit.
-                break;
-            }
 
             //prompt to key press to continue, prevents user confusion, user can except what will happen
             System.out.println("You have Won this round! press enter to continue...");
@@ -354,9 +370,6 @@ public class Game extends Colors {
         return this;
     }
 
-    public boolean getGameResult(){
-        return gameResult;
-    }
 
     private static boolean askedForHint(String input){
         if (input.toLowerCase().equals("hint")) return true; else return false;
