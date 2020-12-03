@@ -12,39 +12,47 @@ public class DeckTest extends TestCase {
     @Test
     public void testCreateFullDeckOfCards() {
         //Setup test
-        Deck testDeck1 = new Deck();
-        Deck testDeck2 = new Deck();
+        Deck acctualDeck = new Deck();
+        Deck expectedDeck = new Deck();
 
-        //Pack of card typically comes in the reverse of this order, but will be correct when popping from the stack.
-
-        Card[] cards = {new Card(House.SPADES, Rank.KING), new Card(House.SPADES, Rank.QUEEN), new Card(House.SPADES, Rank.JACK), new Card(House.SPADES, Rank.TEN), new Card(House.SPADES, Rank.NINE), new Card(House.SPADES, Rank.EIGHT), new Card(House.SPADES, Rank.SEVEN), new Card(House.SPADES, Rank.SIX), new Card(House.SPADES, Rank.FIVE), new Card(House.SPADES, Rank.FOUR),
-                new Card(House.SPADES, Rank.THREE), new Card(House.SPADES, Rank.TWO), new Card(House.SPADES, Rank.ACE), new Card(House.DIAMONDS, Rank.KING), new Card(House.DIAMONDS, Rank.QUEEN), new Card(House.DIAMONDS, Rank.JACK), new Card(House.DIAMONDS, Rank.TEN), new Card(House.DIAMONDS, Rank.NINE), new Card(House.DIAMONDS, Rank.EIGHT), new Card(House.DIAMONDS, Rank.SEVEN),
-                new Card(House.DIAMONDS, Rank.SIX), new Card(House.DIAMONDS, Rank.FIVE), new Card(House.DIAMONDS, Rank.FOUR), new Card(House.DIAMONDS, Rank.THREE), new Card(House.DIAMONDS, Rank.TWO), new Card(House.DIAMONDS, Rank.ACE), new Card(House.CLUBS, Rank.KING), new Card(House.CLUBS, Rank.QUEEN), new Card(House.CLUBS, Rank.JACK), new Card(House.CLUBS, Rank.TEN),
-                new Card(House.CLUBS, Rank.NINE), new Card(House.CLUBS, Rank.EIGHT), new Card(House.CLUBS, Rank.SEVEN), new Card(House.CLUBS, Rank.SIX), new Card(House.CLUBS, Rank.FIVE), new Card(House.CLUBS, Rank.FOUR), new Card(House.CLUBS, Rank.THREE), new Card(House.CLUBS, Rank.TWO), new Card(House.CLUBS, Rank.ACE), new Card(House.HEARTS, Rank.KING),
-                new Card(House.HEARTS, Rank.QUEEN), new Card(House.HEARTS, Rank.JACK), new Card(House.HEARTS, Rank.TEN), new Card(House.HEARTS, Rank.NINE), new Card(House.HEARTS, Rank.EIGHT), new Card(House.HEARTS, Rank.SEVEN), new Card(House.HEARTS, Rank.SIX), new Card(House.HEARTS, Rank.FIVE), new Card(House.HEARTS, Rank.FOUR), new Card(House.HEARTS, Rank.THREE),
-                new Card(House.HEARTS, Rank.TWO), new Card(House.HEARTS, Rank.ACE)
+        //valid Pack of cards
+        Card[] cards = {
+                 new Card(House.SPADES, Rank.KING),   new Card(House.SPADES, Rank.QUEEN),   new Card(House.SPADES, Rank.JACK),     new Card(House.SPADES, Rank.TEN),
+                 new Card(House.SPADES, Rank.NINE),   new Card(House.SPADES, Rank.EIGHT),   new Card(House.SPADES, Rank.SEVEN),    new Card(House.SPADES, Rank.SIX),
+                 new Card(House.SPADES, Rank.FIVE),   new Card(House.SPADES, Rank.FOUR),    new Card(House.SPADES, Rank.THREE),    new Card(House.SPADES, Rank.TWO),
+                 new Card(House.SPADES, Rank.ACE),    new Card(House.DIAMONDS, Rank.KING),  new Card(House.DIAMONDS, Rank.QUEEN),  new Card(House.DIAMONDS, Rank.JACK),
+                 new Card(House.DIAMONDS, Rank.TEN),  new Card(House.DIAMONDS, Rank.NINE),  new Card(House.DIAMONDS, Rank.EIGHT),  new Card(House.DIAMONDS, Rank.SEVEN),
+                 new Card(House.DIAMONDS, Rank.SIX),  new Card(House.DIAMONDS, Rank.FIVE),  new Card(House.DIAMONDS, Rank.FOUR),   new Card(House.DIAMONDS, Rank.THREE),
+                 new Card(House.DIAMONDS, Rank.TWO),  new Card(House.DIAMONDS, Rank.ACE),   new Card(House.CLUBS, Rank.KING),      new Card(House.CLUBS, Rank.QUEEN),
+                 new Card(House.CLUBS, Rank.JACK),    new Card(House.CLUBS, Rank.TEN),      new Card(House.CLUBS, Rank.NINE),      new Card(House.CLUBS, Rank.EIGHT),
+                 new Card(House.CLUBS, Rank.SEVEN),   new Card(House.CLUBS, Rank.SIX),      new Card(House.CLUBS, Rank.FIVE),      new Card(House.CLUBS, Rank.FOUR),
+                 new Card(House.CLUBS, Rank.THREE),   new Card(House.CLUBS, Rank.TWO),      new Card(House.CLUBS, Rank.ACE),       new Card(House.HEARTS, Rank.KING),
+                 new Card(House.HEARTS, Rank.QUEEN),  new Card(House.HEARTS, Rank.JACK),    new Card(House.HEARTS, Rank.TEN),      new Card(House.HEARTS, Rank.NINE),
+                 new Card(House.HEARTS, Rank.EIGHT),  new Card(House.HEARTS, Rank.SEVEN),   new Card(House.HEARTS, Rank.SIX),      new Card(House.HEARTS, Rank.FIVE),
+                 new Card(House.HEARTS, Rank.FOUR),   new Card(House.HEARTS, Rank.THREE),   new Card(House.HEARTS, Rank.TWO),      new Card(House.HEARTS, Rank.ACE)
         };
 
-        testDeck1.createFullDeckOfCards();
+        //Actual
+        acctualDeck.createFullDeckOfCards();
 
         //for each house, loop through each rank and push that card to the stack.
         for (Card card: cards) {
-                testDeck2.push(card);
+            expectedDeck.push(card);
         }
 
-        Card[] one = testDeck1.toArray();
-        Card[] two = testDeck2.toArray();
+        Card[] acctualAsArray = acctualDeck.toArray();
+        Card[] expectedAsArray = expectedDeck.toArray();
 
-        boolean test = true;
-
-        for (int i = 0; i < one.length; i++) {
-           if(one[i].getHouse() != two[i].getHouse() && one[i].getRank() != two[i].getRank()) {
-               test = false;
+        //We had to do this as we could not use the library Arrays.
+        // this was the only successful solution we could find without using illegal libraries.
+        boolean testResult = true;
+        for (int i = 0; i < acctualAsArray.length; i++) {
+           if(acctualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && acctualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
+               testResult = false;
            }
         }
 
-        assertEquals(true, test);
-
+        assertTrue(testResult);
     }
 
     @Test
