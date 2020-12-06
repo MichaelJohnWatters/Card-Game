@@ -40,14 +40,14 @@ public class DeckTest extends TestCase {
             expectedDeck.push(card);
         }
 
-        Card[] acctualAsArray = acctualDeck.toArray();
+        Card[] actualAsArray = acctualDeck.toArray();
         Card[] expectedAsArray = expectedDeck.toArray();
 
-        //We had to do this as we could not use the library Arrays.
-        // this was the only successful solution we could find without using illegal libraries.
+        // We had to do this as we could not use the library Arrays.
+        // this was the only successful solution we could find without using illegal libraries, as we are not allowed to use an java collections.
         boolean testResult = true;
-        for (int i = 0; i < acctualAsArray.length; i++) {
-           if(acctualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && acctualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
+        for (int i = 0; i < actualAsArray.length; i++) {
+           if(actualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && actualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
                testResult = false;
            }
         }

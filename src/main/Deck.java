@@ -142,7 +142,7 @@ public class Deck implements StackInterface<Card> {
     }
 
     /**
-     * A Manualy Count of the cards in the stack, as a human would count, card by card.
+     * A Manually Count of the cards in the stack, as a human would count, card by card.
      * @return int, number of cards in the stack
      */
     public int countNumberOfCards() {
