@@ -77,6 +77,7 @@ public class Menu {
             case "1":
                 if(isHuman){
                     System.out.println("Setting up user playable Elevens Game....");
+
                     Game game = new Game();
                     try {
                         game.userPlayableGame();
@@ -84,8 +85,11 @@ public class Menu {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
+
+                    PostGameMenu(game, true);
                 } else {
                     System.out.println("Setting up a watchable AI Elevens Game....");
+
                     Game aiPlayableGame = new Game();
                     try {
                         aiPlayableGame.computerDemonstrationGame();
@@ -93,6 +97,7 @@ public class Menu {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
+                    PostGameMenu(aiPlayableGame, false);
                 }
             case "2": //Action Reply of Game
                 while(lastGame.getRoundQueue().getFront() != null){
