@@ -2,8 +2,11 @@ package main;
 
 import java.util.Scanner;
 
-//TODO JAVA DOC
-// TODO TESTS
+/**
+ * This Class Represents a Game, holding all the required components to play a game.
+ * Including every round with memory of actions perform in the round.
+ * The result of the game and the Deck and the discard deck.
+ */
 public class Game extends Colors {
 
     private Deck deck;
@@ -23,28 +26,52 @@ public class Game extends Colors {
         this.roundQueue = null;
     }
 
+    /**
+     * Get playable Deck
+     * @return Deck
+     */
     public Deck getDeck() {
         return deck;
     }
 
+    /**
+     * Get the discard Deck, eg the deck of cards that where successfully removed.
+     * @return the discard deck
+     */
     public Deck getDiscardDeck() {
         return discardDeck;
     }
 
+    /**
+     * Return the Round Queue holding every Round.
+     * @return the round queue
+     */
     public RoundQueue getRoundQueue() {
         return roundQueue;
     }
 
+    /**
+     * Get the current Round
+     * @return returns the current round
+     */
     public Round getCurrentRound() {
         return currentRound;
     }
 
+    /**
+     * get the game result either win(true) or lose(false)
+     * @return boolean game result
+     */
     public boolean getGameResult(){
         return gameResult;
     }
 
-
-    public Game computerPlayableGame(){
+    /**
+     * This method allows the Computer to play the game, also know as demonstration mode.
+     * Provides automatic Card Selection, all user has to to is prompt the Computer to continue to each round.
+     * @return Game
+     */
+    public Game computerDemonstrationGame(){
         int roundNumber = 0;
 
         //Perform actions once per game here.
@@ -52,7 +79,7 @@ public class Game extends Colors {
 
         //setup deck
         deck.createFullDeckOfCards();
-        deck.rigourousShuffle();
+        deck.rigorousShuffle();
 
         //create first round, add to round queue.
         Round firstRound = new Round(0);
@@ -76,7 +103,10 @@ public class Game extends Colors {
 
                 //display isStalemate system.out
                 Display.displayIsStalemate();
-                currentRound.getCardsInPlayBag().display();
+
+                // if is statement display last hand for the user to see
+                System.out.println(COLOR_RED + "last cards in play: " + COLOR_WHITE);
+                currentRound.getCardsInPlayBag().display(false);
 
                 gameResult = false;
                 break;
@@ -100,9 +130,8 @@ public class Game extends Colors {
                 }
             } else if(currentRound.getCardsInPlayBag().containsKingQueenJack()) {
                 Card[] foundFacePairs = currentRound.getCardsInPlayBag().findAndReturnKingQueenJackPair();
-
                 try {
-                    for (Card card: foundFacePairs) { // should never return null as we perform containsKingQueenJack() but added - try for safety.
+                    for (Card card: foundFacePairs) { // will never return null as we perform containsKingQueenJack();
                         System.out.println(COLOR_RED + card + COLOR_WHITE);
                     }
                 } catch (Exception e){
@@ -177,6 +206,12 @@ public class Game extends Colors {
         return this;
     }
 
+    /**
+     * This Method allows the user to play the Elevens Game
+     * They well select valid selections until the game is either lost or won.
+     * Game will automatically end, if the player wins or loses.
+     * @return Game
+     */
     public Game userPlayableGame() {
         boolean playing = true;
         int roundNumber = 0;
@@ -184,9 +219,9 @@ public class Game extends Colors {
         //Perform actions once per game here.
         Display.userPlayableGame();
 
-        //setup deck
+        //setup deck and shuffle
         deck.createFullDeckOfCards();
-        deck.rigourousShuffle();
+        deck.rigorousShuffle();
 
         //create first round, add to round queue.
         Round firstRound = new Round(0);
@@ -208,9 +243,8 @@ public class Game extends Colors {
             if (currentRound.isStalemate()) {
                 //display isStalemate system.out
                 Display.displayIsStalemate();
-                currentRound.getCardsInPlayBag().display();
+                currentRound.getCardsInPlayBag().display(true);
                 gameResult = false;
-                playing = false;
                 break;
             }
 
@@ -267,7 +301,6 @@ public class Game extends Colors {
                 else if(askedToForfeit(selectedCardsOrHint)) {
                     System.out.println("forfeiting current game.....");
                     gameResult = false;
-                    roundWinningSelection = true;
                     playing = false;
                     break;
                 }
@@ -303,9 +336,8 @@ public class Game extends Colors {
                         }
 
                     } else if (selectedCardsOrHint.length() == 3) {
-
                         char[] selectedCards = selectedCardsOrHint.toLowerCase().toCharArray();
-                        //todo some checks here
+
                         Card firstCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
                         Card thirdCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
@@ -341,7 +373,6 @@ public class Game extends Colors {
             //winning check, if cardslotBag is empty and deck is empty we have won
             if (currentRound.getCardsInPlayBag().isEmpty() && deck.isEmpty()) {
                 gameResult = true;
-                playing = false; //TODO we either need this var or use while(true) and use breaks to exit.
                 break;
             }
 
@@ -355,27 +386,37 @@ public class Game extends Colors {
             //set the current round to the next round, so when we loop to the top of the while we are in the correct round.
             currentRound = currentRound.getNextRound();
 
-
             //prompt to key press to continue, prevents user confusion, user can except what will happen
-            System.out.println("You have Won this round! press enter to continue...");
+            if(playing){
+                System.out.println("You have Won this round! press enter to continue...");
+            }
             keyPressScanner.nextLine();
         }
 
         //print out win or lose message and prompt to return to post game menu.
         Display.displayWinOrLoseOutPut(gameResult, roundNumber, true);
 
+        //wait for key press
         keyPressScanner.nextLine();
 
-        //return game to be passed other methods.
         return this;
     }
 
-
+    /**
+     * Checks if the input string equals 'hint'
+     * @param input the input string
+     * @return boolean true if equals 'hint' or false if not
+     */
     private static boolean askedForHint(String input){
-        if (input.toLowerCase().equals("hint")) return true; else return false;
+        return input.toLowerCase().equals("hint");
     }
 
+    /**
+     * Checks if the input string equals 'quit'
+     * @param input the input string
+     * @return boolean true if equals 'quit' or false if not
+     */
     private static boolean askedToForfeit(String input){
-        if (input.toLowerCase().equals("quit")) return true; else return false;
+        return input.toLowerCase().equals("quit");
     }
 }

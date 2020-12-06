@@ -320,18 +320,7 @@ public final class CardSlotsBag {
      *
      * Prints 3 rows of 3 cards, containing digit values representing houses and ranks.
      */
-    public void display(){
-        //TODO REMOVE after tests are done
-        System.out.println("a should be " + bag[0]);
-        System.out.println("b should be "  + bag[1]);
-        System.out.println("c should be "  + bag[2]);
-        System.out.println("d should be "  + bag[3]);
-        System.out.println("e should be "  + bag[4]);
-        System.out.println("f should be "  + bag[5]);
-        System.out.println("g should be "  + bag[6]);
-        System.out.println("h should be "  + bag[7]);
-        System.out.println("i should be "  + bag[8]);
-
+    public void display(boolean withLegend) {
         //16 space string, to pad out print lines if a card slot is empty.
         String hiddenCardStringRow = "                ";
 
@@ -413,9 +402,11 @@ public final class CardSlotsBag {
         }
 
         //print legend out legend before cards
-        System.out.println("Legend:");
-        System.out.println("    Houses: D = Diamonds, H = Hearts, S = Spades, C = Clubs");
-        System.out.println("    Values:  K = King, Q = Queen, J = Jack, A = Ace");
+        if(withLegend) {
+            System.out.println("Legend:");
+            System.out.println("    Houses: D = Diamonds, H = Hearts, S = Spades, C = Clubs");
+            System.out.println("    Values:  K = King, Q = Queen, J = Jack, A = Ace");
+        }
 
         //print first row of cards
         for (int i = 0; i < rowOne.length ; i++) {

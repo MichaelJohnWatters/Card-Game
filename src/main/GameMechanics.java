@@ -1,6 +1,5 @@
 package main;
 
-//TODO TESTS
 public class GameMechanics {
 
     /**

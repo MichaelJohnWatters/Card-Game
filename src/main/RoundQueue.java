@@ -5,19 +5,23 @@ package main;
  * As new rounds are created they will be enqueued and when we replay a round we can dequeue the round
  *
  */
-
 //TODO consider changing to a linked list
-//TODO ADD TESTS
-//TODO ADD JAVA DOC
 public class RoundQueue {
 
     private Round front, rear;
 
+    /**
+     * Constructor for a RoundQueue, creates an queue with no front or rear
+     */
     public RoundQueue(){
         front = null;
         rear  = null;
     }
 
+    /**
+     * Enqueue a new round
+     * @param newRound the round to enqueue
+     */
     public void enqueue(Round newRound) {
         if(front==null){
             front = newRound;
@@ -28,6 +32,10 @@ public class RoundQueue {
         }
     }
 
+    /**
+     * Removes the first round in the queue.
+     * @return the removed Round
+     */
     public Round dequeue() {
         if(front==null) return  null;
         else {
@@ -38,23 +46,28 @@ public class RoundQueue {
         }
     }
 
+    /**
+     * Returns the front round without removing it from the RoundQueue
+     * @return the Front round but does not remove
+     */
     public Round getFront() {
         if(front == null) return null;
         else return front;
     }
 
-//    public static int count() {
-//        if(front == null) return null;
-//        else return front;
-//    }
-
+    /**
+     * Checks if the Queue is empty or not
+     * @return true if empty false if not
+     */
     public boolean isEmpty() {
         return (front == null);
     }
 
+    /**
+     * Clears the queue, by setting both front and rear to null
+     */
     public void clear() {
         front = null;
         rear  = null;
     }
-
 }

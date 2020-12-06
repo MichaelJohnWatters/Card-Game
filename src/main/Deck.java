@@ -34,7 +34,7 @@ public class Deck {
      * A ripple shuffle followed by a random shuffle followed by another ripple
      * To make sure the cards are well shuffled.
      */
-    public void rigourousShuffle(){
+    public void rigorousShuffle(){
         rippleShuffle();
         randomShuffle();
         rippleShuffle();
@@ -43,7 +43,7 @@ public class Deck {
     /**
      * Method representing a ripple shuffle performed on this deck of cards.
      */
-    public void rippleShuffle() {
+    private void rippleShuffle() {
         Deck deck1 = new Deck();
         Deck deck2 = new Deck();
 
@@ -82,7 +82,7 @@ public class Deck {
      * Randomly shuffles this deck of cards by looping through the deck and randomly swapping the current card.
      * With a Card at a random index.
      */
-    public void randomShuffle() {
+    private void randomShuffle() {
 
         Random rnd = new Random();
         Card[] cardArray = this.toArray();
@@ -110,7 +110,7 @@ public class Deck {
 
     /**
      * Pushs a new Card onto the Deck/Stack.
-     * @param newCard
+     * @param newCard the card you want put on the stack.
      */
     public void push(Card newCard) {
         CardNode newNode = new CardNode(newCard);
@@ -120,7 +120,7 @@ public class Deck {
 
     /**
      * Pops the top card from the stack and sets the topNode to the next card below.
-     * @return Card
+     * @return Card removed from the top of the stack.
      */
     public Card pop() {
         if (peek() != null) {
@@ -134,7 +134,7 @@ public class Deck {
 
     /**
      * Has a look at the next card in the Deck but does not remove it from the deck.
-     * @return
+     * @return Card the top card on the deck
      */
     public Card peek() {
         if (topNode == null) return null;
@@ -159,7 +159,6 @@ public class Deck {
         return count;
     }
 
-
     /**
      * Checks if the stack is empty
      * @return boolean returns true if empty
@@ -177,7 +176,7 @@ public class Deck {
 
     /**
      * Converts the Deck/Stack into an Array by popping, the stack will be empty after this method is used.
-     * @return
+     * @return Card[] converts the Stack to an Array
      */
     public Card[] toArray() {
         Card[] cardArray = new Card[countNumberOfCards()];
@@ -187,39 +186,5 @@ public class Deck {
         }
 
         return cardArray;
-    }
-
-    public static void main(String[] args) {
-//        Deck deck = new Deck();
-//        deck.createFullDeckOfCards();
-//        System.out.println(deck.countNumberOfCards());
-//        deck.rippleShuffle();
-//        deck.randomShuffle();
-//        deck.shuffleRippleRandomRipple();
-//
-//
-//
-//        Deck stack = new Deck();
-//
-//        stack.push(new Card(House.CLUBS, Rank.ACE));
-//        stack.push(new Card(House.SPADES, Rank.TWO));
-//        stack.push(new Card(House.DIAMONDS, Rank.THREE));
-//
-//        for (int i = 1; i <= 4; i++) {
-//            try {
-//                System.out.println("peak: " + stack.peek());
-//                System.out.println("pop: " + stack.pop());
-//            } catch (EmptyStackException e) {
-//                System.out.println("Exception");
-//            }
-//        }
-//
-//        stack.push(new Card(House.CLUBS, Rank.SEVEN));
-//        stack.push(new Card(House.SPADES, Rank.EIGHT));
-//        stack.push(new Card(House.DIAMONDS, Rank.NINE));
-//
-//        System.out.println("Stack is empty:" + stack.isEmpty());
-//        stack.clear();
-//        System.out.println("Stack is empty:" + stack.isEmpty());
     }
 }
