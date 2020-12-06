@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Scanner;
+
 /**
  * This class is used to absract system.out from code blocks,
  * for readability.
@@ -132,7 +134,7 @@ public class Display extends Colors {
      * @param prefixString any required prefix string example 'Cards Drawn:'
      */
     public static void displayTwoCards(Card firstCard, Card secondCard, String color, String prefixString){
-        System.out.print(color + prefixString + " " + firstCard + " and " + secondCard + COLOR_WHITE);
+        System.out.println(color + prefixString + " " + firstCard + " and " + secondCard + COLOR_WHITE);
     }
 
     /**
@@ -175,6 +177,50 @@ public class Display extends Colors {
             }
         }
         System.out.println(COLOR_RED +"press enter to continue to the post game menu..."+ COLOR_WHITE);
+    }
+
+    public static void returningToGameMenu(){
+        System.out.println("Returning to Game Menu...");
+    }
+
+    public static void displayActionReplayOfLastGame(Game lastGame){
+        Scanner keyPressScanner = new Scanner(System.in);
+        System.out.println("\n------------------------------- Replay Round Number: " + lastGame.getRoundQueue().getFront().getRoundNumber() +"-------------------------------");
+
+        //cards drawn this round.
+        int drawn = lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards().countCards();
+        System.out.println(Colors.COLOR_GREEN +"Number of Drawn cards that round: " + drawn + ", cards drawn:" + Colors.COLOR_WHITE);
+
+        //print the drawn cards from the rounds drawn card memory
+        for (int i = 0; i < drawn; i++) {
+            CardSlotsBag bag =  lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards();
+            String commaIfRequired = "";
+            if(i == drawn-1){ commaIfRequired = " ";} else { commaIfRequired = ", ";}
+            System.out.print(Colors.COLOR_RED + bag.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
+        }
+
+        //print the discarded cards from the rounds discard card memory, these cards are cards that where successfully removed.
+        int discarded = lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards().countCards();
+        System.out.println(Colors.COLOR_GREEN + "\nNumber of discarded cards that round: " + discarded + ", discarded that round(successfully removed): " + Colors.COLOR_WHITE);
+
+        //Print out the discarded cards.
+        for (int i = 0; i < discarded; i++) {
+            CardSlotsBag bag1 =  lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards();
+            String commaIfRequired = "";
+            if(i == discarded-1){ commaIfRequired = " ";} else { commaIfRequired = ", ";}
+            System.out.print(Colors.COLOR_RED +" " + bag1.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
+        }
+
+        //State of Cards on table at the end of the round
+        System.out.println(Colors.COLOR_GREEN + "\nState of Cards in play at the end of the round, after discard cards where removed..." + Colors.COLOR_WHITE);
+        lastGame.getRoundQueue().getFront().getCardsInPlayBag().display(false);
+
+        //dequeue the round that's been displayed, as we no longer need it.
+        lastGame.getRoundQueue().dequeue();
+
+        //prompt and wait for input to go to the next round.
+        System.out.println("\nPress any key to continue to the next replay round...");
+        keyPressScanner.nextLine();
     }
 
     /**

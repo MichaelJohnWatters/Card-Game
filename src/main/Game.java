@@ -313,12 +313,12 @@ public class Game extends Colors {
                         Card firstCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[0]));
                         Card secondCard = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
 
-                        System.out.println(COLOR_GREEN + "you selected : " + firstCard + " and " + secondCard + COLOR_WHITE);
+                        Display.displayTwoCards(firstCard, secondCard, COLOR_GREEN,"\nYou Selected: ");
 
                         if(GameMechanics.isElevensPair(firstCard, secondCard)) {
 
                             //Valid selection we can now remove cards and move to next round
-                            Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_GREEN,"Success! Your selected cards were a valid Elevens pair: ");
+                            Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_GREEN,"\nValid Selection! Your selected cards were a valid Elevens pair: ");
 
                             //remove the valid cards.
                             discardDeck.push(currentRound.getCardsInPlayBag().remove(firstCard));
@@ -331,7 +331,7 @@ public class Game extends Colors {
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
-                            Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_RED,"Invalid Selection: Your select cards were not a valid Elevens pair... ");
+                            Display.displayTwoCards(firstCard, secondCard, Colors.COLOR_RED,"\nInvalid Selection: Your select cards were not a valid Elevens pair... ");
                             roundWinningSelection = false;
                         }
 
@@ -342,12 +342,12 @@ public class Game extends Colors {
                         Card secondCard = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[1]));
                         Card thirdCard  = currentRound.getCardsInPlayBag().cardAtPosition(GameMechanics.cardSelectionCharToInt(selectedCards[2]));
 
-                        Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "You Selected: ");
+                        Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "\nYou Selected 3 face cards: ");
 
                         if(GameMechanics.isFacePairs(firstCard, secondCard, thirdCard)) {
 
                             //Valid selection we can now remove cards and move to next round
-                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "Success! Your selected cards did contain a King, Queen and a Jack...");
+                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_GREEN, "\nValid Selection! Your selected cards contained a King, Queen and a Jack...");
 
                             //remove the valid cards.
                             discardDeck.push(currentRound.getCardsInPlayBag().remove(firstCard));
@@ -362,7 +362,7 @@ public class Game extends Colors {
                             roundWinningSelection = true;
                         } else {
                             //invalid selection, prompt to try again
-                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_RED,"Invalid Selection: Your select cards did not contain a King, Queen and Jack... ");
+                            Display.displayThreeCards(firstCard, secondCard, thirdCard, Colors.COLOR_RED,"\nInvalid Selection: Your select cards did not contain a King, Queen and Jack... ");
                             System.out.println(firstCard + ", " + secondCard + ", " + thirdCard);
                             roundWinningSelection = false;
                         }
@@ -388,7 +388,7 @@ public class Game extends Colors {
 
             //prompt to key press to continue, prevents user confusion, user can except what will happen
             if(playing){
-                System.out.println("You have Won this round! press enter to continue...");
+                System.out.println("\nYou have Won this round! press enter to continue...");
             }
             keyPressScanner.nextLine();
         }

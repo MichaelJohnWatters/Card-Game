@@ -78,6 +78,7 @@ public class Menu {
                 if(isHuman){
                     System.out.println("Setting up user playable Elevens Game....");
 
+                    //create game object and start user Playable Game
                     Game game = new Game();
                     try {
                         game.userPlayableGame();
@@ -86,10 +87,12 @@ public class Menu {
                         MainMenu();
                     }
 
+                    //go to post game Menu
                     PostGameMenu(game, true);
                 } else {
                     System.out.println("Setting up a watchable AI Elevens Game....");
 
+                    //create game object and start a computer playable Game
                     Game aiPlayableGame = new Game();
                     try {
                         aiPlayableGame.computerDemonstrationGame();
@@ -97,54 +100,24 @@ public class Menu {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
+
+                    //go to post game Menu
                     PostGameMenu(aiPlayableGame, false);
                 }
             case "2": //Action Reply of Game
-                while(lastGame.getRoundQueue().getFront() != null){
-                    System.out.println();
-                    System.out.println("------------------------------- Replay Round Number: " + lastGame.getRoundQueue().getFront().getRoundNumber() +"-------------------------------");
-
-                    //cards drawn this round.
-                    int drawn = lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards().countCards();
-                    System.out.println(Colors.COLOR_GREEN +"Number of Drawn cards that round: " + drawn + ", cards drawn:" + Colors.COLOR_WHITE);
-
-                    //print the drawn cards from the rounds drawn card memory
-                    for (int i = 0; i < drawn; i++) {
-                        CardSlotsBag bag =  lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards();
-                        String commaIfRequired = "";
-                        if(i == drawn-1){ commaIfRequired = " ";} else { commaIfRequired = ", ";}
-                        System.out.print(Colors.COLOR_RED + bag.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
-                    }
-
-                    //State of Cards on table at the end of the round
-                    System.out.println(Colors.COLOR_GREEN + "\nState of Cards in play at the end of the round, after discard cards where removed..." + Colors.COLOR_WHITE);
-                    lastGame.getRoundQueue().getFront().getCardsInPlayBag().display(false);
-
-                    //print the discarded cards from the rounds discard card memory, these cards are cards that where successfully removed.
-                    int discarded = lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards().countCards();
-                    System.out.println(Colors.COLOR_GREEN + "\nNumber of discarded cards that round: " + discarded + ", discarded that round(successfully removed): " + Colors.COLOR_WHITE);
-
-                    for (int i = 0; i < discarded; i++) {
-                        CardSlotsBag bag1 =  lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards();
-                        String commaIfRequired = "";
-                        if(i == discarded-1){ commaIfRequired = " ";} else { commaIfRequired = ", ";}
-                        System.out.print(Colors.COLOR_RED +" " + bag1.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
-                    }
-
-                    //dequeue the round that's been displayed.
-                    lastGame.getRoundQueue().dequeue();
-                    System.out.println("\nPress any key to continue to the next replay round...");
-                    keyPressScanner.nextLine();
+                while(lastGame.getRoundQueue().getFront() != null) {
+                    Display.displayActionReplayOfLastGame(lastGame);
                 }
 
-                System.out.println(Colors.COLOR_RED + "End of Replay..." + Colors.COLOR_WHITE);
+                //End of replay
+                System.out.println(Colors.COLOR_RED + "End of Replay...\n" + Colors.COLOR_WHITE);
 
-                System.out.println();
+                //Wait for input
                 keyPressScanner.nextLine();
-                System.out.println("Returning to Game Menu...");
+                Display.returningToGameMenu();
                 GameMenu();
             case "3": //Return to main.Game main.Menu
-                System.out.println("Returning to Game Menu...");
+                Display.returningToGameMenu();
                 GameMenu();
             default: //Notify Invalid input and go to PostGameMenu
                 Display.invalidInput();

@@ -3,6 +3,7 @@ package main;
 /**
  * This Class represents each round within a game,
  * It stores information about each round.
+ * Such as the card in play in a round and memory of events
  */
 public class Round {
 
@@ -65,11 +66,7 @@ public class Round {
      * @return true if is stalemate false if not
      */
     public boolean isStalemate() {
-        if(cardsInPlayBag.containsKingQueenJack() || cardsInPlayBag.containsElevensPair()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !cardsInPlayBag.containsKingQueenJack() && !cardsInPlayBag.containsElevensPair();
     }
 
     /**
