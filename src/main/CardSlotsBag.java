@@ -1,25 +1,34 @@
 package main;
 
-import java.util.Queue;
-
-//TODO write java doc and comments
-//TODO write tests
 public final class CardSlotsBag {
 
     private Card[] bag;
     private int numberOfEntries;
     private static final int MAX_CAPACITY = 9;
 
+    /**
+     * Constructor for CardSlotsBag
+     * Creates and Empty Bag
+     */
     public CardSlotsBag() {
         bag = new Card[MAX_CAPACITY];
         numberOfEntries = 0;
     }
 
+    /**
+     * Creates a cardSlot Bag from the input CardSlotsBag
+     * @param copiedBag
+     */
     public CardSlotsBag(Card[] copiedBag) {
         bag = copiedBag;
         numberOfEntries = countCards();
     }
 
+    /**
+     * Check if the current CardSlotBag contains a card with the value of the input int.
+     * @param cardValue the card value
+     * @return true if card with value is found and false if not.
+     */
     public boolean containsCardValue(int cardValue) {
         boolean found = false;
         int index = 0;
@@ -41,9 +50,9 @@ public final class CardSlotsBag {
     }
 
     /**
-     * Returns the Card if it finds the Card otherwise returns false.
-     * @param cardValue
-     * @return
+     * Returns the card with the input card from the current card CardsSlotBag.
+     * @param cardValue find the card with the input value and return it.
+     * @return Card to
      */
     public Card findsAndReturnsCardValue(int cardValue) {
         Card foundCard = null;
@@ -67,8 +76,8 @@ public final class CardSlotsBag {
     }
 
     /**
-     * Returns true if this contains 3 face cards of jack queen king.
-     * @return boolean
+     * Returns true if this contains 3 face cards of jack, queen and king.
+     * @return boolean if all 3 are found.
      */
     public boolean containsKingQueenJack() {
         boolean foundKing  = false;
@@ -113,6 +122,10 @@ public final class CardSlotsBag {
     }
 
 
+    /**
+     * Returns if this CardSlotBag contains an elevens pair
+     * @return returns true  if it does false if not.
+     */
     public boolean containsElevensPair() {
 
         //found flag, default false
@@ -143,6 +156,10 @@ public final class CardSlotsBag {
         return foundPair;
     }
 
+    /**
+     *  Find and return an elevens pair as an array.
+     * @return Return elevens pair as an array
+     */
     public Card[] findAndReturnElevensPair() {
         Card[] foundElevensPair = null;
 
@@ -177,7 +194,7 @@ public final class CardSlotsBag {
     }
 
     /**
-     * Safe method of count the number of slots that are not null
+     * Safe method of counting the number of slots that are not null
      * @return int number of cards
      */
     public int countCards() {
@@ -193,7 +210,7 @@ public final class CardSlotsBag {
     }
 
     /**
-     * Safe method of count the number of slots that are null.
+     * Safe method of counting the number of slots that are null.
      * @return int number of null slots in array.
      */
     public int countEmptySlots() {
@@ -208,6 +225,11 @@ public final class CardSlotsBag {
         return cardCount;
     }
 
+    /**
+     * Returns the Card at the index input with the CardSlotsBag
+     * @param index of the Card you want to return
+     * @return Card at index position
+     */
     public Card cardAtPosition(int index){
         Card card = null;
         if(index >= 0 && index < 9) {
@@ -218,14 +240,27 @@ public final class CardSlotsBag {
         return card;
     }
 
+    /**
+     * Get the current size of the Bag.
+     * @return
+     */
     public int getCurrentSize() {
         return numberOfEntries;
     }
 
+    /**
+     * Check if the CardSlotBag is empty or not
+     * @return returns true if empty false if not
+     */
     public boolean isEmpty() {
         return numberOfEntries == 0;
     }
 
+    /**
+     * Add a new Card to the CardSlotBag
+     * @param newEntry the card to add
+     * @return return true if successfully added.
+     */
     public boolean addNewEntry(Card newEntry) {
         if (isArrayFull()) return false;
         else {
@@ -234,14 +269,28 @@ public final class CardSlotsBag {
         }
     }
 
+    /**
+     * Check if the CardSlotBag array is full.
+     * @return true if full false if not
+     */
     public boolean isArrayFull() {
         return (bag.length == numberOfEntries);
     }
 
+
+    /**
+     * Returns a Card at end of the CardSlotBag Array
+     * @return the Card removed
+     */
     public Card remove() {
         return removeElementAt(numberOfEntries-1);
     }
 
+    /**
+     * FInd the input Card and removes it if found.
+     * @param anEntry the Card to find.
+     * @return returns the Card if Found Null if not
+     */
     public Card remove(Card anEntry) {
         boolean found = false;
         Card cardToReturn =  null;
@@ -256,7 +305,11 @@ public final class CardSlotsBag {
         return cardToReturn;
     }
 
-    //in demo
+    /**
+     * Remove a card at the given index
+     * @param index the index to remove the Card
+     * @return Returns the removed Card
+     */
     private Card removeElementAt(int index) {
         Card result = null;
 
@@ -269,10 +322,18 @@ public final class CardSlotsBag {
         return result;
     }
 
+    /**
+     * Clears the BagSlotBag to an empty bag.
+     */
     public void clear() {
         while (!isEmpty()) remove();
     }
 
+    /**
+     * Check if the CardSlotBag contains a given card.
+     * @param anEntry the Card to find
+     * @return returns true if found false if not
+     */
     public boolean contains(Card anEntry) {
         boolean found = false;
         int index = 0;
@@ -282,8 +343,8 @@ public final class CardSlotsBag {
     }
 
     /**
-     * Perform a clone or copy of the current bag, even null slots in the array.
-     * @return Card[]
+     * Perform a clone or copy of the current bag, even the null slots in the array.
+     * @return Card[] as a copied object.
      */
     public Card[] toArrayCopy() {
         Card[] resultArray = new Card[MAX_CAPACITY];
@@ -293,13 +354,11 @@ public final class CardSlotsBag {
 
 
     /**
-     * Dont use this out side of display();
-     *
-     * Used to format card values if single digit or double.
+     * Used to format card values if single digit or double digit.
      *
      * used to format Strings for display method.
-     * @param str
-     * @return
+     * @param str string to format
+     * @return returns the formatted string.
      */
     private static String formatStringForDisplay(String str){
         try {
@@ -316,9 +375,11 @@ public final class CardSlotsBag {
     }
 
     /**
-     * This method is used to display a cardSlotsBag
+     * This method is used to display a cardSlotsBag as ASCCI
      *
      * Prints 3 rows of 3 cards, containing digit values representing houses and ranks.
+     * Also prints a legend to the user, if required.
+     * @param withLegend appends the legend of input options
      */
     public void display(boolean withLegend) {
         //16 space string, to pad out print lines if a card slot is empty.
