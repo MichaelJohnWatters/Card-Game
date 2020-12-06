@@ -4,7 +4,6 @@ import main.Card;
 import main.House;
 import main.Rank;
 
-
 /**
  * Unit tests for Card Class
  */
@@ -16,7 +15,15 @@ public class CardTest extends TestCase {
      * Test ToString
      */
     public void testToString() {
+
+        /*
+          new Card(House.CLUBS, Rank.ACE).ToString() should equal "Ace of Clubs"
+         */
         assertEquals(test1Card.toString(), "Ace of Clubs");
+
+        /*
+          new Card(House.DIAMONDS, Rank.TWO).ToString() should equal "2 of Diamonds"
+         */
         assertEquals(test2Card.toString(), "2 of Diamonds");
     }
 
@@ -24,8 +31,16 @@ public class CardTest extends TestCase {
      * Test getHouse()
      */
     public void testGetHouse() {
-        assertEquals(test1Card.getHouse(),House.CLUBS);
-        assertEquals(test2Card.getHouse(),House.DIAMONDS);
+
+        /*
+            a new Card(House.CLUBS, Rank.ACE).getHouse() should equal House.CLUBS
+         */
+        assertEquals(test1Card.getHouse(), House.CLUBS);
+
+        /*
+            a new Card(House.DIAMONDS, Rank.TWO).getHouse() should equal House.DIAMONDS
+         */
+        assertEquals(test2Card.getHouse(), House.DIAMONDS);
     }
 
     /**

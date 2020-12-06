@@ -1,58 +1,84 @@
 package test;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class CardSlotsBagTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public void testIsArrayFull() {
+public class CardSlotsBagTest {
 
+    @Test
+    public void containsCardValue() {
     }
 
-    public void testGetCurrentSize() {
+    @Test
+    public void findsAndReturnsCardValue() {
     }
 
-    public void testGetFixedCapacity() {
+    @Test
+    public void containsKingQueenJack() {
     }
 
-    public void testIsEmpty() {
+    @Test
+    public void findAndReturnKingQueenJackPair() {
     }
 
-    public void testAddNewCard() {
+    @Test
+    public void containsElevensPair() {
     }
 
+    @Test
+    public void findAndReturnElevensPair() {
+    }
+
+    @Test
+    public void countCards() {
+    }
+
+    @Test
+    public void countEmptySlots() {
+    }
+
+    @Test
+    public void cardAtPosition() {
+    }
+
+    @Test
+    public void getCurrentSize() {
+    }
+
+    @Test
+    public void isEmpty() {
+    }
+
+    @Test
+    public void addNewEntry() {
+    }
+
+    @Test
+    public void isArrayFull() {
+    }
+
+    @Test
+    public void remove() {
+    }
+
+    @Test
     public void testRemove() {
     }
 
-    public void testTestRemove() {
+    @Test
+    public void clear() {
     }
 
-    public void testClear() {
+    @Test
+    public void contains() {
     }
 
-    public void testGetFrequencyOf() {
+    @Test
+    public void toArrayCopy() {
     }
 
-    public void testContains() {
-    }
-
-    public void testCardAtPosition() {
-    }
-
-    public void testContainsCardValue() {
-    }
-
-    public void testContainsRank() {
-    }
-
-    public void testContainsKingQueenJack() {
-    }
-
-    public void testContainsElevensPair() {
-    }
-
-    public void testToArray() {
-    }
-
-    public void testDisplay() {
+    @Test
+    public void display() {
     }
 }

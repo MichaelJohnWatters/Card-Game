@@ -1,23 +1,28 @@
 package test;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class RoundQueueTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public void testEnqueue() {
+public class RoundQueueTest {
+
+    @Test
+    public void enqueue() {
     }
 
-    public void testDequeue() {
+    @Test
+    public void dequeue() {
     }
 
-    public void testGetFront() {
+    @Test
+    public void getFront() {
     }
 
-    public void testIsEmpty() {
+    @Test
+    public void isEmpty() {
     }
 
-    public void testClear() {
-
+    @Test
+    public void clear() {
     }
-
 }
