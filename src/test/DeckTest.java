@@ -12,7 +12,7 @@ public class DeckTest extends TestCase {
     @Test
     public void testCreateFullDeckOfCards() {
         //Setup test
-        Deck acctualDeck = new Deck();
+        Deck actualDeck = new Deck();
         Deck expectedDeck = new Deck();
 
         //valid Pack of cards
@@ -33,21 +33,21 @@ public class DeckTest extends TestCase {
         };
 
         //Actual
-        acctualDeck.createFullDeckOfCards();
+        actualDeck.createFullDeckOfCards();
 
         //for each house, loop through each rank and push that card to the stack.
         for (Card card: cards) {
             expectedDeck.push(card);
         }
 
-        Card[] acctualAsArray = acctualDeck.toArray();
+        Card[] actualAsArray = actualDeck.toArray();
         Card[] expectedAsArray = expectedDeck.toArray();
 
         //We had to do this as we could not use the library Arrays.
         // this was the only successful solution we could find without using illegal libraries.
         boolean testResult = true;
-        for (int i = 0; i < acctualAsArray.length; i++) {
-           if(acctualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && acctualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
+        for (int i = 0; i < actualAsArray.length; i++) {
+           if(actualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && actualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
                testResult = false;
            }
         }
