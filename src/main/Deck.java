@@ -1,10 +1,10 @@
 package main;
 
+import Interfaces.StackInterface;
+
 import java.util.Random;
 
-//TODO write better java doc
-//TODO write TESTs
-public class Deck {
+public class Deck implements StackInterface<Card> {
 
     private CardNode topNode;
 

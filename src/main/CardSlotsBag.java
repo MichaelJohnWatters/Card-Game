@@ -1,6 +1,8 @@
 package main;
 
-public final class CardSlotsBag {
+import Interfaces.BagInterface;
+
+public final class CardSlotsBag implements BagInterface<Card> {
 
     private Card[] bag;
     private int numberOfEntries;
