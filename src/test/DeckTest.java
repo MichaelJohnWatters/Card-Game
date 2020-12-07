@@ -99,7 +99,6 @@ public class DeckTest extends TestCase {
 
         //2. Test push() can push a card to a stack with a top Card already existing.
         assertEquals("2 of Spades", testDeck.peek().toString());
-
     }
 
     /**
@@ -159,6 +158,7 @@ public class DeckTest extends TestCase {
     public void testClear() {
         //Setup test
         Deck testDeck = new Deck();
+        
         testDeck.push(new Card(House.SPADES, Rank.ACE));
 
         testDeck.clear();
