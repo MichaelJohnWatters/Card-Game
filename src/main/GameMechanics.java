@@ -149,17 +149,11 @@ public class GameMechanics {
      * @param input String to check if the selection is valid eg, a valid
      * @return returns true if the string selection is valid.
      */
-    //TODO need complete re-work
-    //TODO start as false
-    //TODO Make cards slots are not NULL, probs nneed new params or move else where etc.
-    //TODO Prevent user from selecting the same card twice eg 'aa'
     public static boolean validStringSelection(String input) {
         boolean valid = true;
         //if the input is greater than 2 but less than 3, check if characters selected are allow.
         if (input.length() > 1 && input.length() < 4) {
             char[] inputAsCharArray = input.toLowerCase().toCharArray();
-            //TODO alreadyAskedFor, cant ask for same card
-            //char[] alreadyAskedFor = new char[9];
 
             //for each character in input check if it is not an allow character.
             //if so valid = false.

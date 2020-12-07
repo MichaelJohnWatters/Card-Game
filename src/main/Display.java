@@ -17,7 +17,7 @@ public class Display extends Colors {
     }
 
     /**
-     * Diplay main menu with the options:
+     * Display main menu with the options:
      * 1) Play Elevens"
      * 2) Exit to desktop
      */
@@ -30,7 +30,7 @@ public class Display extends Colors {
     }
 
     /**
-     * Diplay Game Menu with the options:
+     * Display Game Menu with the options:
      * 1) Setup playable Elevens Game
      * 2) Demonstration Mode (computers plays the game)!
      * 3) Back to main menu"
@@ -255,7 +255,7 @@ public class Display extends Colors {
     }
 
     /**
-     * Tell user there input was invalid and they should try again.
+     * Tell user there input was invalid and they should try again, in green color.
      */
     public static void invalidInput() {
         System.out.println();
