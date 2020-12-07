@@ -2,8 +2,6 @@ package test;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class CardSlotsBagTest {
 
     @Test
@@ -24,6 +22,7 @@ public class CardSlotsBagTest {
 
     @Test
     public void containsElevensPair() {
+
     }
 
     @Test

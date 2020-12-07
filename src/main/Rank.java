@@ -6,12 +6,12 @@ package main;
  */
 public enum Rank {
     KING("King", -1),
-    QUEEN("Queen",-1),
-    JACK("Jack",-1),
+    QUEEN("Queen", -1),
+    JACK("Jack", -1),
     ACE("Ace", 1),
-    TWO("Two",2),
-    THREE("Three",3),
-    FOUR("Four",4),
+    TWO("Two", 2),
+    THREE("Three", 3),
+    FOUR("Four", 4),
     FIVE("Five", 5),
     SIX("Six", 6),
     SEVEN("Seven", 7),
@@ -27,7 +27,7 @@ public enum Rank {
      * Only Require a constructor with all parameters.
      * Object fields will never be defaulted for this class.
      *
-     * @param rank rank of the card example King or Ace or One.
+     * @param rank  rank of the card example King or Ace or One.
      * @param value the integer value of the Card.
      */
     Rank(String rank, int value) {

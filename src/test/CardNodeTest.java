@@ -12,7 +12,7 @@ import main.Rank;
 public class CardNodeTest extends TestCase {
 
     /**
-     * Test Get Data
+     * Test Get Data returns the correct card.
      */
     public void testGetData() {
         Card testCard = new Card(House.CLUBS, Rank.ACE);
@@ -25,7 +25,7 @@ public class CardNodeTest extends TestCase {
     }
 
     /**
-     * Test Set Data
+     * Test Set Data, sets the data to the supplied Card.
      */
     public void testSetData() {
         Card testCard = new Card(House.CLUBS, Rank.ACE);
@@ -37,11 +37,12 @@ public class CardNodeTest extends TestCase {
         var expected = testCard.toString();
         var acctual = cardNodeTest.getData().toString();
 
+        //Assert
         assertEquals(expected, acctual);
     }
 
     /**
-     * Test get next Card Node
+     * Test get next Card Node returns the next CardNode
      */
     public void testGetNext() {
         Card testCard = new Card(House.CLUBS, Rank.ACE);
@@ -54,11 +55,12 @@ public class CardNodeTest extends TestCase {
         var expected = testNextCard.toString();
         var actual = cardNodeTest.getNext().getData().toString();
 
+        //Assert
         assertEquals(expected, actual);
     }
 
     /**
-     *  test Set Next CardNode
+     * test Set Next CardNode sets the correct next cardNode
      */
     public void testSetNext() {
         Card testCard = new Card(House.CLUBS, Rank.ACE);
@@ -71,6 +73,7 @@ public class CardNodeTest extends TestCase {
         var expected = testNextCard.toString();
         var actual = cardNodeTest.getNext().getData().toString();
 
+        //Assert
         assertEquals(expected, actual);
     }
 }

@@ -16,7 +16,7 @@ public class Menu {
     public void MainMenu() {
         Display.mainMenu();
         String mainMenuChoice = scanner.nextLine();
-        switch(mainMenuChoice) {
+        switch (mainMenuChoice) {
             case "1": // To Game Menu
                 GameMenu();
                 MainMenu();
@@ -29,19 +29,19 @@ public class Menu {
         }
     }
 
-    public void GameMenu(){
+    public void GameMenu() {
         Display.gameMenu();
 
         String gameMenuChoice = scanner.nextLine();
 
-        switch(gameMenuChoice) {
+        switch (gameMenuChoice) {
             case "1": // Setup user playable Elevens main.Game
                 System.out.println("Setting up user playable Elevens Game....");
 
                 Game game = new Game();
                 try {
                     game.userPlayableGame();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Display.displayGameCrashed();
                     MainMenu();
                 }
@@ -53,7 +53,7 @@ public class Menu {
                 Game aiPlayableGame = new Game();
                 try {
                     aiPlayableGame.computerDemonstrationGame();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Display.displayGameCrashed();
                     MainMenu();
                 }
@@ -73,16 +73,16 @@ public class Menu {
 
         String gameMenuChoice = scanner.nextLine();
 
-        switch(gameMenuChoice) {
+        switch (gameMenuChoice) {
             case "1":
-                if(isHuman){
+                if (isHuman) {
                     System.out.println("Setting up user playable Elevens Game....");
 
                     //create game object and start user Playable Game
                     Game game = new Game();
                     try {
                         game.userPlayableGame();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
@@ -96,7 +96,7 @@ public class Menu {
                     Game aiPlayableGame = new Game();
                     try {
                         aiPlayableGame.computerDemonstrationGame();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
@@ -105,7 +105,7 @@ public class Menu {
                     PostGameMenu(aiPlayableGame, false);
                 }
             case "2": //Action Reply of Game
-                while(lastGame.getRoundQueue().getFront() != null) {
+                while (lastGame.getRoundQueue().getFront() != null) {
                     Display.displayActionReplayOfLastGame(lastGame);
                 }
 
@@ -119,9 +119,9 @@ public class Menu {
             case "3": //Return to main.Game main.Menu
                 Display.returningToGameMenu();
                 GameMenu();
-            default: //Notify Invalid input and go to PostGameMenu
+            default: //Notify Invalid input and re-display menu
                 Display.invalidInput();
-                //TODO fix
+                PostGameMenu(lastGame, isHuman);
         }
     }
 }

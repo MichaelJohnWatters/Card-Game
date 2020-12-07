@@ -9,14 +9,14 @@ import main.*;
 public class RoundTest extends TestCase {
 
     /**
-     *Test 1 Start
-     *      Returns true when there is no elevens pairs and no pairs of face cards
-     *
+     * Test 1 Start
+     * Returns true when there is no elevens pairs and no pairs of face cards
+     * <p>
      * Test 2 start
-     *      Returns false when there is a elevens pair
-     *
+     * Returns false when there is a elevens pair
+     * <p>
      * Test 3 start
-     *      Returns false when there is face card pairs.
+     * Returns false when there is face card pairs.
      */
     public void testIsStalemate() {
         //Test 1 Start
@@ -53,9 +53,9 @@ public class RoundTest extends TestCase {
 
     /**
      * Test 1
-     *       replaceEmptyCardSlots() should add 9 cards to bag1
+     * replaceEmptyCardSlots() should add 9 cards to bag1
      * Test 2
-     *       replaceEmptyCardSlots should add 1 card to the bag2 when bag2 has 8 cards inside it.
+     * replaceEmptyCardSlots should add 1 card to the bag2 when bag2 has 8 cards inside it.
      */
     public void testReplaceEmptyCardSlots() {
         Deck deck = new Deck();
@@ -65,30 +65,29 @@ public class RoundTest extends TestCase {
         // replaceEmptyCardSlots() should add 9 cards to bag1
         CardSlotsBag bag1 = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
-        assertEquals(bag1.countCards(),0);
+        assertEquals(bag1.countCards(), 0);
         round1.replaceEmptyCardSlots(deck);
 
         //Assert Test 1
-        assertEquals(bag1.countCards(),9);
-
+        assertEquals(bag1.countCards(), 9);
 
         // Test 2
         // ReplaceEmptyCardSlots should add 1 card to the bag2 when bag2 has 8 cards inside it.
         CardSlotsBag bag2 = new CardSlotsBag();
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.ACE));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.TWO));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.THREE));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.FOUR));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.FIVE));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.SIX));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.SEVEN));
-        bag2.addNewEntry(new Card(House.CLUBS,Rank.EIGHT));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.ACE));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.TWO));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.THREE));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.FOUR));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.FIVE));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.SIX));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.SEVEN));
+        bag2.addNewEntry(new Card(House.CLUBS, Rank.EIGHT));
         Round round2 = new Round(2, bag2);
 
         //Assertions Test 2
-        assertEquals(bag2.countCards(),8);
+        assertEquals(bag2.countCards(), 8);
         round2.replaceEmptyCardSlots(deck);
-        assertEquals(bag2.countCards(),9);
+        assertEquals(bag2.countCards(), 9);
     }
 
     /**
@@ -97,7 +96,7 @@ public class RoundTest extends TestCase {
     public void testGetRoundNumber() {
         CardSlotsBag bag1 = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
-        assertEquals(round1.getRoundNumber(),1);
+        assertEquals(round1.getRoundNumber(), 1);
     }
 
     /**
@@ -107,7 +106,7 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag1 = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
         round1.setRoundNumber(2);
-        assertEquals(round1.getRoundNumber(),2);
+        assertEquals(round1.getRoundNumber(), 2);
     }
 
     /**
@@ -126,7 +125,7 @@ public class RoundTest extends TestCase {
         CardSlotsBag bag1 = new CardSlotsBag();
         CardSlotsBag bagWithCard = new CardSlotsBag();
         Round round1 = new Round(1, bag1);
-        bagWithCard.addNewEntry(new Card(House.CLUBS,Rank.ACE));
+        bagWithCard.addNewEntry(new Card(House.CLUBS, Rank.ACE));
         round1.setCardsInPlayBag(bagWithCard);
         assertEquals(round1.getCardsInPlayBag(), bagWithCard);
     }
@@ -144,7 +143,7 @@ public class RoundTest extends TestCase {
     }
 
     /**
-     *  round1.setNext Round should set round1's nextRound to Round2.
+     * round1.setNext Round should set round1's nextRound to Round2.
      */
     public void testSetNextRound() {
         CardSlotsBag bag1 = new CardSlotsBag();

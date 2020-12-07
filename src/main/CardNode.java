@@ -11,6 +11,7 @@ public class CardNode {
 
     /**
      * Constructor for CardNode
+     *
      * @param dataValue Card held by the CardNode
      */
     public CardNode(Card dataValue) {
@@ -20,6 +21,7 @@ public class CardNode {
 
     /**
      * Return the Card held in the CardNode
+     *
      * @return Card the card held in the node
      */
     public Card getData() {
@@ -28,6 +30,7 @@ public class CardNode {
 
     /**
      * Set the Card in the CardNode
+     *
      * @param dataValue the Card you want to set as the CardNodes data value.
      */
     public void setData(Card dataValue) {
@@ -36,6 +39,7 @@ public class CardNode {
 
     /**
      * Get the next CardNode linked to this CardNode
+     *
      * @return CardNode
      */
     public CardNode getNext() {
@@ -44,6 +48,7 @@ public class CardNode {
 
     /**
      * Set the next CardNode
+     *
      * @param nextNode set the next CardNode
      */
     public void setNext(CardNode nextNode) {

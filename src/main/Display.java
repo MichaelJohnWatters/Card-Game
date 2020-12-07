@@ -11,15 +11,15 @@ public class Display extends Colors {
     /**
      * Display Welcome message to the user
      */
-    public static void  welcome(){
+    public static void welcome() {
         System.out.println();
         System.out.println("Welcome to Elevens by Michael John Watters (b00751280) and Aaron Hoy's");
     }
 
     /**
      * Diplay main menu with the options:
-     *   1) Play Elevens"
-     *   2) Exit to desktop
+     * 1) Play Elevens"
+     * 2) Exit to desktop
      */
     public static void mainMenu() {
         System.out.println();
@@ -31,9 +31,9 @@ public class Display extends Colors {
 
     /**
      * Diplay Game Menu with the options:
-     *  1) Setup playable Elevens Game
-     *  2) Demonstration Mode (computers plays the game)!
-     *  3) Back to main menu"
+     * 1) Setup playable Elevens Game
+     * 2) Demonstration Mode (computers plays the game)!
+     * 3) Back to main menu"
      */
     public static void gameMenu() {
         System.out.println();
@@ -47,18 +47,20 @@ public class Display extends Colors {
     /**
      * Display message if an exception is caught
      */
-    public static void displayGameCrashed(){
+    public static void displayGameCrashed() {
         System.out.println("The Game Crashed return to main menu...");
     }
 
     /**
      * Display postgame menu
+     *
      * @param lastGame the last game
      */
     public static void displayPostGameMenu(Game lastGame) {
         String resultString = "";
         System.out.println(" --- Last Games Stats --- ");
-        if(lastGame.getGameResult()) resultString = " Win !"; else  resultString= " Lost !";
+        if (lastGame.getGameResult()) resultString = " Win !";
+        else resultString = " Lost !";
         System.out.println("Result: " + resultString);
         System.out.println("Cards in deck: " + lastGame.getDeck().countNumberOfCards());
         System.out.println("Cards in play: " + lastGame.getCurrentRound().getCardsInPlayBag().countCards());
@@ -67,7 +69,7 @@ public class Display extends Colors {
         System.out.println("Post Game Menu");
         System.out.println("1) Retry (play again)");
         System.out.println("2) Action Replay of the Last Games's Rounds!");
-        System.out.println("3) Back to Game Men");
+        System.out.println("3) Back to Game Menu...");
         enterInput();
     }
 
@@ -76,9 +78,10 @@ public class Display extends Colors {
      * 1) the round number
      * 2) the cards in play
      * 3) the input options legend
+     *
      * @param currentRound the current round.
      */
-    public static void displayRound(Round currentRound){
+    public static void displayRound(Round currentRound) {
         System.out.println();
         System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
         currentRound.getCardsInPlayBag().display(true);
@@ -92,9 +95,10 @@ public class Display extends Colors {
 
     /**
      * Display Computer/demonstration modes round.
+     *
      * @param currentRound current round
      */
-    public static void displayAIRound(Round currentRound){
+    public static void displayAIRound(Round currentRound) {
         System.out.println();
         System.out.println("------------------------ Round " + currentRound.getRoundNumber() + " ------------------------");
         currentRound.getCardsInPlayBag().display(true);
@@ -122,27 +126,29 @@ public class Display extends Colors {
     /**
      * Displays an errors message and prompts the user they are going to return to the main menu
      */
-    public static void errorExitingGame(){
+    public static void errorExitingGame() {
         System.out.println("ERROR: an error occurred returning to main Menu...exiting game...");
     }
 
     /**
      * Display 2 Cards in text form
-     * @param firstCard the first card
-     * @param secondCard the second card
-     * @param color the color of the text
+     *
+     * @param firstCard    the first card
+     * @param secondCard   the second card
+     * @param color        the color of the text
      * @param prefixString any required prefix string example 'Cards Drawn:'
      */
-    public static void displayTwoCards(Card firstCard, Card secondCard, String color, String prefixString){
+    public static void displayTwoCards(Card firstCard, Card secondCard, String color, String prefixString) {
         System.out.println(color + prefixString + " " + firstCard + " and " + secondCard + COLOR_WHITE);
     }
 
     /**
      * Display 3 Cards in text form
-     * @param firstCard the first card
-     * @param secondCard the second card
-     * @param thirdCard the third card
-     * @param color the color of the text
+     *
+     * @param firstCard    the first card
+     * @param secondCard   the second card
+     * @param thirdCard    the third card
+     * @param color        the color of the text
      * @param prefixString any required prefix string example 'Cards Drawn:'
      */
     public static void displayThreeCards(Card firstCard, Card secondCard, Card thirdCard, String color, String prefixString) {
@@ -152,50 +158,63 @@ public class Display extends Colors {
     /**
      * Display if the game is a stalemate and text prior to the last hand
      */
-    public static void displayIsStalemate(){
+    public static void displayIsStalemate() {
         System.out.println(COLOR_RED + "Game is stalemate..\nYour last Hand was: \n" + COLOR_WHITE);
     }
 
     /**
      * Diplay win or lose output
-     * @param gameResult the result of the game.
+     *
+     * @param gameResult  the result of the game.
      * @param roundNumber the round number
-     * @param isHuman is the user human, eg not in demo mode/computer plays mode.
+     * @param isHuman     is the user human, eg not in demo mode/computer plays mode.
      */
-    public static void displayWinOrLoseOutPut(boolean gameResult, int roundNumber, boolean isHuman){
-        if(gameResult){
-            if(isHuman){
-                System.out.println(COLOR_GREEN + "\nCongratz!! you have won this Game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
+    public static void displayWinOrLoseOutPut(boolean gameResult, int roundNumber, boolean isHuman) {
+        if (gameResult) {
+            if (isHuman) {
+                System.out.println(COLOR_GREEN + "\nCongratz!! you have won this Game! in " + (roundNumber - 1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
             } else {
-                System.out.println(COLOR_GREEN + "\nThe Computer has won this game! in " + (roundNumber-1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
+                System.out.println(COLOR_GREEN + "\nThe Computer has won this game! in " + (roundNumber - 1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
             }
         } else {
-            if(isHuman){
+            if (isHuman) {
                 System.out.println(COLOR_RED + "\nSadly you have lost this Game, better luck next time!\n" + COLOR_WHITE);
             } else {
                 System.out.println(COLOR_RED + "\nThe Computer has lost this Game, oh no!\n" + COLOR_WHITE);
             }
         }
-        System.out.println(COLOR_RED +"press enter to continue to the post game menu..."+ COLOR_WHITE);
+        System.out.println(COLOR_RED + "press enter to continue to the post game menu..." + COLOR_WHITE);
     }
 
-    public static void returningToGameMenu(){
+    /**
+     * Print Returning to Game Menu...
+     */
+    public static void returningToGameMenu() {
         System.out.println("Returning to Game Menu...");
     }
 
-    public static void displayActionReplayOfLastGame(Game lastGame){
+    /**
+     * Displays the lastGame as a replay
+     *
+     * @param lastGame last game to display in the replay
+     */
+    public static void displayActionReplayOfLastGame(Game lastGame) {
         Scanner keyPressScanner = new Scanner(System.in);
-        System.out.println("\n------------------------------- Replay Round Number: " + lastGame.getRoundQueue().getFront().getRoundNumber() +"-------------------------------");
+        System.out.println("\n------------------------------- Replay Round Number: " + lastGame.getRoundQueue().getFront().getRoundNumber() + "-------------------------------");
 
         //cards drawn this round.
         int drawn = lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards().countCards();
-        System.out.println(Colors.COLOR_GREEN +"Number of Drawn cards that round: " + drawn + ", cards drawn:" + Colors.COLOR_WHITE);
+        System.out.println(Colors.COLOR_GREEN + "Number of Drawn cards that round: " + drawn + ", cards drawn:" + Colors.COLOR_WHITE);
 
         //print the drawn cards from the rounds drawn card memory
         for (int i = 0; i < drawn; i++) {
-            CardSlotsBag bag =  lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards();
+            CardSlotsBag bag = lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards();
             String commaIfRequired = "";
-            if(i == drawn-1){ commaIfRequired = " ";} else { commaIfRequired = ", ";}
+            if (i == drawn - 1) {
+                commaIfRequired = " ";
+            } else {
+                commaIfRequired = ", ";
+            }
             System.out.print(Colors.COLOR_RED + bag.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
         }
 
@@ -205,10 +224,14 @@ public class Display extends Colors {
 
         //Print out the discarded cards.
         for (int i = 0; i < discarded; i++) {
-            CardSlotsBag bag1 =  lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards();
+            CardSlotsBag bag1 = lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards();
             String commaIfRequired = "";
-            if(i == discarded-1){ commaIfRequired = " ";} else { commaIfRequired = ", ";}
-            System.out.print(Colors.COLOR_RED +" " + bag1.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
+            if (i == discarded - 1) {
+                commaIfRequired = " ";
+            } else {
+                commaIfRequired = ", ";
+            }
+            System.out.print(Colors.COLOR_RED + " " + bag1.cardAtPosition(i).toString() + commaIfRequired + Colors.COLOR_WHITE);
         }
 
         //State of Cards on table at the end of the round
@@ -230,11 +253,12 @@ public class Display extends Colors {
         System.out.println();
         System.out.print(COLOR_GREEN + "select option > " + COLOR_WHITE);
     }
+
     /**
      * Tell user there input was invalid and they should try again.
      */
     public static void invalidInput() {
         System.out.println();
-        System.out.println(COLOR_RED + "Selected an Invalid Option....try again." +  COLOR_WHITE);
+        System.out.println(COLOR_RED + "Selected an Invalid Option....try again." + COLOR_WHITE);
     }
 }

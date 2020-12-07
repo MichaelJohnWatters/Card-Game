@@ -13,17 +13,18 @@ public class RoundQueue implements QueueInterface<Round> {
     /**
      * Constructor for a RoundQueue, creates an queue with no front or rear
      */
-    public RoundQueue(){
+    public RoundQueue() {
         front = null;
-        rear  = null;
+        rear = null;
     }
 
     /**
      * Enqueue a new round
+     *
      * @param newRound the round to enqueue
      */
     public void enqueue(Round newRound) {
-        if(front==null){
+        if (front == null) {
             front = newRound;
             rear = newRound;
         } else {
@@ -34,29 +35,42 @@ public class RoundQueue implements QueueInterface<Round> {
 
     /**
      * Removes the first round in the queue.
+     *
      * @return the removed Round
      */
     public Round dequeue() {
-        if(front==null) return  null;
+        if (front == null) return null;
         else {
             Round valueToReturn = front;
             front = front.getNextRound();
-            if (front ==null) rear = null;
+            if (front == null) rear = null;
             return valueToReturn;
         }
     }
 
     /**
      * Returns the front round without removing it from the RoundQueue
+     *
      * @return the Front round but does not remove
      */
     public Round getFront() {
-        if(front == null) return null;
+        if (front == null) return null;
         else return front;
     }
 
     /**
+     * Returns the Rear round without removing it from the RoundQueue
+     *
+     * @return the Rear round but does not remove
+     */
+    public Round getRear() {
+        if (rear == null) return null;
+        else return rear;
+    }
+
+    /**
      * Checks if the Queue is empty or not
+     *
      * @return true if empty false if not
      */
     public boolean isEmpty() {
@@ -68,6 +82,6 @@ public class RoundQueue implements QueueInterface<Round> {
      */
     public void clear() {
         front = null;
-        rear  = null;
+        rear = null;
     }
 }

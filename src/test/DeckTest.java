@@ -14,30 +14,31 @@ public class DeckTest extends TestCase {
 
     //A valid array of cards
     private Card[] validDeckOfCardsArray = {
-            new Card(House.SPADES, Rank.KING),   new Card(House.SPADES, Rank.QUEEN),   new Card(House.SPADES, Rank.JACK),     new Card(House.SPADES, Rank.TEN),
-            new Card(House.SPADES, Rank.NINE),   new Card(House.SPADES, Rank.EIGHT),   new Card(House.SPADES, Rank.SEVEN),    new Card(House.SPADES, Rank.SIX),
-            new Card(House.SPADES, Rank.FIVE),   new Card(House.SPADES, Rank.FOUR),    new Card(House.SPADES, Rank.THREE),    new Card(House.SPADES, Rank.TWO),
-            new Card(House.SPADES, Rank.ACE),    new Card(House.DIAMONDS, Rank.KING),  new Card(House.DIAMONDS, Rank.QUEEN),  new Card(House.DIAMONDS, Rank.JACK),
-            new Card(House.DIAMONDS, Rank.TEN),  new Card(House.DIAMONDS, Rank.NINE),  new Card(House.DIAMONDS, Rank.EIGHT),  new Card(House.DIAMONDS, Rank.SEVEN),
-            new Card(House.DIAMONDS, Rank.SIX),  new Card(House.DIAMONDS, Rank.FIVE),  new Card(House.DIAMONDS, Rank.FOUR),   new Card(House.DIAMONDS, Rank.THREE),
-            new Card(House.DIAMONDS, Rank.TWO),  new Card(House.DIAMONDS, Rank.ACE),   new Card(House.CLUBS, Rank.KING),      new Card(House.CLUBS, Rank.QUEEN),
-            new Card(House.CLUBS, Rank.JACK),    new Card(House.CLUBS, Rank.TEN),      new Card(House.CLUBS, Rank.NINE),      new Card(House.CLUBS, Rank.EIGHT),
-            new Card(House.CLUBS, Rank.SEVEN),   new Card(House.CLUBS, Rank.SIX),      new Card(House.CLUBS, Rank.FIVE),      new Card(House.CLUBS, Rank.FOUR),
-            new Card(House.CLUBS, Rank.THREE),   new Card(House.CLUBS, Rank.TWO),      new Card(House.CLUBS, Rank.ACE),       new Card(House.HEARTS, Rank.KING),
-            new Card(House.HEARTS, Rank.QUEEN),  new Card(House.HEARTS, Rank.JACK),    new Card(House.HEARTS, Rank.TEN),      new Card(House.HEARTS, Rank.NINE),
-            new Card(House.HEARTS, Rank.EIGHT),  new Card(House.HEARTS, Rank.SEVEN),   new Card(House.HEARTS, Rank.SIX),      new Card(House.HEARTS, Rank.FIVE),
-            new Card(House.HEARTS, Rank.FOUR),   new Card(House.HEARTS, Rank.THREE),   new Card(House.HEARTS, Rank.TWO),      new Card(House.HEARTS, Rank.ACE)
+            new Card(House.SPADES, Rank.KING), new Card(House.SPADES, Rank.QUEEN), new Card(House.SPADES, Rank.JACK), new Card(House.SPADES, Rank.TEN),
+            new Card(House.SPADES, Rank.NINE), new Card(House.SPADES, Rank.EIGHT), new Card(House.SPADES, Rank.SEVEN), new Card(House.SPADES, Rank.SIX),
+            new Card(House.SPADES, Rank.FIVE), new Card(House.SPADES, Rank.FOUR), new Card(House.SPADES, Rank.THREE), new Card(House.SPADES, Rank.TWO),
+            new Card(House.SPADES, Rank.ACE), new Card(House.DIAMONDS, Rank.KING), new Card(House.DIAMONDS, Rank.QUEEN), new Card(House.DIAMONDS, Rank.JACK),
+            new Card(House.DIAMONDS, Rank.TEN), new Card(House.DIAMONDS, Rank.NINE), new Card(House.DIAMONDS, Rank.EIGHT), new Card(House.DIAMONDS, Rank.SEVEN),
+            new Card(House.DIAMONDS, Rank.SIX), new Card(House.DIAMONDS, Rank.FIVE), new Card(House.DIAMONDS, Rank.FOUR), new Card(House.DIAMONDS, Rank.THREE),
+            new Card(House.DIAMONDS, Rank.TWO), new Card(House.DIAMONDS, Rank.ACE), new Card(House.CLUBS, Rank.KING), new Card(House.CLUBS, Rank.QUEEN),
+            new Card(House.CLUBS, Rank.JACK), new Card(House.CLUBS, Rank.TEN), new Card(House.CLUBS, Rank.NINE), new Card(House.CLUBS, Rank.EIGHT),
+            new Card(House.CLUBS, Rank.SEVEN), new Card(House.CLUBS, Rank.SIX), new Card(House.CLUBS, Rank.FIVE), new Card(House.CLUBS, Rank.FOUR),
+            new Card(House.CLUBS, Rank.THREE), new Card(House.CLUBS, Rank.TWO), new Card(House.CLUBS, Rank.ACE), new Card(House.HEARTS, Rank.KING),
+            new Card(House.HEARTS, Rank.QUEEN), new Card(House.HEARTS, Rank.JACK), new Card(House.HEARTS, Rank.TEN), new Card(House.HEARTS, Rank.NINE),
+            new Card(House.HEARTS, Rank.EIGHT), new Card(House.HEARTS, Rank.SEVEN), new Card(House.HEARTS, Rank.SIX), new Card(House.HEARTS, Rank.FIVE),
+            new Card(House.HEARTS, Rank.FOUR), new Card(House.HEARTS, Rank.THREE), new Card(House.HEARTS, Rank.TWO), new Card(House.HEARTS, Rank.ACE)
     };
 
     /**
      * Utility method used in this test file to check if a card is within a Card Array, as we cant use Java.Arrays Lib.
+     *
      * @param card card to search for.
      * @return true if the input card can be found in the valid array of card
      */
     private boolean validArrayOfCardsContains(Card card) {
         boolean found = false;
         for (int i = 0; i < validDeckOfCardsArray.length; i++) {
-            if (card.toString().equals(validDeckOfCardsArray[i].toString())){
+            if (card.toString().equals(validDeckOfCardsArray[i].toString())) {
                 found = true;
                 break;
             }
@@ -59,7 +60,7 @@ public class DeckTest extends TestCase {
         actualDeck.createFullDeckOfCards();
 
         //for each house, loop through each rank and push that card to the stack.
-        for (Card card: validDeckOfCardsArray) {
+        for (Card card : validDeckOfCardsArray) {
             expectedDeck.push(card);
         }
 
@@ -70,9 +71,9 @@ public class DeckTest extends TestCase {
         // this was the only successful solution we could find without using illegal libraries, as we are not allowed to use an java collections.
         boolean testResult = true;
         for (int i = 0; i < actualAsArray.length; i++) {
-           if(actualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && actualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
-               testResult = false;
-           }
+            if (actualAsArray[i].getHouse() != expectedAsArray[i].getHouse() && actualAsArray[i].getRank() != expectedAsArray[i].getRank()) {
+                testResult = false;
+            }
         }
 
         //Assert
@@ -184,7 +185,7 @@ public class DeckTest extends TestCase {
         // We had to do this as we could not use the library Arrays.
         boolean testResult = true;
         for (int i = 0; i < actualAsArray.length; i++) {
-            if(!validArrayOfCardsContains(actualAsArray[i])) {
+            if (!validArrayOfCardsContains(actualAsArray[i])) {
                 //set to false if we cant find the card.
                 testResult = false;
             }

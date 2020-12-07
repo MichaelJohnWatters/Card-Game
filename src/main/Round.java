@@ -19,13 +19,13 @@ public class Round {
 
     /**
      * Used for subsequent rounds
-     *
+     * <p>
      * cardSlots will be filled with the cardSlots of the previous round.
-     *
+     * <p>
      * At instaiation of a round there will be no chosen cards
      * At instaiation of a round there will be currently no next round.
      *
-     * @param roundNumber the number of the round.
+     * @param roundNumber    the number of the round.
      * @param cardsInPlayBag a bag for Cards representing cards in play.
      */
     public Round(int roundNumber, CardSlotsBag cardsInPlayBag) {
@@ -38,7 +38,7 @@ public class Round {
 
     /**
      * Used for first round in the round queue
-     *
+     * <p>
      * At instaiation of this round there will be no chosen cards
      * At instaiation of a round there will be currently no next round.
      *
@@ -54,15 +54,17 @@ public class Round {
 
     /**
      * Removes the top card from the deck supplied
+     *
      * @param deck deck to remove a card from
      * @return Card at the top of the supplied deck.
      */
-    private static Card drawFromDeck(Deck deck){
+    private static Card drawFromDeck(Deck deck) {
         return deck.pop();
     }
 
     /**
      * Checks if the round is a stalemate
+     *
      * @return true if is stalemate false if not
      */
     public boolean isStalemate() {
@@ -71,23 +73,24 @@ public class Round {
 
     /**
      * Replaces empty slots in the cardsInPlayBag, from the supplied Deck
+     *
      * @param deck deck to drawn cards from
      */
     public void replaceEmptyCardSlots(Deck deck) {
         //if not all slots in the bag are filled draw new cards.
-        if(!cardsInPlayBag.isArrayFull()) {
+        if (!cardsInPlayBag.isArrayFull()) {
 
             int cardsToDraw = cardsInPlayBag.countEmptySlots();
             System.out.println("number of Cards to be drawn: " + cardsToDraw);
 
-            if(cardsToDraw != 0) {
+            if (cardsToDraw != 0) {
                 System.out.print("cards drawn: ");
                 for (int i = 0; i < cardsToDraw; i++) {
 
                     Card drawnCard = drawFromDeck(deck);
 
                     //Make sure drawnCard is not null, happens when deck is empty.
-                    if(drawnCard != null){
+                    if (drawnCard != null) {
                         System.out.print(" " + drawnCard.toString());
 
                         boolean added = cardsInPlayBag.addNewEntry(drawnCard);
@@ -95,7 +98,7 @@ public class Round {
                         //Add to round memory of drawn Cards for replay feature
                         roundMemoryDrawCards.addNewEntry(drawnCard);
 
-                        if(added){
+                        if (added) {
                             System.out.println(" was drawn...");
                         }
                     }
@@ -108,11 +111,13 @@ public class Round {
 
     /**
      * Get the memory of the cards drawn in this round
+     *
      * @return a CardSlotsBag off cards drawn
      */
     public CardSlotsBag getRoundMemoryDrawCards() {
         return roundMemoryDrawCards;
     }
+
     /**
      * set the memory of the cards drawn in this round
      */
@@ -122,6 +127,7 @@ public class Round {
 
     /**
      * Get the memory of the cards discarded in the currrent round.
+     *
      * @return a CardSlotsBag off cards discarded
      */
     public CardSlotsBag getRoundMemoryDiscardCards() {
@@ -130,6 +136,7 @@ public class Round {
 
     /**
      * Update the discarded card memory,
+     *
      * @param card the card to add
      */
     public void updateDiscardCardMemory(Card card) {
@@ -138,6 +145,7 @@ public class Round {
 
     /**
      * Get the round number
+     *
      * @return int number of the round
      */
     public int getRoundNumber() {
@@ -146,6 +154,7 @@ public class Round {
 
     /**
      * Set the round number
+     *
      * @param roundNumber number to use
      */
     public void setRoundNumber(int roundNumber) {
@@ -154,6 +163,7 @@ public class Round {
 
     /**
      * Get the cards in play bag
+     *
      * @return returns CardSlotsBag of cards in play.
      */
     public CardSlotsBag getCardsInPlayBag() {
@@ -162,6 +172,7 @@ public class Round {
 
     /**
      * set the cards in play bag to a supplied CardSlotsBag
+     *
      * @param cardsInPlayBag CardSlotsBag to used for set
      */
     public void setCardsInPlayBag(CardSlotsBag cardsInPlayBag) {
@@ -170,6 +181,7 @@ public class Round {
 
     /**
      * Get the next round
+     *
      * @return the next Round.
      */
     public Round getNextRound() {
@@ -178,6 +190,7 @@ public class Round {
 
     /**
      * Set the next round
+     *
      * @param nextRound round to use
      */
     public void setNextRound(Round nextRound) {

@@ -13,18 +13,18 @@ public class Deck implements StackInterface<Card> {
      */
     public void createFullDeckOfCards() {
         //Pack of card typically comes in the reverse of this order, but will be correct when popping from the stack.
-        House[] houseArray = { House.SPADES, House.DIAMONDS, House.CLUBS, House.HEARTS };
+        House[] houseArray = {House.SPADES, House.DIAMONDS, House.CLUBS, House.HEARTS};
 
         //in reverse order, as when we push the order will be flipped if we popped all cards.
         Rank[] rankArray = {
-                Rank.KING,Rank.QUEEN,Rank.JACK,Rank.TEN,Rank.NINE,
-                Rank.EIGHT,Rank.SEVEN,Rank.SIX,Rank.FIVE,Rank.FOUR,
+                Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN, Rank.NINE,
+                Rank.EIGHT, Rank.SEVEN, Rank.SIX, Rank.FIVE, Rank.FOUR,
                 Rank.THREE, Rank.TWO, Rank.ACE
         };
 
         //for each house, loop through each rank and push that card to the stack.
-        for (House house: houseArray) {
-            for (Rank rank: rankArray) {
+        for (House house : houseArray) {
+            for (Rank rank : rankArray) {
                 this.push(new Card(house, rank));
             }
         }
@@ -34,7 +34,7 @@ public class Deck implements StackInterface<Card> {
      * A ripple shuffle followed by a random shuffle followed by another ripple
      * To make sure the cards are well shuffled.
      */
-    public void rigorousShuffle(){
+    public void rigorousShuffle() {
         rippleShuffle();
         randomShuffle();
         rippleShuffle();
@@ -52,12 +52,12 @@ public class Deck implements StackInterface<Card> {
         System.out.println(separator);
 
         //put the first number of cards cut off at separator into deck 1.
-        for (int i = 0; i < separator ; i++) {
+        for (int i = 0; i < separator; i++) {
             deck1.push(this.pop());
         }
 
         //loop through the rest of the cards in the original deck and place into deck2.
-        while(!this.isEmpty()){
+        while (!this.isEmpty()) {
             deck2.push(this.pop());
         }
 
@@ -69,7 +69,7 @@ public class Deck implements StackInterface<Card> {
         //use modulus and counter to decide which deck to pop the card from and push to this deck.
         //will alternate between each deck1 and deck2
         while (deck1.topNode != null || deck2.topNode != null) {
-            if((assembleCounter % 2) == 0){
+            if ((assembleCounter % 2) == 0) {
                 this.push(deck1.pop());
             } else {
                 this.push(deck2.pop());
@@ -88,9 +88,9 @@ public class Deck implements StackInterface<Card> {
         Card[] cardArray = this.toArray();
 
         //loop through each card and randomly swap with another
-        for (int i = 0; i < cardArray.length ; i++) {
+        for (int i = 0; i < cardArray.length; i++) {
 
-            int roundRandom = rnd.nextInt(cardArray.length-1);
+            int roundRandom = rnd.nextInt(cardArray.length - 1);
 
             Card currentCard = cardArray[i];
             Card swapWithCard = cardArray[roundRandom];
@@ -103,13 +103,14 @@ public class Deck implements StackInterface<Card> {
         }
 
         //assemble the deck by re-pushing all the cards into our deck ADT.
-        for (Card card: cardArray) {
+        for (Card card : cardArray) {
             this.push(card);
         }
     }
 
     /**
      * Pushs a new Card onto the Deck/Stack.
+     *
      * @param newCard the card you want put on the stack.
      */
     public void push(Card newCard) {
@@ -120,6 +121,7 @@ public class Deck implements StackInterface<Card> {
 
     /**
      * Pops the top card from the stack and sets the topNode to the next card below.
+     *
      * @return Card removed from the top of the stack.
      */
     public Card pop() {
@@ -134,6 +136,7 @@ public class Deck implements StackInterface<Card> {
 
     /**
      * Has a look at the next card in the Deck but does not remove it from the deck.
+     *
      * @return Card the top card on the deck
      */
     public Card peek() {
@@ -143,15 +146,16 @@ public class Deck implements StackInterface<Card> {
 
     /**
      * A Manually Count of the cards in the stack, as a human would count, card by card.
+     *
      * @return int, number of cards in the stack
      */
     public int countNumberOfCards() {
         int count = 0;
-        if(topNode== null){
+        if (topNode == null) {
             return 0;
-        }else{
+        } else {
             CardNode currentNode = topNode;
-            while (currentNode != null){
+            while (currentNode != null) {
                 currentNode = currentNode.getNext();
                 count++;
             }
@@ -161,6 +165,7 @@ public class Deck implements StackInterface<Card> {
 
     /**
      * Checks if the stack is empty
+     *
      * @return boolean returns true if empty
      */
     public boolean isEmpty() {
@@ -176,12 +181,13 @@ public class Deck implements StackInterface<Card> {
 
     /**
      * Converts the Deck/Stack into an Array by popping, the stack will be empty after this method is used.
+     *
      * @return Card[] converts the Stack to an Array
      */
     public Card[] toArray() {
         Card[] cardArray = new Card[countNumberOfCards()];
 
-        for (int i = 0; i < cardArray.length ; i++) {
+        for (int i = 0; i < cardArray.length; i++) {
             cardArray[i] = this.pop();
         }
 
