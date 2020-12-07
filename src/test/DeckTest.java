@@ -158,7 +158,7 @@ public class DeckTest extends TestCase {
     public void testClear() {
         //Setup test
         Deck testDeck = new Deck();
-        
+
         testDeck.push(new Card(House.SPADES, Rank.ACE));
 
         testDeck.clear();
