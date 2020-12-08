@@ -1,42 +1,79 @@
-        package test;
+package test;
 
-        import junit.framework.TestCase;
-        import main.Card;
-        import main.CardNode;
-        import main.House;
-        import main.Rank;
+import junit.framework.TestCase;
+import main.Card;
+import main.CardNode;
+import main.House;
+import main.Rank;
 
+/**
+ * Unit tests for CardNode Class
+ */
 public class CardNodeTest extends TestCase {
-    private Card testCard = new Card(House.CLUBS, Rank.ACE);
-    private CardNode cardNodeTest = new CardNode(null);
-    private CardNode topNode;
 
+    /**
+     * Test Get Data returns the correct card.
+     */
     public void testGetData() {
+        Card testCard = new Card(House.CLUBS, Rank.ACE);
+        CardNode cardNodeTest = new CardNode(testCard);
 
-        var expected = new Card(House.CLUBS, Rank.ACE);
-        cardNodeTest.setData(testCard);
-        assertEquals(expected.toString(), cardNodeTest.getData().toString());
+        var expected = testCard.toString();
+        var actual = cardNodeTest.getData().toString();
+
+        assertEquals(expected, actual);
     }
 
+    /**
+     * Test Set Data, sets the data to the supplied Card.
+     */
     public void testSetData() {
-        var expected = new Card(House.CLUBS, Rank.ACE);
+        Card testCard = new Card(House.CLUBS, Rank.ACE);
+        CardNode cardNodeTest = new CardNode(null);
+
+        //set the data
         cardNodeTest.setData(testCard);
-        assertEquals(expected.toString(), cardNodeTest.getData().toString());
+
+        var expected = testCard.toString();
+        var acctual = cardNodeTest.getData().toString();
+
+        //Assert
+        assertEquals(expected, acctual);
     }
 
+    /**
+     * Test get next Card Node returns the next CardNode
+     */
     public void testGetNext() {
-        var expected = cardNodeTest;
-        cardNodeTest.setData(testCard);
-        cardNodeTest.setNext(topNode = cardNodeTest);
-        var actual = cardNodeTest.getNext();
-        assertEquals(expected.toString(), actual.toString());
+        Card testCard = new Card(House.CLUBS, Rank.ACE);
+        Card testNextCard = new Card(House.CLUBS, Rank.TWO);
+        CardNode cardNodeTest = new CardNode(testCard);
+
+        //set next
+        cardNodeTest.setNext(new CardNode(testNextCard));
+
+        var expected = testNextCard.toString();
+        var actual = cardNodeTest.getNext().getData().toString();
+
+        //Assert
+        assertEquals(expected, actual);
     }
 
+    /**
+     * test Set Next CardNode sets the correct next cardNode
+     */
     public void testSetNext() {
-        var expected = cardNodeTest;
-        cardNodeTest.setData(testCard);
-        cardNodeTest.setNext(topNode = cardNodeTest);
-        var actual = cardNodeTest.getNext();
-        assertEquals(expected.toString(), actual.toString());
+        Card testCard = new Card(House.CLUBS, Rank.ACE);
+        Card testNextCard = new Card(House.CLUBS, Rank.TWO);
+        CardNode cardNodeTest = new CardNode(testCard);
+
+        //set next
+        cardNodeTest.setNext(new CardNode(testNextCard));
+
+        var expected = testNextCard.toString();
+        var actual = cardNodeTest.getNext().getData().toString();
+
+        //Assert
+        assertEquals(expected, actual);
     }
 }

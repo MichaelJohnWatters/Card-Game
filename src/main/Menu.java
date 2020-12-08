@@ -2,14 +2,21 @@ package main;
 
 import java.util.Scanner;
 
+/**
+ * A class that represents each menu, each menu then creates game objects or other objects whenn the user selects
+ * and option.
+ */
 public class Menu {
 
     private Scanner scanner = new Scanner(System.in);
 
+    //only used for when user is prompted to key press.
+    private Scanner keyPressScanner = new Scanner(System.in);
+
     public void MainMenu() {
         Display.mainMenu();
         String mainMenuChoice = scanner.nextLine();
-        switch(mainMenuChoice) {
+        switch (mainMenuChoice) {
             case "1": // To Game Menu
                 GameMenu();
                 MainMenu();
@@ -22,19 +29,19 @@ public class Menu {
         }
     }
 
-    public void GameMenu(){
+    public void GameMenu() {
         Display.gameMenu();
 
         String gameMenuChoice = scanner.nextLine();
 
-        switch(gameMenuChoice) {
+        switch (gameMenuChoice) {
             case "1": // Setup user playable Elevens main.Game
                 System.out.println("Setting up user playable Elevens Game....");
 
                 Game game = new Game();
                 try {
                     game.userPlayableGame();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Display.displayGameCrashed();
                     MainMenu();
                 }
@@ -45,8 +52,8 @@ public class Menu {
 
                 Game aiPlayableGame = new Game();
                 try {
-                    aiPlayableGame.computerPlayableGame();
-                } catch (Exception e){
+                    aiPlayableGame.computerDemonstrationGame();
+                } catch (Exception e) {
                     Display.displayGameCrashed();
                     MainMenu();
                 }
@@ -63,70 +70,58 @@ public class Menu {
 
     public void PostGameMenu(Game lastGame, boolean isHuman) {
         Display.displayPostGameMenu(lastGame);
-        System.out.println();
-        System.out.println("------------------------------------");
-        System.out.println("------------------" + lastGame.getRoundQueue().getFront().getRoundNumber() +"------------------");
-        System.out.println("------------------------------------");
-        while(lastGame.getRoundQueue().getFront() != null){
-            lastGame.getRoundQueue().getFront().getCardsInPlayBag().display();
-            System.out.println("Round Number: " + lastGame.getRoundQueue().getFront().getRoundNumber());
 
-            //drawn cards
-            int drawn = lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards().countCards();
-            System.out.println("Number of Drawn cards that round : " +drawn );
-
-            for (int i = 0; i < drawn; i++) {
-              CardSlotsBag bag =  lastGame.getRoundQueue().getFront().getRoundMemoryDrawCards();
-                System.out.println(bag.cardAtPosition(i).toString());
-            }
-
-            //discarded cards
-            int discarded = lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards().countCards();
-            System.out.println("Number of discarded cards that round : " + discarded );
-
-            for (int i = 0; i < discarded; i++) {
-                CardSlotsBag bag1 =  lastGame.getRoundQueue().getFront().getRoundMemoryDiscardCards();
-                System.out.println(bag1.cardAtPosition(i).toString());
-            }
-
-
-            lastGame.getRoundQueue().dequeue();
-        }
-        System.out.println("------------------------------------");
-        System.out.println("------------------------------------");
-        System.out.println("------------------------------------");
         String gameMenuChoice = scanner.nextLine();
 
-        switch(gameMenuChoice) {
+        switch (gameMenuChoice) {
             case "1":
-                if(isHuman){
+                if (isHuman) {
                     System.out.println("Setting up user playable Elevens Game....");
+
+                    //create game object and start user Playable Game
                     Game game = new Game();
                     try {
                         game.userPlayableGame();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
+
+                    //go to post game Menu
+                    PostGameMenu(game, true);
                 } else {
                     System.out.println("Setting up a watchable AI Elevens Game....");
+
+                    //create game object and start a computer playable Game
                     Game aiPlayableGame = new Game();
                     try {
-                        aiPlayableGame.computerPlayableGame();
-                    } catch (Exception e){
+                        aiPlayableGame.computerDemonstrationGame();
+                    } catch (Exception e) {
                         Display.displayGameCrashed();
                         MainMenu();
                     }
+
+                    //go to post game Menu
+                    PostGameMenu(aiPlayableGame, false);
                 }
             case "2": //Action Reply of Game
-                System.out.println("WARNINGNERROR NOT IMPLEMENNTED");
-                System.exit(1);
-            case "3": //Return to main.Game main.Menu
-                System.out.println("Returning to Game Menu");
+                while (lastGame.getRoundQueue().getFront() != null) {
+                    Display.displayActionReplayOfLastGame(lastGame);
+                }
+
+                //End of replay
+                System.out.println(Colors.COLOR_RED + "End of Replay...\n" + Colors.COLOR_WHITE);
+
+                //Wait for input
+                keyPressScanner.nextLine();
+                Display.returningToGameMenu();
                 GameMenu();
-            default: //Notify Invalid input and go to PostGameMenu
+            case "3": //Return to main.Game main.Menu
+                Display.returningToGameMenu();
+                GameMenu();
+            default: //Notify Invalid input and re-display menu
                 Display.invalidInput();
-                //TODO fix
+                PostGameMenu(lastGame, isHuman);
         }
     }
 }

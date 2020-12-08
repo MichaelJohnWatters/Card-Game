@@ -4,7 +4,7 @@ public class Elevens {
 
     // Welcome the User, only once per application start.
     // Create Menu.
-    private static void startElevensApplication(){
+    private static void startElevensApplication() {
         Display.welcome();
         new Menu().MainMenu();
     }
