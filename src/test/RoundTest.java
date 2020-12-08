@@ -9,18 +9,12 @@ import main.*;
 public class RoundTest extends TestCase {
 
     /**
-     * Test 1 Start
-     * Returns true when there is no elevens pairs and no pairs of face cards
-     * <p>
-     * Test 2 start
-     * Returns false when there is a elevens pair
-     * <p>
-     * Test 3 start
-     * Returns false when there is face card pairs.
+     * Test 1 Returns true when there is no elevens pairs and no pairs of face cards
+     * Test 2 Returns false when there is a elevens pair
+     * Test 3 Returns false when there is face card pairs.
      */
     public void testIsStalemate() {
-        //Test 1 Start
-        //Returns true when there is no elevens pairs and no pairs of face cards
+        //Test 1 Returns true when there is no elevens pairs and no pairs of face cards
         CardSlotsBag bag1 = new CardSlotsBag();
         bag1.addNewEntry(new Card(House.DIAMONDS, Rank.ACE));
         bag1.addNewEntry(new Card(House.CLUBS, Rank.ACE));
@@ -28,8 +22,7 @@ public class RoundTest extends TestCase {
         //Assert Test 1
         assertTrue(round1.isStalemate());
 
-        //Test 2 start
-        //Returns false when there is a elevens pair
+        //Test 2 Returns false when there is a elevens pair
         CardSlotsBag bag2 = new CardSlotsBag();
         bag2.addNewEntry(new Card(House.DIAMONDS, Rank.ACE));
         bag2.addNewEntry(new Card(House.DIAMONDS, Rank.TEN));
@@ -37,8 +30,7 @@ public class RoundTest extends TestCase {
         //Assert Test 2
         assertFalse(round2.isStalemate());
 
-        //Test 3 start
-        //Returns false when there is face card pairs.
+        //Test 3Returns false when there is face card pairs.
         CardSlotsBag bag3 = new CardSlotsBag();
         bag3.addNewEntry(new Card(House.DIAMONDS, Rank.ACE));
         bag3.addNewEntry(new Card(House.DIAMONDS, Rank.TEN));

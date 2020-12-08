@@ -46,7 +46,6 @@ public class DeckTest extends TestCase {
         return found;
     }
 
-
     /**
      * Test that create fullDeckOfCards creates a valid deck of cards.\
      */
