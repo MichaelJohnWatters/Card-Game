@@ -93,14 +93,10 @@ public class Round {
                     if (drawnCard != null) {
                         System.out.print(" " + drawnCard.toString());
 
-                        boolean added = cardsInPlayBag.addNewEntry(drawnCard);
+                        cardsInPlayBag.addNewEntry(drawnCard);
 
                         //Add to round memory of drawn Cards for replay feature
                         roundMemoryDrawCards.addNewEntry(drawnCard);
-
-                        if (added) {
-                            System.out.println(" was drawn...");
-                        }
                     }
                 }
             }
@@ -116,13 +112,6 @@ public class Round {
      */
     public CardSlotsBag getRoundMemoryDrawCards() {
         return roundMemoryDrawCards;
-    }
-
-    /**
-     * set the memory of the cards drawn in this round
-     */
-    public void setRoundMemoryDrawCards(CardSlotsBag roundMemoryDrawCards) {
-        this.roundMemoryDrawCards = roundMemoryDrawCards;
     }
 
     /**

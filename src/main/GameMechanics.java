@@ -9,7 +9,6 @@ public class GameMechanics {
      * @return boolean
      */
     public static boolean isFaceCard(Card aCard) {
-
         //make sure the card is not null
         if (aCard != null) {
 
@@ -159,13 +158,10 @@ public class GameMechanics {
             //if so valid = false.
             for (char character : inputAsCharArray) {
                 if (!allowedCharacter(character)) {
-                    System.out.println(character + " is NOT allowed..");
                     valid = false;
                     break;
                 }
-                System.out.println(character + " is allowed..");
             }
-
         } else {
             valid = false;
         }

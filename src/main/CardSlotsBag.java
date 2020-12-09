@@ -405,8 +405,8 @@ public final class CardSlotsBag implements BagInterface<Card> {
         String hiddenCardStringRow = "                ";
 
         //represents each row of cards in a 3x3.
-        String[][] rowOne = new String[7][3];
-        String[][] rowTwo = new String[7][3];
+        String[][] rowOne   = new String[7][3];
+        String[][] rowTwo   = new String[7][3];
         String[][] rowThree = new String[7][3];
 
         for (int i = 0; i < 3; i++) {
