@@ -36,7 +36,7 @@ public class CardSlotsBagTest {
         Assert.assertTrue(bag.containsCardValue(1));
 
         //Test 2 Assert containsCardValue() returns false when it does not find a card with the input in value.
-        Assert.assertTrue(bag.containsCardValue(2));
+        Assert.assertFalse(bag.containsCardValue(2));
     }
 
     /**
@@ -443,8 +443,22 @@ public class CardSlotsBagTest {
      */
     @Test
     public void toArrayCopy() {
-        //Assert that toArrayCopy() is able to copy the current bag object to a new bag.
+        //Assert that toArrayCopy() creates a new Card[] of size 9
+        CardSlotsBag bag = new CardSlotsBag();
 
+        //Create expected and set first slot in array.
+        Card[] expectedCardArray = new Card[9];
+        expectedCardArray[0] = testCard1;
+
+        //Add testCard1
+        bag.addNewEntry(testCard1);
+
+        //Assert that toArrayCopy() creates a new Card[] of size 9
+        var actual = bag.toArrayCopy();
+        Assert.assertEquals(9, actual.length);
+
+        //Assert that bag.bag.toArrayCopy() when testCard1 has been added equals expectedCardArray
+        Assert.assertEquals(actual, expectedCardArray);
     }
 
     /**
