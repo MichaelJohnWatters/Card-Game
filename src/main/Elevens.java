@@ -1,5 +1,8 @@
 package main;
 
+/**
+ * Class Elevens holds the main method
+ */
 public class Elevens {
 
     // Welcome the User, only once per application start.

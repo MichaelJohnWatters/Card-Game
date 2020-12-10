@@ -230,9 +230,8 @@ public final class CardSlotsBag implements BagInterface<Card> {
     public int countCards() {
         int cardCount = 0;
 
-        for (int i = 0; i < bag.length; i++) {
-
-            if (bag[i] != null) {
+        for (Card card : bag) {
+            if (card != null) {
                 cardCount++;
             }
         }
@@ -247,9 +246,8 @@ public final class CardSlotsBag implements BagInterface<Card> {
     public int countEmptySlots() {
         int cardCount = 0;
 
-        for (int i = 0; i < bag.length; i++) {
-
-            if (bag[i] == null) {
+        for (Card card : bag) {
+            if (card == null) {
                 cardCount++;
             }
         }

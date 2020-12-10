@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 
 /**
- * This class is used to absract system.out from code blocks,
+ * This class is used to abstract system.out from code blocks,
  * for readability.
  */
 public class Display extends Colors {
