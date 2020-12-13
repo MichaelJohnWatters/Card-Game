@@ -147,7 +147,7 @@ public class Game extends Colors {
                 Card[] foundPair = currentRound.getCardsInPlayBag().findAndReturnElevensPair();
                 try {
                     for (Card card : foundPair) {
-                        System.out.println(COLOR_RED + card + COLOR_WHITE);
+                        System.out.println(COLOR_RED + " - " +card + COLOR_WHITE);
                     }
                 } catch (Exception e) {
                     Display.errorExitingGame();
@@ -174,7 +174,7 @@ public class Game extends Colors {
                 if (elevensPairArray != null) {
                     System.out.println(COLOR_GREEN + "AI has selected elevens pair:" + COLOR_WHITE);
                     for (Card card : elevensPairArray) {
-                        System.out.print(" " + card);
+                        System.out.println(" - " + card);
                         discardDeck.push(currentRound.getCardsInPlayBag().remove(card));
                         currentRound.updateDiscardCardMemory(card);
                     }

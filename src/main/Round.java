@@ -81,17 +81,21 @@ public class Round {
         if (!cardsInPlayBag.isArrayFull()) {
 
             int cardsToDraw = cardsInPlayBag.countEmptySlots();
-            System.out.println("number of Cards to be drawn: " + cardsToDraw);
 
             if (cardsToDraw != 0) {
-                System.out.print("cards drawn: ");
+                System.out.print(Colors.COLOR_RED + "cards drawn: " + Colors.COLOR_WHITE);
                 for (int i = 0; i < cardsToDraw; i++) {
 
                     Card drawnCard = drawFromDeck(deck);
 
+                    String postFixComma = ", ";
                     //Make sure drawnCard is not null, happens when deck is empty.
                     if (drawnCard != null) {
-                        System.out.print(" " + drawnCard.toString());
+
+                        //remove comma on last card drawn
+                        if(i == cardsToDraw -1) postFixComma = "";
+
+                        System.out.print(" " + drawnCard.toString() + postFixComma);
 
                         cardsInPlayBag.addNewEntry(drawnCard);
 

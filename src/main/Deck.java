@@ -31,10 +31,12 @@ public class Deck implements StackInterface<Card> {
     }
 
     /**
-     * A ripple shuffle followed by a random shuffle followed by another ripple
+     * A number of shuffle to make sure the cards are well shuffled followed by another ripple
      * To make sure the cards are well shuffled.
      */
     public void rigorousShuffle() {
+        rippleShuffle();
+        randomShuffle();
         rippleShuffle();
         randomShuffle();
         rippleShuffle();
@@ -49,7 +51,6 @@ public class Deck implements StackInterface<Card> {
 
         //the separation point of this deck (size /2)
         int separator = countNumberOfCards() / 2;
-        System.out.println(separator);
 
         //put the first number of cards cut off at separator into deck 1.
         for (int i = 0; i < separator; i++) {

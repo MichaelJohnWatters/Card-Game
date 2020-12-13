@@ -159,7 +159,7 @@ public class Display extends Colors {
      * Display if the game is a stalemate and text prior to the last hand
      */
     public static void displayIsStalemate() {
-        System.out.println(COLOR_RED + "Game is stalemate..\nYour last Hand was: \n" + COLOR_WHITE);
+        System.out.println(COLOR_RED + "\n \nGame is stalemate..\n \n" + COLOR_WHITE);
     }
 
     /**
@@ -172,9 +172,9 @@ public class Display extends Colors {
     public static void displayWinOrLoseOutPut(boolean gameResult, int roundNumber, boolean isHuman) {
         if (gameResult) {
             if (isHuman) {
-                System.out.println(COLOR_GREEN + "\nCongratz!! you have won this Game! in " + (roundNumber - 1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
+                System.out.println(COLOR_GREEN + "\nCongratz!! you have won this Game! in " + (roundNumber) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
             } else {
-                System.out.println(COLOR_GREEN + "\nThe Computer has won this game! in " + (roundNumber - 1) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
+                System.out.println(COLOR_GREEN + "\nThe Computer has won this game! in " + (roundNumber) + " rounds starting at 0 because we are programmers :)\n" + COLOR_WHITE);
             }
         } else {
             if (isHuman) {
