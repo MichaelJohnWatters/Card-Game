@@ -166,7 +166,7 @@ public class Display extends Colors {
      * @param currentRound round number of the last round
      */
     public static void failedAtRound(int currentRound){
-        System.out.println(COLOR_RED + "Failed at Round: " + (currentRound)+ ", no valid selection possible...\n" + COLOR_WHITE);
+        System.out.println(COLOR_RED + "Failed at Round: " + (currentRound)+ " starting at zero, no valid selection possible...\n" + COLOR_WHITE);
     }
 
     /**

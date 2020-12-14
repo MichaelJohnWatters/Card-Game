@@ -220,7 +220,7 @@ public class Game extends Colors {
             currentRound = currentRound.getNextRound();
 
             //prompt to key press to continue, prevents user confusion, user can except what will happen
-            System.out.println("The AI has won this round! press enter to continue...");
+            System.out.println("\nThe AI has won this round! press enter to continue...");
             keyPressScanner.nextLine();
         }
 
