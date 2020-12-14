@@ -12,8 +12,7 @@ public class Display extends Colors {
      * Display Welcome message to the user
      */
     public static void welcome() {
-        System.out.println();
-        System.out.println("Welcome to Elevens by Michael John Watters (b00751280) and Aaron Hoy's");
+        System.out.println(Colors.COLOR_GREEN + "\nWelcome to Elevens by Michael Watters (B00751280) and Aaron Hoy's (B00792485)..." + Colors.COLOR_WHITE);
     }
 
     /**
@@ -159,7 +158,15 @@ public class Display extends Colors {
      * Display if the game is a stalemate and text prior to the last hand
      */
     public static void displayIsStalemate() {
-        System.out.println(COLOR_RED + "\n \nGame is stalemate..\n \n" + COLOR_WHITE);
+        System.out.println(COLOR_RED + "\n \nGame is stalemate..\n" + COLOR_WHITE);
+    }
+
+    /**
+     * Method used to print out what round the user or computer failed at
+     * @param currentRound round number of the last round
+     */
+    public static void failedAtRound(int currentRound){
+        System.out.println(COLOR_RED + "Failed at Round: " + (currentRound)+ ", no valid selection possible...\n" + COLOR_WHITE);
     }
 
     /**

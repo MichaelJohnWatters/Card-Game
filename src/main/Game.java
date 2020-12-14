@@ -129,6 +129,7 @@ public class Game extends Colors {
 
                 //display isStalemate system.out
                 Display.displayIsStalemate();
+                Display.failedAtRound(currentRound.getRoundNumber());
 
                 // if is statement display last hand for the user to see
                 System.out.println(COLOR_RED + "last cards in play: " + COLOR_WHITE);
@@ -270,6 +271,7 @@ public class Game extends Colors {
             if (currentRound.isStalemate()) {
                 //display isStalemate system.out
                 Display.displayIsStalemate();
+                Display.failedAtRound(currentRound.getRoundNumber());
                 currentRound.getCardsInPlayBag().display(true);
                 gameResult = false;
                 break;
